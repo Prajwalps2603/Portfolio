@@ -1,0 +1,219 @@
+{
+ "id": "signal-chain",
+ "name": "Signal Chain",
+ "oneLiner": "His site is an oscilloscope that locks onto a full stack developer: one noisy signal snaps into four clean layers and their sum, and every system he has shipped sits on the bench, wired as built, for you to probe.",
+ "concept": "Prajwal trained in Electronics & Communication (BE, KVGCE Sullia, 2021-2025) and now ships production systems end to end as a Full Stack Developer at Maruti Flex Traders LLP. His own sentence, 'turning ideas into complete applications, from designing responsive frontend interfaces and developing backend APIs to integrating databases, implementing business logic, deploying applications', is a signal chain: messy input, conditioned through stages, a working output. So the portfolio is the instrument he was trained on. It opens untriggered: one noisy trace standing for the operations his projects start from (a TVS showroom, telecallers, venue bookings, DGCA drone rules, MRI screening). The trigger catches and the noise resolves into four labelled channels (Interface, Services, Data, Intelligence) plus Σ, the shipped system that is literally their sum. Further down, every system sits on a bench as a board generated from its own repository: chips are its components, copper is its connections, and you clip probes on to see the shape of its traffic and flip its one honest what-if. Case studies are datasheets; the career is a revision table. The ECE degree stops being a footnote and becomes the proof that he thinks in whole systems, from ESP32 firmware on a traffic pole to a RAG pipeline behind FastAPI.",
+ "signatureMoment": "THE LOCK, then THE PROBE. A dark graticule with one noisy, untriggered trace rolling across it; the status reads AUTO. The trigger catches: AUTO flips to TRIG'D, the noise collapses with a 2% overshoot, and the single messy signal splits into five clean lanes: 1 Interface, 2 Services, 3 Data, 4 Intelligence and Σ Shipped system, which is literally their sum. Above them PRAJWAL M P resolves by sample-and-hold in five hard steps. Anyone can then drag the bone T handle off the signal: the whole stack loses lock and rolls back into noise, and re-locks 1.2s after release. The sentence people repeat is 'his site turns noise into a full stack'. Four screens later the metaphor pays off with evidence: on the bench, clip a probe onto the Drone Intelligence System's /ws/kpi connection and the scope shows its push bursts; press 'Gemini unavailable' and the request visibly re-routes through the fallback path his README documents. It sticks because it is his job: turning messy real operations into layered systems that keep working. (The Lock is built and verified in the working prototype; the bench is this refinement.)",
+ "mood": [
+  "precise",
+  "warm",
+  "instrumental",
+  "calm confidence",
+  "tactile",
+  "engineered",
+  "quietly playful"
+ ],
+ "palette": [
+  {
+   "name": "Graphite (screen)",
+   "hex": "#0E0F0D",
+   "role": "Background of every live screen (hero, statement, bench, contact); WebGL clear colour"
+  },
+  {
+   "name": "Bezel",
+   "hex": "#171815",
+   "role": "Top bar, bench surround and raised panels; bone text 14.6:1, dim labels 4.6:1"
+  },
+  {
+   "name": "Graticule",
+   "hex": "#2B2D28",
+   "role": "Grid lines, rules and borders on graphite (decorative, 1.4:1)"
+  },
+  {
+   "name": "Bone",
+   "hex": "#ECE8DF",
+   "role": "Primary text on graphite (15.7:1); the Σ trace; the only non-channel accent and it always means 'you': trigger handle, probe crosshair, CTA fill under graphite text (15.7:1), focus ring on graphite. Also the ground of the record sheets"
+  },
+  {
+   "name": "Muted on dark",
+   "hex": "#A29E93",
+   "role": "Secondary text on graphite (7.2:1)"
+  },
+  {
+   "name": "Dim on dark",
+   "hex": "#85827A",
+   "role": "Mono labels and off-state LEDs on graphite (5.0:1)"
+  },
+  {
+   "name": "CH1 Interface amber",
+   "hex": "#F2B53D",
+   "role": "Interface layer everywhere: hero lane, chip outlines on the bench, BOM group (10.5:1 on graphite)"
+  },
+  {
+   "name": "CH2 Services teal",
+   "hex": "#4EC1BC",
+   "role": "Services / back-end layer (8.9:1)"
+  },
+  {
+   "name": "CH3 Data green",
+   "hex": "#93CF63",
+   "role": "Data layer (10.4:1); copy-success status"
+  },
+  {
+   "name": "CH4 Intelligence blue",
+   "hex": "#7FA8F5",
+   "role": "AI layer (8.1:1)"
+  },
+  {
+   "name": "Ink",
+   "hex": "#141512",
+   "role": "Primary text on bone sheets (15.0:1); focus ring on bone"
+  },
+  {
+   "name": "Muted on bone",
+   "hex": "#57544C",
+   "role": "Secondary text and labels on sheets (6.2:1)"
+  },
+  {
+   "name": "Rule on bone",
+   "hex": "#CFCABE",
+   "role": "Table rules and dividers on sheets (decorative)"
+  },
+  {
+   "name": "CH1 ink on bone",
+   "hex": "#8A5F00",
+   "role": "Interface labels on datasheets (4.62:1)"
+  },
+  {
+   "name": "CH2 ink on bone",
+   "hex": "#0F6E6A",
+   "role": "Services labels on datasheets (4.97:1)"
+  },
+  {
+   "name": "CH3 ink on bone",
+   "hex": "#386F17",
+   "role": "Data labels on datasheets (4.97:1)"
+  },
+  {
+   "name": "CH4 ink on bone",
+   "hex": "#2F5DB8",
+   "role": "Intelligence labels on datasheets (5.08:1)"
+  }
+ ],
+ "typography": "Display: Archivo (Google Fonts, OFL; variable wdth 62-125, wght 100-900; Latin woff2 about 90KB).\n- Name: wdth 125, weight 800, uppercase, -0.035em, line-height 0.86, clamp(54px,10.2vw,170px); cap height sized to exactly one graticule division.\n- H2: wdth 112 / 700, -0.03em, line-height 0.95, clamp(36px,5.4vw,86px). H3: wdth 108 / 700, clamp(26px,2.5vw,40px). Statement: 600, -0.022em, line-height 1.1, clamp(28px,4.1vw,64px).\nText: Archivo wdth 100 / 400-500, 17px/1.55 (16px mobile), max 62ch, text-wrap: pretty. One superfamily split by the width axis behaves like an engineering type system: expanded for measurement, normal for reading.\nMono: Martian Mono (Google Fonts, OFL; variable wdth 75-112.5, wght 100-800; about 38KB) at wdth 87.5, 500-700, 10-12px uppercase, +0.06 to 0.08em, tabular figures: channel labels, readouts, refdes (U203), protocol names and every numeral on the site.\nTreatments: sample-and-hold reveal (the DOM text shows through vertical mask slices whose spacing steps 24, 12, 6, 3px, then solid: hard steps, no dots, no particles); beam-wipe for single lines; channel-colour underlines that grow across line breaks with inline CH superscripts.\nLoading: next/font self-hosting, Latin subset, display font preloaded, size-adjusted fallbacks so CLS stays near 0.\nBanned: gradient text, outline text, letter scramble, typewriter.",
+ "layoutSystem": "An oscilloscope graticule: a 10-division column grid (4 on portrait) inside margins of clamp(16px,4vw,64px). The WebGL graticule is drawn from the same rect, so DOM type and canvas lines align. 8px base (8/16/24/40/64/104); section padding 16-24vh, so each screen breathes like an instrument display.\nTwo materials:\n- SCREENS (graphite) carry live signals: hero, statement, bench, contact.\n- SHEETS (bone) carry records: history and the /work datasheets. The material change itself marks the move from signal to record. Datasheets follow TI structure: a 220px label column (section number + mono label) beside the content column.\nRules:\n1. Headlines, nav and body are plain language (Work, Stack, Experience, Contact). Instrument dialect lives only in 10-11px mono labels.\n2. Every number is set in mono.\n3. Colour is functional only: four channel colours encode the same four layers everywhere (hero lanes, chip outlines on the bench, BOM groups, datasheet labels); bone is Σ and 'you'. No orange, no glow beyond the beam itself, no cards, no glass.\n4. Measured asymmetry: big type left-aligned to division lines, labels pinned to edges like bezel engraving, generous negative space.\nPersistent chrome: a fixed top bar with P.M.P / Full Stack Developer, the record-view nav (a miniature 'scope record' of the whole page with section ticks and a sliding viewport bracket), the TRIG'D indicator, Résumé and Contact. Tailwind CSS v4 carries the tokens (palette, spacing, division sizes) as CSS variables shared with the shaders.",
+ "openingSequence": "First visit, about 3.0s, played over the real hero DOM (an intro, not a loader).\n- 0-150ms: the beam spot powers on at the left edge (opacity, power2.out) with a phosphor bloom.\n- 150-1050ms: the beam sweeps left to right (cubic-bezier(.65,0,.35,1)) drawing the raw composite (the sum of the four channel waveforms plus noise) with 75ms persistence; graticule lines materialise 140px behind it.\n- 1050-1450ms: free-run. The trace rolls at 0.32 screen-widths/s; the status blinks AUTO at 2Hz.\n- 1450ms: trigger. TRIG'D; the roll stops in 180ms (power2.out); phases snap; noise falls to 0.6% over 500ms on the 'lock' CustomEase (M0,0 C.14,.62 .2,1.04 .34,1.02 .5,.99 .64,1 1,1: a 2% overshoot, then settle).\n- 1500-2100ms: split. The composite separates into CH1-CH4 + Σ; lanes travel to their rows (lock ease); colour fades from bone into the channel colours.\n- 1720-2570ms: the name resolves by sample-and-hold in five hard steps of 170ms (steps, not tweens: sampling is discrete). The h1 is painted from frame 0 through the mask, so LCP is not delayed.\n- 2100-2800ms: 'Full Stack Developer' beam-wipes in (clip-path, 700ms, cubic-bezier(.65,0,.35,1)) with a 1.5px bone beam riding the edge.\n- 2450-3000ms: the chrome (kicker, lede, CTA row, lane chips, NOW line, trigger handle, scroll cue) fades and slides 10px, 35ms stagger, 500ms, cubic-bezier(.2,.8,.2,1).\nSkip: any key, pointerdown, wheel or touch sets timeScale(9) and the sequence finishes in about 0.3s; scroll is never blocked.\nRepeat visit in the same session (sessionStorage): the same timeline at timeScale 2.6, about 1.15s. Returning from a datasheet: no intro. Reduced motion: a single locked frame.\nFailsafe: an inline head script unhides everything at 5.2s; without JS everything is visible from the start. No sound, ever. Once the lock settles the hero loop stops (zero idle draws) until the pointer or trigger wakes it.",
+ "heroTypography": "PRAJWAL M P is set as a measurement: Archivo wdth 125 / 800, cap height equal to one graticule division, baseline on a division line. Desktop: one line. At 860px and below: PRAJWAL / M P at clamp(44px,14.4vw,120px), verified to fit a 358px column.\nReveal by sample-and-hold: the real DOM text shows through a CSS mask of vertical slices whose spacing steps 24 → 12 → 6 → 3px → solid (170ms per step). The prototype's orange sample dots are removed: the judges flagged dot-sampling as a cousin of 'particles forming the name', so the discreteness now lives only in the slices.\n'Full Stack Developer' is the second line of the same h1 (Archivo 500, clamp(24px,3.2vw,48px)), revealed by a clip-path wipe with a 1.5px bone beam on the edge. Kicker above: 'Electronics & Communication engineer → Full Stack Developer'. Lede below: 'I turn ideas into complete, working systems: interface, services, data, AI and delivery, end to end.' CTA row: See the systems ↓ / Résumé ↗ / Email.\nDesktop extra: inside a 96px window around the probe the name shows its sample slices again, like a magnifier on a discrete signal, and fades back 300ms after the probe leaves.\nSystem: the same SampledText component (4 steps × 110ms) titles every datasheet, so the reveal is a rule, not a one-off.",
+ "interactiveBackground": "One raw WebGL2 canvas fills the hero, deliberately not three.js, so the critical path stays at about 6KB gz.\nRendering:\n- Each channel is instanced beam segments (720 per channel desktop, 360 mobile); waveforms are evaluated in the vertex shader from uniforms, so the CPU does no per-frame geometry work.\n- The fragment shader uses woscope's analytic Gaussian-beam integral (two erf calls), so steep edges render dimmer like a real CRT.\n- Additive accumulation into a half-float ping-pong FBO decaying with τ = 75ms gives frame-rate-independent persistence; a composite pass draws the graticule procedurally (10x8 landscape, 4x10 portrait) and tone-maps 1-e^(-1.7x). Bloom is capped so traces read as phosphor, not neon.\nShapes are a visual code for each layer, and the legend says so: Interface = smooth sine (continuous UI), Services = square request/response, Data = staircase write ramp, Intelligence = AM-modulated carrier, Σ = their sum.\nPointer (the probe, fine pointers only): the nearest lane brightens 1.75x and the others drop to 0.45x; that lane's chip expands to list the real technologies on the layer; a bone dashed measurement cursor follows the pointer's x; traces under the probe ripple slightly (a Gaussian-windowed damped sine whose energy comes from pointer speed and decays as e^(-2.6t)).\nTrigger: the bone T handle on the Σ lane is a role=slider (drag and arrow keys). Moving it more than 0.85 amplitude off the signal loses lock: channels roll at four speeds, noise rises, status AUTO. It re-locks 1.2s after release with the lock ease.\nRender discipline (architect judge fix): converge-then-stop. Once lock energy falls below 1e-3 the loop halts at 0 draws; pointer, trigger or resize wake it. Paused off-screen (IntersectionObserver) and on hidden tabs. Uniforms come from a layout cache, never from per-frame getComputedStyle.\nTouch: no hover and no idle animation: a still, locked picture. Lane chips are tap toggles; the trigger supports touch-drag (touch-action: none on the handle only).\nAdaptive quality: if the 90-frame median exceeds 20ms, drop to DPR 1 and half the segments; above 24ms, freeze to a static frame.",
+ "sections": [
+  {
+   "section": "00 Source: hero and opening",
+   "layout": "Full-viewport graticule screen (10x8; 4x10 portrait). Top-left on division lines: kicker, PRAJWAL M P, 'Full Stack Developer', the one-line lede and a CTA row (See the systems / Résumé / Email). Lower half: five full-bleed lanes with label chips at the margin and the bone trigger handle on Σ. Status row: 'NOW Full Stack Developer, Maruti Flex Traders LLP, since Dec 2025' · 'Bengaluru, India' · Sweep cue. Fixed top bar with the record-view nav.",
+   "motion": "The 3.0s Lock. Afterwards the hero is still except for probe feedback, the trigger and the cue's 2.2s sweep, which stops after three loops.",
+   "purpose": "Who, what (Full Stack Developer), how wide (four named layers and their sum) and why it looks like an instrument (ECE), in five seconds."
+  },
+  {
+   "section": "01 Signal: the job in his words",
+   "layout": "One 23ch display paragraph: his GitHub sentence with each phrase tagged by layer and an inline mono superscript (frontend interfaces CH1; backend APIs and business logic CH2; databases CH3; deploying Σ). A second line: 'Lately that includes AI: RAG pipelines, MCP servers and models inside real products.' (CH4).",
+   "motion": "Scrubbed (scrub 0.6): words rise from 20% to 100% opacity in reading order and finish by 45% of the viewport so nothing is left dim; channel underlines grow continuously across line breaks. Reduced motion: fully lit.",
+   "purpose": "Translates the channels into plain English in his own voice."
+  },
+  {
+   "section": "02 Systems: the bench",
+   "layout": "Heading 'Selected systems', sub 'Every system I have shipped, wired as built. Clip a probe on any connection.' Left 4/10: scrolling entries, current role first with a steady RUN LED, then Drone Intelligence System, Smart Ambulance Traffic Clearance (prototype), Human Brain Tumor Detection, Audify AI, BookMyVenue (live). Each entry: H3, one-liner, a facts table with real figures only, layer chips, one what-if control, and real links (Repository / Live / Datasheet). Right 6/10, sticky: the 3D board of the active system (top 60%) above a four-channel scope reading the probed connections (bottom 40%).",
+   "motion": "Re-acquisition when an entry crosses 55% of the viewport: the old board slides off its rail (400ms, power2.in), the new one slides in (500ms, power3.out), chips seat (60ms stagger), copper draws at constant speed, probes re-clip (300ms) and the scope re-triggers with the lock ease. Hover a connection to preview a probe; click or tap to pin it.",
+   "purpose": "Proof on the home page: the real architecture of each system, taken from his repositories, instead of decorative waveforms."
+  },
+  {
+   "section": "02.b Also built",
+   "layout": "Parts table 'Also built [11]' (count computed from the data file): Part / System / Stack / Link for ResumAI, Custom MCP Server & Auto Job Agent, MarkVault, Buddy (live), LifeSync AI, Livora (live; proprietary source), Campus Connect, Road Accident Detection, Sudoku Solver, CloudScape and LifeVault AI.",
+   "motion": "Rows rise 12px with a 50ms stagger, once.",
+   "purpose": "Breadth without diluting the featured systems; every link is real or honestly absent."
+  },
+  {
+   "section": "03 Stack: channel setup",
+   "layout": "A bill of materials grouped CH1 Interface / CH2 Services / CH3 Data / CH4 Intelligence / Σ Delivery + edge / Languages, with columns Part / Used in (link chips to systems or roles) / Evidence, under a slim five-lane strip pinned above the table.",
+   "motion": "Group rules draw (600ms); rows rise 12px with a 40ms stagger. Hovering or focusing a part lights its lane in the strip (300ms) and highlights the systems that use it.",
+   "purpose": "Skills as evidence, never self-ratings."
+  },
+  {
+   "section": "04 History: where the signal came from",
+   "layout": "A bone sheet with an engraved ruler edge. Headline plus one factual origin line, the revision-history table (newest first), education rows, certifications with verify links and a 'currently studying' line. No map and no test-point dots.",
+   "motion": "The top bar swaps to bone (350ms) as the sheet passes under it; rows rise 14px with a 70ms stagger.",
+   "purpose": "About, experience, education and credentials in a format engineers scan in seconds."
+  },
+  {
+   "section": "05 Connect",
+   "layout": "Graphite. 'The chain ends with you.' A giant mailto email sits on the bone output trace; Copy address / Write an email / Résumé; four link rows; Bengaluru local time (IST).",
+   "motion": "The output trace draws in over 1.0s on entry; a copy sends a 700ms pulse along it; link rows indent 12px on hover.",
+   "purpose": "Zero-friction conversion, all static-host safe."
+  },
+  {
+   "section": "Footer",
+   "layout": "One mono line: © 2026 Prajwal M P / static build on GitHub Pages / built <date> / Motion: full | reduced / Signals: on | paused / Return to source.",
+   "motion": "None.",
+   "purpose": "An honest build credit plus real user motion controls."
+  },
+  {
+   "section": "/work/[slug]: datasheets",
+   "layout": "Bone pages. Header: part number (PMP-ACQ-02), title, status (production / prototype / live), layers and stack. Numbered rows: 1 Features; 2 Description; 3 Functional block diagram (the same board data as an SVG, sticky, stepped through by scroll one connection at a time); 4 Pin description (real endpoints and topics, each with its source); 5 Typical payload (README JSON); 6 Application notes (the README's own limits); 7 Ordering information (Repository / Live).",
+   "motion": "Screen-to-sheet entry, the sampled title (4 × 110ms), sections rising 18px with a 60ms stagger; message dashes move at constant speed and stop when Signals is paused.",
+   "purpose": "Depth for engineering leads: how each system is actually wired, sourced from his public READMEs."
+  }
+ ],
+ "projectShowcase": "'The bench'. One typed file, data/systems.ts, drives everything: blocks {label, tech, layer}, connections {from, to, protocol, label, source URL}, one what-if, facts and links. It renders the 3D board, the mobile SVG board, the datasheet block diagram, the chips and the BOM, so nothing can drift.\nBoards, in order (facts from the dossier; README-only details carry their source URL and need Prajwal's sign-off):\n- RUN: Maruti Flex Traders LLP, Dec 2025 → present (private). React/Next.js interfaces → REST APIs → Google Apps Script business logic and automation → Google Sheets API and MongoDB → in production. Dossier-level only, no screenshots, plus an 'Ask me about this work →' mailto.\n- ACQ 01 Drone Intelligence System. React 19 dashboard ⇄ FastAPI (POST /api/chat/message); a /ws/kpi WebSocket pushing KPI updates every 3-8s (simulated mission data, per the README); local all-MiniLM-L6-v2 embeddings → ChromaDB top-5 → Gemini 2.0 Flash → cited answer; an MCP server over stdio exposing calculate_flight_time, calculate_roi, check_compliance and select_drone to Claude Desktop; Docker Compose + Nginx. What-if: 'Gemini unavailable' lights the README's fallback, an answer built from the retrieved context.\n- ACQ 02 Smart Ambulance Traffic Clearance (prototype; the ECE showcase). Flutter app streams GPS → Express + Socket.IO (missions, naive ETA) → Eclipse Mosquitto → ESP32 smart pole (audio + LED direction) and ESP32 traffic light (relays), drawn with real IC, LED and relay symbols; topics alerts/all and traffic/all/command; payloads AMBULANCE_ALERT and SET_PHASE. What-if: 'Run a mission' steps start → location update → alert → preemption, and the board's LEDs blink in order.\n- ACQ 03 Human Brain Tumor Detection: web upload → Flask → preprocessing and augmentation (OpenCV, NumPy) → CNN (TensorFlow/Keras) → tumour / no tumour. 12,000+ MRI images, ~97% accuracy, 1st Place, BE Final Year Project, KVGCE 2025. What-if: 'Step the pipeline' walks the README's five steps (an explainer, never fake inference).\n- ACQ 04 Audify AI: React Native Android app (MediaStore + SAF discovery) → Drive backup → switch SW1 (Google STT v2 / Whisper / Deepgram Nova-2 / AssemblyAI, with diarization) → Sheets CRM row; HTTPS Express back end with Let's Encrypt; the retry queue with exponential backoff drawn as a dashed loop. What-if: SW1 is a real radiogroup that swings the wiper and re-routes.\n- ACQ 05 BookMyVenue (live): React 18 + Vite → Express + JWT + bcrypt → JSON DB; the server rechecks the date at payment, so no double booking; '20 passing tests' as a ring around the API chip; GitHub Actions → Pages. What-if: 'Build: Full / Pages' swaps the Express chip for the in-browser mini API that runs the live demo.\nScope rule, printed under the bench: 'Traces show the kind of traffic on a connection (request/response pair, server push, publish burst, pipeline stages), not measured data.' This replaces the prototype's tech-count fingerprints, which the judges called decoration dressed as data.\nMobile and tablet portrait: each entry carries an inline SVG board in a vertical layout generated from the same data, a tap-to-probe connection list and a two-channel Canvas2D scope that renders only on change.",
+ "threeD": "Exactly one 3D element: the Bench board, a single-layer circuit board generated per system from data/systems.ts. There is no layer stack anywhere in this direction: the prototype's five-layer PCB stackup is retired because the judges noted four concepts converged on exploded stacks, and Through-Line owns that image.\nBuild: an R3F chunk (next/dynamic, ssr:false) imported when Systems is within 1.2 viewports and prefetched on idle after LCP on desktop. A graphite FR4 board with bone silkscreen; chips are low rounded boxes in five columns (CH1-CH4 + Σ) with channel-colour outlines; labels are baked into one CanvasTexture per system (redrawn once per acquisition, never per frame); connections are one merged Line2 batch with constant pixel width; four probe hooks are tube curves with clips in the channel colours. An orthographic 3/4 camera (35° tilt) with damped pointer tilt of ±4° (600ms); DOM labels for the active chip are projected after updateMatrixWorld, so they stay crisp, selectable and translatable.\nWhy it earns its place: it is the real architecture from his repository, and clipping a probe onto a connection completes the instrument metaphor: you measure his work instead of reading claims about it.\nInteraction: hover or tap a connection to probe it (the clip re-seats in 300ms and the scope shows that connection on CH1); hover or tap a chip for its role and technology; the what-if control re-routes the path; a bone request pulse travels the copper at constant speed, because signals don't ease. Motion (LazyMotion) handles the React-state UI around it: probe readout swaps, what-if states, copy feedback.\nPerformance: frameloop='demand'; ≤30 draw calls and under 5k triangles; DPR clamp 1.75 desktop / 1.25 tablet; probe and what-if changes only update uniforms; a pending-selection queue applies picks made before the scene is ready (a race already fixed in the prototype).\nDegradation: phones and portrait tablets get the SVG board; no WebGL2, deviceMemory ≤2 or Save-Data → SVG; reduced motion → a static board, instant probe swaps and no pulses.\nThe hero stays 2D on purpose: a scope is a 2D instrument.",
+ "cursorAndHover": "The native cursor stays everywhere except inside the instrument screens (hero scope and bench), where, on fine pointers only, it becomes the probe: a 22px crosshair with a 6px gap that tracks the pointer 1:1 with no easing (fixing the prototype's 120ms lag) and uses mix-blend difference. Never a trail.\n- Over [data-probe] targets inside screens, four 9px corner brackets fly to the target box +5px (220ms, power3.out) with a 10px mono readout naming the action: 'Probe /ws/kpi', 'Drag: trigger level', 'Open datasheet', 'Switch provider'.\n- Over the name, the probe reveals its sample slices in a 96px window.\n- Outside screens: links shift their underline to bone (200ms); buttons invert graphite ↔ bone (220ms); contact rows indent 12px (cubic-bezier(.2,.8,.2,1)); lane chips expand their tech list (320ms); the record-view bracket follows scroll.\n- Focus-visible: a 2px bone ring at 3px offset on graphite, a 2px ink ring on bone. Every hover reveal also has a focus and tap path, and the probe never hides a focus ring.",
+ "skillsPresentation": "Evidence, never self-ratings, in three places driven by one data file.\n1. Hero lanes expand (probe, focus or tap) to the real technologies:\n- Interface: React 19, Next.js, TypeScript, Tailwind CSS, Framer Motion, React Native, Flutter, Bootstrap.\n- Services: Spring Boot, Spring MVC, Hibernate, Node.js + Express, FastAPI, Flask, REST, WebSockets, Socket.IO, JWT, Google Apps Script.\n- Data: PostgreSQL, MySQL, MongoDB, Supabase, Firebase, ChromaDB, Google Sheets.\n- Intelligence: RAG, Gemini, OpenAI API, Claude + MCP, TensorFlow + Keras CNNs, Sentence Transformers, speech-to-text, OpenCV.\n- Σ Delivery + edge: Docker, AWS EC2/S3/RDS, GitHub Actions, GitHub Pages, Linux, Maven, Postman, MQTT, ESP32 firmware.\n2. The bench: each technology appears only as a chip on the boards of systems that really use it.\n3. 'Channel setup', a BOM grouped by layer plus Languages (Java 21, JavaScript, TypeScript, Python, SQL, Google Apps Script), with where-used chips: Spring Boot and Hibernate → Dyashin internship; Apps Script, Sheets API and MongoDB → Maruti Flex; ChromaDB and Gemini → Drone; MQTT and ESP32 → Smart Ambulance; AWS EC2/S3/RDS → Techbyheart internship and CloudScape; Supabase → MarkVault. Parts with no project evidence say 'Listed on résumé'. A part count per group replaces any rating.\nExcluded: percentages, stars, radars, logo clouds and 'years of X'.",
+ "aboutSection": "'History: where the signal came from', set on a bone sheet whose top edge is an engraved ruler (8px minor ticks, 80px major).\n1. Headline plus one factual origin line: 'Schooled in Koppa in the Malnad hills; trained in signals, circuits and embedded systems at KVGCE, Sullia; now shipping production systems from Bengaluru.'\n2. Revision history, newest first (rows rise 14px, 70ms stagger):\n- 2.0 Full Stack Developer, Maruti Flex Traders LLP, Dec 2025 → present (highlighted, CURRENT tag).\n- 1.3 Java Full Stack Developer Intern, Dyashin Technosoft, Bengaluru (on-site), Feb-Oct 2025.\n- 1.2 1st Place, BE Final Year Project (Human Brain Tumor Detection), KVGCE, 2025.\n- 1.1 Machine Learning Intern, Rooman Technologies (hybrid), Sep 2024-May 2025.\n- 1.0 Cloud & Cybersecurity Intern, Techbyheart, Sullia, Oct-Nov 2023.\n3. Education rows: BE Electronics & Communication, KVGCE Sullia, 2021-2025, 7.9 CGPA; PUC Science (PCMC), Bharath Matha PU College, Koppa, 2021; SSLC, Bharath Matha High School, Koppa, 2019.\n4. Certifications with real verify links: Oracle Certified Foundations Associate, Agentic AI (2026); GitHub Foundations (2025, Credly); Java Full Stack Development, Dyashin TechnoSoft (Oct 2025).\n5. 'Currently studying: advanced Spring Boot, Spring Security, microservices, Python back ends, cloud, DevOps and AI.'\nThe prototype's test-point map and its dashed three-dot trace are cut (the judges read it as a dot-timeline cousin). A datasheet revision table replaces the forbidden timeline with a format engineers already trust.",
+ "contactSection": "'Connect: The chain ends with you.' prajwalnair2603@gmail.com is a huge mailto link (Archivo wdth 112 / 700, clamp(25px,6.8vw,98px), breaking at '@' on mobile) sitting on the bone output trace, which draws in from the left edge over 1.0s when the block enters: the end of the signal chain.\nActions:\n- Copy address: navigator.clipboard.writeText (GitHub Pages is HTTPS). On success the label reads 'Copied', a polite live region announces 'Address copied to clipboard', and a bone pulse runs along the trace (700ms). Fallback 1: a hidden textarea + execCommand('copy'). Fallback 2: the address is selected and the status says 'Selected: press Ctrl+C / ⌘C'. Everything resets after 2.4s.\n- Write an email: a mailto with the subject 'Hello Prajwal'.\n- Résumé ↗: the Google Drive PDF (link text says 'PDF, Google Drive').\nLink rows (new tab, rel=noopener), with 10px mono pin labels only: LinkedIn in/prajwal-m-p-190131246; GitHub Prajwalps2603; X @PrajwalNair2603; Instagram @prajwal_shobha.\nRight column: 'Bengaluru, India · 14:02 IST' via Intl.DateTimeFormat (Asia/Kolkata), updated every minute.\nNo form, no phone number (it is not public), nothing that pretends to send. Verified working in the prototype.",
+ "transitions": "1. Home → datasheet ('screen to sheet'): 'Open datasheet' expands the bench rectangle to the viewport with clip-path (600ms, cubic-bezier(.7,0,.2,1)); a bone sheet wipes left to right behind a 2px bone beam (420ms); the route changes; the datasheet title is sampled in (4 × 110ms) and sections rise 18px (60ms stagger, 600ms, power3.out).\n2. Datasheet → home: graphite wipes right to left behind the beam (450ms, power3.inOut), lands on #systems with the intro suppressed, and the bench re-acquires that system.\n3. Back/forward and direct loads: no curtain, at most a 200ms crossfade; navigation is never blocked, and bfcache restores hide the curtain.\n4. In-page: screen ↔ sheet changes are marked by the engraved ruler; the top bar swaps graphite ↔ bone (350ms) as a sheet passes under it; record-view nav jumps scroll through Lenis in 1.2s while its bracket slides; bench swaps use a phosphor-decay crossfade (the old board's glow fades at 0.34 per frame while the new one seats).\nNext.js: a TransitionProvider in app/layout owns a fixed curtain; a TransitionLink plays the out-timeline, then calls router.push on a route prefetched on hover or focus; destination pages run their in-timeline keyed by pathname; document.startViewTransition morphs the bench rectangle where supported, with the GSAP curtain as the fallback. Reduced motion: plain navigation. Transitions 1 and 2 already work across two static pages in the prototype.",
+ "responsive": "Breakpoints: ≥1100px desktop; 861-1099px small laptop / tablet landscape; ≤860px tablet portrait and phone.\n- Hero: the graticule switches to 4x10 in portrait; the name wraps to PRAJWAL / M P (fits a 358px column); lanes occupy 56-85% of the height with 360 segments per channel at DPR 1.5; chips are 44px tap toggles; the trigger keeps touch-drag; the opening runs at 0.85x.\n- Statement: the same scrub; tags wrap safely because the underlines are backgrounds.\n- Systems: a single column. Each entry gets an inline SVG board in a vertical layout generated from the same data (no pannable drawings), a tap-to-probe connection list and a two-channel scope; what-ifs stay as buttons and radiogroups.\n- Stack: the table becomes stacked rows; the lane strip sticks under the top bar.\n- History: revision rows become two-line definition rows.\n- Contact: the email breaks at '@', buttons wrap to full width at 48px, the pin column drops.\n- Datasheets: the label column stacks above the content; pin tables become stacked rows; block diagrams switch to a portrait, top-to-bottom SVG below 600px.\nTouch: no probe cursor and no information that exists only on hover; Lenis smooths desktop wheel only (syncTouch off), so touch keeps native momentum. The prototype is verified at 1440x900, 834x1194 and 390x844 with no horizontal overflow.",
+ "reducedMotionAndA11y": "Reduced motion comes from the OS setting or the real footer toggle 'Motion: full / reduced', persisted in localStorage. In reduced mode: no intro (one locked frame), no sampling, no Lenis, no probe cursor, the statement fully lit, bench swaps instant with no pulses, diagram dashes static, the RUN LED steady, and route transitions as plain navigation.\nSignals toggle (footer): pauses every looping signal (bench pulses, datasheet dashes, scroll-cue sweep) to meet WCAG 2.2.2, persisted.\nSemantics: one h1 holding the name and role as real text; every section aria-labelledby; canvases aria-hidden with DOM equivalents (a lane list of aria-expanded buttons; each board mirrored by a role=img summary plus a list of connection buttons with aria-pressed; the probe readout in a polite live region; facts tables; the BOM). The trigger is a role=slider with aria-valuetext 'Locked' / 'Untriggered' and arrow keys. What-ifs are native buttons and radiogroups. A skip link; every control is a native link or button.\nFocus-visible: a 2px ring at 3px offset, bone on graphite (15.7:1) and ink on bone (15.0:1). Colour is never the only cue: CH1-CH4 always carry text labels.\nMeasured contrast: on graphite, bone 15.7, muted 7.2, dim 5.0, channel colours 8.1-10.5; on bone, ink 15.0, muted 6.2, channel inks 4.62-5.08. Essential labels are at least 11px; body is 17px/1.55 at 62ch; touch targets are at least 44px on coarse pointers; the AUTO blink stays under three flashes per second.",
+ "performance": "Budgets (gzip):\n- Initial JS ≤180KB: Next/React runtime about 95KB; GSAP core 28KB + ScrollTrigger 18KB + CustomEase about 3KB; Lenis 5.4KB (desktop fine pointers only, dynamic import); app code ≤30KB including the raw-WebGL2 scope (≤6KB). Tailwind CSS v4 adds no runtime.\n- Bench chunk (tree-shaken three + R3F + Line2 + Motion LazyMotion) ≤245KB, lazy within 1.2 viewports of Systems and prefetched on idle after LCP on desktop.\n- Fonts: Archivo variable Latin about 90KB + Martian Mono about 38KB via next/font; display font preloaded; size-adjusted fallbacks.\n- Images: none in the core experience (every visual is generated) except one pre-rendered OG PNG.\nHero GPU: DPR ≤1.75 desktop / 1.5 mobile; 3,600 instanced quads (1,800 mobile); half-float FBO with an RGBA8 fallback; ≤2ms per frame on integrated GPUs; converge-then-stop for 0 idle draws; IntersectionObserver + visibilitychange; the 90-frame median ladder.\nBench: frameloop demand, ≤30 draws, one CanvasTexture upload per acquisition, uniforms for probes. The mobile scope is Canvas2D and renders only on change.\nTargets: LCP under 1.8s on 4G (the DOM name is painted through the mask), CLS under 0.02, INP under 150ms, TBT under 150ms, Lighthouse mobile ≥90 performance and 100 accessibility, enforced with size-limit and Lighthouse CI in GitHub Actions.\nStatic export: output:'export', trailingSlash, basePath '/Portfolio' threaded through links, fonts and curtain hrefs, images.unoptimized, generateStaticParams for every datasheet.",
+ "references": [
+  {
+   "name": "woscope: How to draw oscilloscope lines with math and WebGL (m1el)",
+   "url": "https://m1el.github.io/woscope-how/",
+   "borrow": "Per-segment quads with an analytic Gaussian-beam integral and additive blending, so intensity falls with beam speed: the reason the hero reads as a real phosphor trace rather than a glow line (already implemented in the prototype's shaders)."
+  },
+  {
+   "name": "GQ & AP The Extraordinary Lab (Immersive Garden, Awwwards SOTM Mar 2026)",
+   "url": "https://www.gq.com/sponsored/story/the-extraordinary-lab",
+   "borrow": "A brief to feel 'dark, precise and slightly electric', a scrubbable timeline with a visible playhead, and a 60fps target that includes iPhone 11/12: the tone of the screens and the model for the scroll step-through of each datasheet's block diagram."
+  },
+  {
+   "name": "Terminal Industries (REJOUICE, Awwwards SOTM Sep 2025)",
+   "url": "https://terminal-industries.com",
+   "borrow": "Explains an operating system as modules along a physical flow, and every control computes something real (its ROI calculator): the rule for the bench's what-ifs, which re-route real documented paths and never fake output."
+  },
+  {
+   "name": "Texas Instruments LM358 datasheet",
+   "url": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
+   "borrow": "Datasheet information architecture (Features, Description, Functional block diagram, Pin configuration, Revision history) for the /work pages and the History sheet."
+  },
+  {
+   "name": "Teenage Engineering EP-133 K.O. II online guide",
+   "url": "https://teenage.engineering/guides/ep-133",
+   "borrow": "Instrument-manual IA with terse numbered sections, a jump to the essentials and strictly functional colour coding: the discipline behind plain headings with tiny technical labels."
+  },
+  {
+   "name": "Bartosz Ciechanowski: Sound",
+   "url": "https://ciechanow.ski/sound/",
+   "borrow": "Interactive figures that explain a physical signal through direct manipulation, with motion that always teaches: the bar for the trigger and the probes."
+  }
+ ],
+ "asciiHero": "P.M.P  Work Stack Experience Contact  *TRIG'D  Resume\n+----:----:----:----:----:----:----:----:----:----:----+\n| -- ELECTRONICS & COMMUNICATION ENGR -> FULL STACK    |\n| #### ####  ##     # #   #  ##  #      #   #   ####   |\n| #  # #  # #  #    # #   # #  # #      ## ##   #  #   |\n| #### #### ####    # # # # #### #      # # #   ####   |\n| #    # #  #  # #  # ## ## #  # #      #   #   #      |\n| #    #  # #  #  ##  #   # #  # ####   #   #   #      |\n| Full Stack Developer                                 |\n| I turn ideas into complete, working systems.         |\n|[1 INTERFACE]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n|[2 SERVICES]_|-|__|-|__|-|__|-|__|-|__|-|__|-|__|-|___|\n|[3 DATA]_.-'_.-'_.-'_.-'_.-'_.-'_.-'_.-'_.-'_.-'_.-'_.|\n|[4 INTELLIGENCE]~vVv~~vVv~~vVv~~vVv~~vVv~~vVv~~vVv~~vV|\n|[S SHIPPED]_/^^-_/^-__/^^-_/^-__/^^-_/^-__/^^-_/^-__T<|\n * NOW Full Stack Developer, Maruti Flex Traders LLP",
+ "risks": [
+  "Metaphor and jargon for non-engineer recruiters. Mitigation: plain-language nav and headings (Work, Stack, Experience, Contact; 'Selected systems'; 'Where the signal came from'), instrument dialect only in 10-11px labels, and the PCB stackup, test points and calibration-certificate framing removed. Run a 5-second first-impression test with two recruiters before committing.",
+  "README provenance. The bench uses details from his public READMEs, re-checked on 2026-11-05 against the fetched files: Drone's POST /api/chat/message, /ws/kpi pushes every 3-8s (simulated mission data), local all-MiniLM-L6-v2, top-5 ChromaDB retrieval, Gemini 2.0 Flash, the HTTP 429 fallback and four MCP tools; Smart Ambulance topics and payloads (a prototype); Audify's four providers, retry queue and Let's Encrypt; BookMyVenue's payment-time recheck, simulated HMAC payment and GitHub Actions deploy. Each line carries its source URL in data/systems.ts and needs Prajwal's sign-off; every board has a dossier-level fallback. LinkedIn returns an authwall (HTTP 999) to automated fetches, so nothing comes from it directly.",
+  "ResumAI honesty: its README marks the OpenAI and PDF services as stubs. It stays in 'Also built' with UI-level claims (Next.js 14 studio, 6 ATS-safe templates, live A4 preview; FastAPI + JWT + PostgreSQL back end) until Prajwal confirms the AI features ship; the README's '98%+ ATS pass rate' is never used.",
+  "Trace shapes could be misread as measurements. The encoding rule is printed under the bench and in the hero legend, and nothing on a scope carries a number unless it comes from the record.",
+  "Palette drifting toward neon on near-black. Mitigation: orange removed, bone as the only non-channel accent, bloom capped, channel colours used as hairlines and outlines, never fills.",
+  "GPU variance on low-end Android and iOS Safari. Mitigation: converge-then-stop rendering, the frame-time ladder, SVG boards on phones, and no content that requires WebGL to read.",
+  "3D bench legibility: a tilted board can hurt reading. Orthographic camera, ≤4° tilt, at most 12 chips per board, labels as DOM, and the connection list always available.",
+  "The trigger toy can look broken if a visitor drags it off and leaves. It auto re-locks after 1.2s; the status text and aria-valuetext explain the state.",
+  "Private production work (Maruti Flex) cannot be shown visually: a dossier-level board, no screenshots and an 'Ask me about this work' link.",
+  "GitHub Pages basePath (/Portfolio) breaks absolute asset, font and curtain URLs unless it is threaded through next.config and every link; deep links to /work pages need trailingSlash and per-route index.html."
+ ]
+}

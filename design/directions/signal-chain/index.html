@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prajwal M P · Full Stack Developer · Signal Chain (direction sketch)</title>
+<meta name="description" content="Prajwal M P, Full Stack Developer in Bengaluru. An Electronics &amp; Communication engineer who ships complete systems end to end: interface, services, data, AI and delivery.">
+<meta name="theme-color" content="#0E0F0D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css" integrity="sha384-gvLq/iOMNnPchdosgVym5huSVkKipHCQaqSw2Eg0V52Mzmlf169ZOsXcNc2cNu8x" crossorigin="anonymous">
+<link rel="stylesheet" href="sketch.css">
+<script>
+  /* Boot: the intro paints over the real DOM. Reduced motion (OS or saved preference) gets one locked frame.
+     Failsafe: whatever happens to the scripts, everything is visible by 5.2s. */
+  (function () {
+    var d = document.documentElement, pref = null;
+    try { pref = localStorage.getItem('pmp-motion'); } catch (e) {}
+    var rm = pref ? pref === 'reduced' : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    d.classList.replace('no-js', 'js');
+    if (rm) d.classList.add('rm'); else d.classList.add('booting');
+    setTimeout(function () { d.classList.remove('booting', 'sampling'); d.classList.add('booted'); }, 5200);
+  })();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar" id="bar">
+  <a class="brand" href="#source" data-probe="Return to source"><b>P.M.P</b><span>Full Stack Developer</span></a>
+  <nav class="record" aria-label="Sections">
+    <div class="rec-track" aria-hidden="true"><i class="rec-win"></i></div>
+    <ol class="rec-list">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+  <div class="bar-right">
+    <span class="trig-ind boot-in" aria-hidden="true"><b></b><span class="trig-txt">TRIG'D</span></span>
+    <a class="bar-cv" href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener">Résumé <span aria-hidden="true">&nearr;</span></a>
+  </div>
+</header>
+
+<div class="probe" aria-hidden="true"><i class="xh"></i><i class="br tl"></i><i class="br tr"></i><i class="br bl"></i><i class="br brr"></i><span class="read"></span></div>
+
+<main id="main">
+
+<!-- ============================ 00 SOURCE ============================ -->
+<section id="source" class="hero" data-screen aria-labelledby="hero-title">
+  <canvas class="scope" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <p class="kicker mono boot-in"><i aria-hidden="true"></i>Electronics &amp; Communication engineer <span aria-hidden="true">&rarr;</span><span class="sr">, now a</span> Full Stack Developer</p>
+    <h1 id="hero-title">
+      <span class="name" data-probe="Sampled signal"><span class="w">Prajwal</span> <span class="w">M</span> <span class="w">P</span></span><span class="sr">, </span>
+      <span class="role">Full Stack Developer</span>
+    </h1>
+    <div class="hero-meta">
+      <p class="lede boot-in">I turn ideas into complete, working systems: interface, services, data, AI and delivery, end to end.</p>
+      <div class="cta boot-in">
+        <a class="btn solid" href="#work" data-probe="Jump to the bench">See the systems <span aria-hidden="true">&darr;</span></a>
+        <a class="btn" href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener" data-probe="Open résumé (PDF)">Résumé <span aria-hidden="true">&nearr;</span></a>
+        <a class="btn" href="mailto:prajwalnair2603@gmail.com" data-probe="Write an email">Email</a>
+      </div>
+    </div>
+  </div>
+
+  <ul class="lanes" aria-label="What I build, layer by layer">
+    <li class="lane" data-ch="0" style="--c:var(--ch1)"><button class="chip boot-in" type="button" aria-expanded="false" data-probe="Probe: interface layer"><span class="mk" aria-hidden="true">1</span><span class="ln">Interface</span><span class="tech">React 19 · Next.js · TypeScript · Tailwind CSS · Framer Motion · React Native · Flutter · Bootstrap</span></button></li>
+    <li class="lane" data-ch="1" style="--c:var(--ch2)"><button class="chip boot-in" type="button" aria-expanded="false" data-probe="Probe: services layer"><span class="mk" aria-hidden="true">2</span><span class="ln">Services</span><span class="tech">Spring Boot · Spring MVC · Hibernate · Node.js + Express · FastAPI · Flask · REST · WebSockets · Socket.IO · JWT · Google Apps Script</span></button></li>
+    <li class="lane" data-ch="2" style="--c:var(--ch3)"><button class="chip boot-in" type="button" aria-expanded="false" data-probe="Probe: data layer"><span class="mk" aria-hidden="true">3</span><span class="ln">Data</span><span class="tech">PostgreSQL · MySQL · MongoDB · Supabase · Firebase · ChromaDB · Google Sheets</span></button></li>
+    <li class="lane" data-ch="3" style="--c:var(--ch4)"><button class="chip boot-in" type="button" aria-expanded="false" data-probe="Probe: intelligence layer"><span class="mk" aria-hidden="true">4</span><span class="ln">Intelligence</span><span class="tech">RAG · Gemini · OpenAI API · Claude + MCP · TensorFlow + Keras CNNs · Sentence Transformers · speech-to-text · OpenCV</span></button></li>
+    <li class="lane" data-ch="4" style="--c:var(--bone)"><button class="chip boot-in" type="button" aria-expanded="false" data-probe="Probe: the sum"><span class="mk" aria-hidden="true">&Sigma;</span><span class="ln">Shipped system</span><span class="tech">= 1 + 2 + 3 + 4, delivered with Docker · AWS EC2/S3/RDS · GitHub Actions · GitHub Pages · Linux · Maven · Postman · MQTT · ESP32 firmware</span></button></li>
+  </ul>
+  <div class="trigger boot-in" role="slider" tabindex="0" aria-label="Trigger level. Move it off the signal and the stack loses lock." aria-orientation="vertical" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Locked" data-probe="Drag: trigger level"><span aria-hidden="true">T</span></div>
+
+  <div class="hero-foot mono">
+    <p class="now boot-in"><b><i aria-hidden="true"></i>Now</b> Full Stack Developer, Maruti Flex Traders LLP, since Dec 2025</p>
+    <p class="geo boot-in">Bengaluru, India</p>
+    <a class="cue boot-in" href="#signal" data-probe="Sweep down">Sweep <i aria-hidden="true"></i></a>
+  </div>
+</section>
+
+<!-- ============================ 01 SIGNAL ============================ -->
+<section id="signal" class="statement" aria-labelledby="sig-title">
+  <p class="sec-label mono"><b>01</b><span>The job, in my words</span></p>
+  <h2 id="sig-title" class="sr">What I do</h2>
+  <p class="say" data-split>I enjoy turning ideas into complete applications, from <span class="tag" style="--c:var(--ch1)" data-t="1 Interface">designing responsive frontend interfaces</span> and <span class="tag" style="--c:var(--ch2)" data-t="2 Services">developing backend APIs</span> to <span class="tag" style="--c:var(--ch3)" data-t="3 Data">integrating databases</span>, <span class="tag" style="--c:var(--ch2)" data-t="2 Services">implementing business logic</span>, <span class="tag" style="--c:var(--bone)" data-t="&Sigma; Shipped">deploying applications</span>, and continuously improving them.</p>
+  <p class="say2" data-split>Lately that includes <span class="tag" style="--c:var(--ch4)" data-t="4 Intelligence">AI: RAG pipelines, MCP servers</span> and models inside real products.</p>
+</section>
+
+<!-- ============================ 02 WORK / BENCH ============================ -->
+<section id="work" class="bench" aria-labelledby="work-title">
+  <div class="bench-head">
+    <p class="sec-label mono"><b>02</b><span>Work</span></p>
+    <h2 id="work-title">Selected systems</h2>
+    <p class="sub">Every system I have shipped, wired as built. Clip a probe on any connection.</p>
+  </div>
+
+  <div class="bench-grid">
+    <article class="entry" aria-labelledby="drone-title">
+      <p class="acq mono"><span>ACQ 01</span><span>AI platform</span><span>2026</span></p>
+      <h3 id="drone-title">Drone Intelligence System</h3>
+      <p class="one">India's drone rules, made answerable: ask a question, get an answer with its sources.</p>
+      <p class="desc">A RAG pipeline behind FastAPI answers DGCA questions with citations. Calculators run as REST routes, a WebSocket streams live KPIs, Docker Compose ships it, and an MCP server hands the same tools to Claude Desktop.</p>
+
+      <table class="facts">
+        <caption class="sr">Key facts, from the public README</caption>
+        <tbody>
+          <tr><th scope="row">Retrieval</th><td>ChromaDB, top 5 chunks, local MiniLM</td></tr>
+          <tr><th scope="row">Generation</th><td>Gemini 2.0 Flash</td></tr>
+          <tr><th scope="row">Live data</th><td>/ws/kpi push, every 3&ndash;8 s</td></tr>
+          <tr><th scope="row">Agent tools</th><td>4 MCP tools over stdio</td></tr>
+          <tr><th scope="row">Knowledge base</th><td>74 indexed documents</td></tr>
+        </tbody>
+      </table>
+
+      <ul class="layers" aria-label="Layers used">
+        <li style="--c:var(--ch1)"><b>1</b>React 19</li>
+        <li style="--c:var(--ch2)"><b>2</b>FastAPI · WebSockets</li>
+        <li style="--c:var(--ch3)"><b>3</b>ChromaDB · CSV</li>
+        <li style="--c:var(--ch4)"><b>4</b>RAG · Gemini · MCP</li>
+        <li style="--c:var(--bone)"><b>&Sigma;</b>Docker Compose · Nginx</li>
+      </ul>
+
+      <div class="whatif">
+        <p class="mono lab">What if</p>
+        <button class="wi-btn" type="button" aria-pressed="false" aria-describedby="wi-note" data-probe="Flip: Gemini unavailable"><span class="sw" aria-hidden="true"><i></i></span><span class="wi-t">Gemini unavailable</span><span class="wi-code mono" aria-hidden="true">HTTP 429</span></button>
+        <p class="wi-note" id="wi-note" aria-live="polite">Normal path: the top 5 chunks and the question go to Gemini 2.0 Flash, which answers with sources.</p>
+      </div>
+
+      <div class="conns-wrap">
+        <p class="mono lab" id="conns-lab">Connections <span>Hover to preview a probe, click to clip it</span></p>
+        <ul class="conns" aria-labelledby="conns-lab"></ul>
+      </div>
+
+      <p class="links">
+        <a href="https://github.com/Prajwalps2603/Drone-Intelligence-System" target="_blank" rel="noopener">Repository <span aria-hidden="true">&nearr;</span></a>
+        <a href="https://github.com/Prajwalps2603/Drone-Intelligence-System#readme" target="_blank" rel="noopener">README: the documented fallback <span aria-hidden="true">&nearr;</span></a>
+      </p>
+    </article>
+
+    <div class="panel" data-screen>
+      <div class="board" role="img" aria-label="Board of the Drone Intelligence System. The React 19 dashboard calls FastAPI with POST /api/chat/message. FastAPI queries ChromaDB for the top 5 chunks, embedded locally by all-MiniLM-L6-v2, and sends them with the question to Gemini 2.0 Flash. If Gemini fails or the quota is exceeded, a context-only fallback answers. A WebSocket manager pushes KPI updates to the dashboard over /ws/kpi every 3 to 8 seconds. An MCP server exposes four tools to Claude Desktop over stdio. Docker Compose runs the backend and the Nginx frontend.">
+        <div class="board-head mono" aria-hidden="true"><span>PMP-ACQ-01</span><span class="bh-name">Drone Intelligence System</span><span class="bh-st"><i></i><em>Acquiring</em></span></div>
+        <canvas class="board-gl" aria-hidden="true"></canvas>
+        <div class="board-svg" aria-hidden="true"></div>
+        <div class="tip" aria-hidden="true"><b class="tip-ref mono"></b><strong class="tip-name"></strong><span class="tip-role"></span><span class="tip-tech mono"></span></div>
+        <span class="tag429 mono" aria-hidden="true">HTTP 429</span>
+      </div>
+      <div class="scope2">
+        <div class="s2-head mono" aria-hidden="true"><span>Scope · 4 channels · traffic shape</span><span class="s2-trig"><i></i>TRIG'D</span></div>
+        <div class="s2-body">
+          <canvas aria-hidden="true"></canvas>
+          <ol class="s2-ch" aria-hidden="true"></ol>
+        </div>
+        <p class="s2-read mono" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <p class="rule">Traces show the kind of traffic on a connection (request/response pair, server push, publish burst, pipeline stages), not measured data. Every connection comes from the repository's public README.</p>
+
+  <p class="next"><span class="mono">Next on the bench <em>[4]</em></span>
+    <a href="https://github.com/Prajwalps2603/smart-ambulance-traffic-clearance" target="_blank" rel="noopener">Smart Ambulance Traffic Clearance <i class="mono">prototype</i></a>
+    <a href="https://github.com/Prajwalps2603/Human_Brain_Tumor_Detection" target="_blank" rel="noopener">Human Brain Tumor Detection <i class="mono">1st place</i></a>
+    <a href="https://github.com/Prajwalps2603/Audify-AI" target="_blank" rel="noopener">Audify AI</a>
+    <a href="https://prajwalps2603.github.io/BookMyVenue/" target="_blank" rel="noopener">BookMyVenue <i class="mono">live</i></a>
+  </p>
+</section>
+
+<!-- ============================ 03 EXPERIENCE (record sheet) ============================ -->
+<section id="experience" class="sheet history" aria-labelledby="exp-title">
+  <div class="ruler" aria-hidden="true"></div>
+  <div class="sheet-in">
+    <div class="hist-head">
+      <p class="sec-label mono"><b>03</b><span>Experience</span></p>
+      <h2 id="exp-title">Where the signal came from.</h2>
+      <p class="sub">Schooled in Koppa in the Malnad hills; trained in signals, circuits and embedded systems at KVGCE, Sullia; now shipping production systems from Bengaluru.</p>
+    </div>
+
+    <table class="rev">
+      <caption class="mono">Revision history, newest first</caption>
+      <thead class="mono"><tr><th scope="col">Rev</th><th scope="col">Date</th><th scope="col">Change</th><th scope="col">Where</th></tr></thead>
+      <tbody>
+        <tr class="cur"><td class="r mono">2.0 <em>Current</em></td><td class="d mono">Dec 2025 &rarr; now</td><td class="c"><b>Full Stack Developer</b><span>End-to-end production applications for TVS showroom and Maruti Flex operations: React / Next.js interfaces, Google Apps Script business logic and automation, Google Sheets and MongoDB.</span></td><td class="w">Maruti Flex Traders LLP</td></tr>
+        <tr><td class="r mono">1.3</td><td class="d mono">Feb &ndash; Oct 2025</td><td class="c"><b>Java Full Stack Developer Intern</b><span>Built and deployed full-stack web apps with Java, Spring Boot, React and MySQL; Git, Agile.</span></td><td class="w">Dyashin Technosoft, Bengaluru (on-site)</td></tr>
+        <tr><td class="r mono">1.2</td><td class="d mono">2025</td><td class="c"><b>1st Place, BE Final Year Project</b><span>Human Brain Tumor Detection: a CNN trained on 12,000+ MRI images.</span></td><td class="w">KVGCE, Sullia</td></tr>
+        <tr><td class="r mono">1.1</td><td class="d mono">Sep 2024 &ndash; May 2025</td><td class="c"><b>Machine Learning Intern</b><span>Predictive models in Python: EDA, preprocessing, model evaluation.</span></td><td class="w">Rooman Technologies (hybrid)</td></tr>
+        <tr><td class="r mono">1.0</td><td class="d mono">Oct &ndash; Nov 2023</td><td class="c"><b>Cloud &amp; Cybersecurity Intern</b><span>AWS EC2, S3 and RDS, cloud deployment; network security basics.</span></td><td class="w">Techbyheart, Sullia</td></tr>
+      </tbody>
+    </table>
+
+    <div class="records">
+      <div class="rec-col">
+        <h3 class="mono">Education</h3>
+        <ul>
+          <li><b>BE, Electronics &amp; Communication Engineering</b><span>KVGCE, Sullia <i class="mono">2021&ndash;2025 · 7.9 CGPA</i></span></li>
+          <li><b>PUC Science (PCMC)</b><span>Bharath Matha PU College, Koppa <i class="mono">2021</i></span></li>
+          <li><b>SSLC</b><span>Bharath Matha High School, Koppa <i class="mono">2019</i></span></li>
+        </ul>
+      </div>
+      <div class="rec-col">
+        <h3 class="mono">Certifications</h3>
+        <ul>
+          <li><b>Oracle Certified Foundations Associate, Agentic AI</b><span>Oracle University <i class="mono">2026</i></span><a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=9AAAC1F3B6368ADE76D13A16495BA0C0748267A7AC0DFD9677FB8A639833CC61" target="_blank" rel="noopener">Verify <span aria-hidden="true">&nearr;</span><span class="sr"> Oracle credential</span></a></li>
+          <li><b>GitHub Foundations</b><span>GitHub, via Credly <i class="mono">2025</i></span><a href="https://www.credly.com/badges/a810b47b-11af-4dad-88f9-7ea37720f30d/linked_in_profile" target="_blank" rel="noopener">Verify <span aria-hidden="true">&nearr;</span><span class="sr"> GitHub credential</span></a></li>
+          <li><b>Java Full Stack Development</b><span>Dyashin TechnoSoft <i class="mono">Oct 2025</i></span><a href="https://drive.google.com/file/d/1jAL0CwQWRCJq0UhWTULsLI8yptZkW8EW/view?usp=sharing" target="_blank" rel="noopener">View <span aria-hidden="true">&nearr;</span><span class="sr"> Dyashin certificate</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="studying"><span class="mono">Currently studying</span> Advanced Spring Boot, Spring Security, microservices, Python back ends, cloud, DevOps and AI.</p>
+  </div>
+</section>
+
+<!-- ============================ 04 CONTACT ============================ -->
+<section id="contact" class="connect" aria-labelledby="con-title">
+  <div class="con-top">
+    <div>
+      <p class="sec-label mono"><b>04</b><span>Contact</span></p>
+      <h2 id="con-title">The chain ends with you.</h2>
+    </div>
+    <p class="clock mono"><span>Bengaluru, India</span><time class="ist">--:-- IST</time></p>
+  </div>
+  <div class="term">
+    <svg class="term-svg" aria-hidden="true"><path class="term-path" fill="none"/><path class="term-pulse" fill="none"/></svg>
+    <a class="email" href="mailto:prajwalnair2603@gmail.com">prajwalnair2603<wbr>@gmail.com</a>
+  </div>
+  <div class="email-actions">
+    <button class="btn solid copy" type="button">Copy address</button>
+    <a class="btn" href="mailto:prajwalnair2603@gmail.com?subject=Hello%20Prajwal">Write an email <span aria-hidden="true">&rarr;</span></a>
+    <a class="btn" href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener">Résumé <span class="mono">PDF, Google Drive</span> <span aria-hidden="true">&nearr;</span></a>
+    <span class="copy-status mono" role="status" aria-live="polite"></span>
+  </div>
+  <ul class="pins" aria-label="Elsewhere">
+    <li><a href="https://www.linkedin.com/in/prajwal-m-p-190131246" target="_blank" rel="noopener"><span class="pn mono">Pin 1</span><span class="nm mono">LinkedIn</span><span class="v">in/prajwal-m-p-190131246</span><span class="arr" aria-hidden="true">&nearr;</span></a></li>
+    <li><a href="https://github.com/Prajwalps2603" target="_blank" rel="noopener"><span class="pn mono">Pin 2</span><span class="nm mono">GitHub</span><span class="v">Prajwalps2603</span><span class="arr" aria-hidden="true">&nearr;</span></a></li>
+    <li><a href="https://x.com/PrajwalNair2603" target="_blank" rel="noopener"><span class="pn mono">Pin 3</span><span class="nm mono">X</span><span class="v">@PrajwalNair2603</span><span class="arr" aria-hidden="true">&nearr;</span></a></li>
+    <li><a href="https://www.instagram.com/prajwal_shobha/" target="_blank" rel="noopener"><span class="pn mono">Pin 4</span><span class="nm mono">Instagram</span><span class="v">@prajwal_shobha</span><span class="arr" aria-hidden="true">&nearr;</span></a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="foot mono">
+  <span>&copy; 2026 Prajwal M P</span><span class="sep" aria-hidden="true">/</span>
+  <span>Static build on GitHub Pages</span><span class="sep" aria-hidden="true">/</span>
+  <span>Built 2026-11-05</span><span class="sep" aria-hidden="true">/</span>
+  <button class="tg tg-motion" type="button" aria-pressed="false">Motion: full</button><span class="sep" aria-hidden="true">/</span>
+  <button class="tg tg-signals" type="button" aria-pressed="true">Signals: on</button><span class="sep" aria-hidden="true">/</span>
+  <a href="#source">Return to source <span aria-hidden="true">&uarr;</span></a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js" integrity="sha384-3vCAhD+a3BOliP3QqjQINn6ZWiZxoqu0WFxX5ZQZgqekDZuSb1mJBrrLMmu94H8f" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/ScrollTrigger.min.js" integrity="sha384-H2WL1iy/jKQQ7MTHU2hskZKNHTYWWD/KgKE1vCNnaWY8An2ESTh23KN/fTp8XS3j" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/CustomEase.min.js" integrity="sha384-++5sT9DVSABtc1XZtcb93Mq1PG0sp9qyiFZKq393rPM85QHjGHCtFM3Yr2f1QOk0" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous" defer></script>
+<script src="sketch.js" defer></script>
+</body>
+</html>

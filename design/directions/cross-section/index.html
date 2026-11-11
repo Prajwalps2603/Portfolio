@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prajwal M P · Full Stack Developer</title>
+<meta name="description" content="Prajwal M P, Full Stack Developer in Bengaluru. He ships complete systems end to end: the interface, the APIs and logic, the data, the AI and the deployment.">
+<meta name="theme-color" content="#E7E8E4">
+<script>
+/* Motion state is decided before first paint so nothing flashes: .rm = reduced (OS or the footer toggle), .intro = the 2.4 s scan is about to play. */
+(function () {
+  window.__t0 = performance.now();
+  var d = document.documentElement, pref = null;
+  try { pref = localStorage.getItem('xs-motion'); } catch (e) {}
+  var rm = pref === 'reduced' || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.classList.add('js', rm ? 'rm' : 'intro');
+  /* safety net: if scripts never boot, never leave content hidden */
+  setTimeout(function () { if (!window.__xsBooted) d.classList.remove('intro'); }, 3500);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=Fragment+Mono&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=Fragment+Mono&text=%E2%86%90%E2%86%91%E2%86%92%E2%86%93%E2%86%97%E2%89%88%E2%8C%98&display=block">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
+<link rel="stylesheet" href="sketch.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The ground: SRTM / GMTED elevation for 74.95–77.95°E × 12.22–13.91°N, drawn as a contour plan. Decoration only; every fact it shows is also text. -->
+<canvas id="terrain" aria-hidden="true"></canvas>
+<div class="marker" id="mkKoppa" aria-hidden="true"><i></i><span>Koppa</span></div>
+
+<header class="hud" id="hud">
+  <a class="hud-id" href="#top">Prajwal M P <span>/ Full Stack Developer</span></a>
+  <nav class="hud-nav" aria-label="Primary">
+    <a href="#work">Work</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact" class="keep">Contact</a>
+    <a href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener">Résumé <span aria-hidden="true">↗</span><span class="sr">(PDF on Google Drive, opens in a new tab)</span></a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ===================== HERO: the specimen ===================== -->
+  <section class="hero" id="top" aria-labelledby="name">
+    <div class="hero-sky" aria-hidden="true"></div>
+
+    <div class="name-wrap" id="nameWrap">
+      <div class="hero-int" aria-hidden="true"></div>
+      <h1 class="name n-ink" id="name"><span class="ln">Prajwal</span> <span class="ln">M P</span></h1>
+      <p class="name n-bone" aria-hidden="true"><span class="ln">Prajwal</span> <span class="ln">M P</span></p>
+      <p class="name n-cut" aria-hidden="true"><span class="ln">Prajwal</span> <span class="ln">M P</span></p>
+      <div class="laser" id="laser" aria-hidden="true">
+        <i class="beam"></i>
+        <span class="readout mono" id="readout"><b class="ro-e" id="roE">CUT 790 m</b><b class="ro-p" id="roP">KOPPA</b></span>
+      </div>
+    </div>
+
+    <div class="hero-info">
+      <div class="hi-main">
+        <span class="rise"><span class="role">Full Stack Developer</span></span>
+        <span class="rise"><span class="statement">I build complete systems: the interface you touch, the APIs and logic behind it, the data, the AI and the deployment.</span></span>
+        <span class="rise rise-cta">
+          <span class="cta">
+            <a class="btn btn-fill" href="#work">See the systems <span aria-hidden="true">↓</span></a>
+            <a class="btn" href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener">Résumé <span aria-hidden="true">↗</span><span class="sr">(PDF, opens in a new tab)</span></a>
+            <button class="btn" type="button" data-copy="heroStatus">Copy email</button>
+            <span class="status mono" id="heroStatus" role="status" aria-live="polite"></span>
+          </span>
+        </span>
+      </div>
+      <div class="hi-now">
+        <span class="rise"><span class="mono hi-k">Now</span></span>
+        <span class="rise"><span class="hi-v">Maruti Flex Traders LLP<br><span class="dim">Dec 2025 – present</span></span></span>
+      </div>
+      <div class="hi-loc">
+        <span class="rise"><span class="mono hi-k">Based in</span></span>
+        <span class="rise"><span class="hi-v">Bengaluru, India<br><span class="dim">12.97°N 77.59°E</span></span></span>
+      </div>
+    </div>
+
+    <nav class="plan" id="plan" aria-label="On this page">
+      <a href="#now"><span class="pl-n">01</span><span class="pl-t">In production</span><span class="pl-l" aria-hidden="true"></span><span class="pl-d">Maruti Flex Traders LLP</span></a>
+      <a href="#work"><span class="pl-n">02</span><span class="pl-t">Systems</span><span class="pl-l" aria-hidden="true"></span><span class="pl-d">Systems, cut open</span></a>
+      <a href="#capabilities"><span class="pl-n">03</span><span class="pl-t">Capabilities</span><span class="pl-l" aria-hidden="true"></span><span class="pl-d">The stack, with evidence</span></a>
+      <a href="#experience"><span class="pl-n">04</span><span class="pl-t">Experience</span><span class="pl-l" aria-hidden="true"></span><span class="pl-d">Koppa → Sullia → Bengaluru</span></a>
+      <a href="#contact"><span class="pl-n">05</span><span class="pl-t">Contact</span><span class="pl-l" aria-hidden="true"></span><span class="pl-d">prajwalnair2603@gmail.com</span></a>
+    </nav>
+  </section>
+
+  <!-- ===================== 01 IN PRODUCTION ===================== -->
+  <section class="chapter" id="now" aria-labelledby="now-h" data-view="now">
+    <div class="opener">
+      <i class="cut-rule" aria-hidden="true"></i>
+      <p class="kicker mono">01 — In production</p>
+      <h2 class="op-title" id="now-h">Layers are what I know. Slices are what I ship.</h2>
+    </div>
+    <div class="now-row">
+      <p class="now-when mono">Now<br>Dec 2025 – present</p>
+      <div class="now-main">
+        <h3 class="now-role">Full Stack Developer, Maruti Flex Traders LLP</h3>
+        <p>End-to-end production applications for TVS showroom and Maruti Flex operations: responsive interfaces, backend business logic and automation, and the data workflows behind them.</p>
+        <a class="arrow-link" href="mailto:prajwalnair2603@gmail.com?subject=About%20your%20work%20at%20Maruti%20Flex">Private client systems: ask me about this work <span aria-hidden="true">→</span></a>
+      </div>
+      <dl class="now-tiers">
+        <div><dt class="mono">Interface</dt><dd>React · Next.js</dd></div>
+        <div><dt class="mono">Integration</dt><dd>REST APIs</dd></div>
+        <div><dt class="mono">Logic</dt><dd>Google Apps Script automation</dd></div>
+        <div><dt class="mono">Data</dt><dd>Google Sheets API · MongoDB</dd></div>
+        <div><dt class="mono">Lifecycle</dt><dd>Develops and maintains in production</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ===================== 02 SYSTEMS ===================== -->
+  <section class="chapter" id="work" aria-labelledby="work-h" data-view="work">
+    <div class="opener">
+      <i class="cut-rule" aria-hidden="true"></i>
+      <p class="kicker mono">02 — Systems</p>
+      <h2 class="op-title" id="work-h">Systems, cut open.</h2>
+      <p class="op-body">Each system arrives as it looks from outside: what people do with it. Scroll, and the blade cuts down through it to show how it is wired, from the interface to the data, the AI and the delivery.</p>
+    </div>
+
+    <article class="spec" id="drone" aria-labelledby="drone-h">
+      <div class="spec-head">
+        <p class="spec-idx mono">Specimen 01</p>
+        <h3 class="spec-title" id="drone-h">Drone Intelligence System</h3>
+        <div class="spec-meta">
+          <p class="mono">AI knowledge platform<br>India's drone rules (DGCA)</p>
+          <button class="toggle mono" id="secToggle" type="button" aria-pressed="false" aria-controls="drone-body"><i aria-hidden="true"></i>Show section</button>
+        </div>
+      </div>
+
+      <div class="spec-body" id="drone-body">
+        <!-- SURFACE: what users do -->
+        <div class="surface">
+          <p class="sf-k mono">Surface: what users do</p>
+          <p class="story">Ask India's drone rules in plain language, check compliance, work out flight time and ROI.</p>
+          <ol class="uses">
+            <li><span class="mono">Ask</span><span>AI chat over DGCA rules, answered with sources</span></li>
+            <li><span class="mono">Check</span><span>whether a flight is compliant with DGCA rules</span></li>
+            <li><span class="mono">Estimate</span><span>flight time and range from battery, weight and weather</span></li>
+            <li><span class="mono">Calculate</span><span>ROI for drone operations, with break-even</span></li>
+            <li><span class="mono">Watch</span><span>live KPIs on the dashboard (simulated mission data)</span></li>
+          </ol>
+          <div class="materials">
+            <span class="chip">React 19</span><span class="chip">FastAPI</span><span class="chip">ChromaDB</span><span class="chip">Gemini</span><span class="chip">WebSockets</span><span class="chip">MCP</span><span class="chip">Docker</span>
+            <a class="ext" href="https://github.com/Prajwalps2603/Drone-Intelligence-System" target="_blank" rel="noopener">Repository <span aria-hidden="true">↗</span><span class="sr">(opens in a new tab)</span></a>
+          </div>
+        </div>
+
+        <!-- SECTION: how it is wired (revealed by the cut) -->
+        <div class="sec-mask">
+          <div class="sec-inner" id="secInner" role="group" aria-label="Section: how it is wired">
+            <div class="sec-top">
+              <p class="mono">Section: how it is wired</p>
+              <p class="mono sec-src">Drawn from the repository <a class="fnref" href="#fn1" aria-label="Footnote 1">[1]</a></p>
+            </div>
+            <p class="sr">Flow: a chat question goes from the React 19 dashboard to FastAPI over HTTP. FastAPI queries ChromaDB, which returns the top 5 matching chunks. Gemini 2.0 Flash writes the answer with its sources, which travels back to the dashboard. Live KPIs are pushed over a WebSocket. A separate MCP server gives Claude Desktop the same tools. Everything runs under Docker Compose.</p>
+
+            <div class="tier" data-tier="Interface">
+              <p class="t-k mono">Interface</p>
+              <div class="t-draw"><div class="node w62" data-n="ui"><b>React 19 dashboard</b><span>chat · calculators · regulations · live KPIs</span></div></div>
+              <p class="t-v">The dashboard asks over HTTP and listens on a WebSocket, which pushes KPIs every few seconds (simulated mission data).</p>
+            </div>
+            <div class="tier" data-tier="API + logic">
+              <p class="t-k mono">API + logic</p>
+              <div class="t-draw"><div class="node w62" data-n="api"><b>FastAPI</b><span>/api/chat · /check/compliance · /calculate/*</span></div><div class="node w34 side" data-n="mcp"><b>MCP server</b><span>stdio → Claude Desktop</span></div></div>
+              <p class="t-v">REST routes for chat, DGCA compliance, flight time and ROI. The MCP server exposes four tools to Claude Desktop. <a class="fnref" href="#fn1" aria-label="Footnote 1">[1]</a></p>
+            </div>
+            <div class="tier" data-tier="Data">
+              <p class="t-k mono">Data</p>
+              <div class="t-draw"><div class="node w46" data-n="db"><b>ChromaDB</b><span>74 chunks · all-MiniLM-L6-v2</span></div></div>
+              <p class="t-v">Local all-MiniLM-L6-v2 embeddings over 74 indexed chunks; each question retrieves the top 5. <a class="fnref" href="#fn1" aria-label="Footnote 1">[1]</a></p>
+            </div>
+            <div class="tier" data-tier="Intelligence">
+              <p class="t-k mono">Intelligence</p>
+              <div class="t-draw"><div class="node w46" data-n="llm"><b>Gemini 2.0 Flash</b><span>RAG answer + sources</span></div><div class="node w30 dash" data-n="fb"><b>Fallback</b><span>context-only answer</span></div></div>
+              <p class="t-v">Gemini writes the answer and cites its sources. If it fails, the answer is built from the retrieved context alone. <a class="fnref" href="#fn1" aria-label="Footnote 1">[1]</a></p>
+            </div>
+            <div class="tier" data-tier="Delivery">
+              <p class="t-k mono">Delivery</p>
+              <div class="t-draw"><div class="node w100 hatch" data-n="ops"><b>Docker Compose</b><span>2 services · Nginx serves the frontend</span></div></div>
+              <p class="t-v">The API and the Nginx-served frontend ship as two containers. <a class="fnref" href="#fn1" aria-label="Footnote 1">[1]</a></p>
+            </div>
+
+            <p class="fn mono" id="fn1">[1] Routes, model names and counts: <a href="https://github.com/Prajwalps2603/Drone-Intelligence-System#readme" target="_blank" rel="noopener">Drone-Intelligence-System README <span aria-hidden="true">↗</span><span class="sr">(opens in a new tab)</span></a></p>
+            <svg class="wires" id="wires" aria-hidden="true"></svg>
+          </div>
+        </div>
+
+        <div class="blade" aria-hidden="true"><i></i><span class="mono" id="bladeLabel">Cutting · Interface</span></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== 03 CAPABILITIES ===================== -->
+  <section class="chapter" id="capabilities" aria-labelledby="cap-h" data-view="caps">
+    <div class="opener">
+      <i class="cut-rule" aria-hidden="true"></i>
+      <p class="kicker mono">03 — Capabilities</p>
+      <h2 class="op-title" id="cap-h">The stack, with evidence.</h2>
+      <p class="op-body">No ratings and no logos. Every technology points to where he used it: hover, focus or tap one.</p>
+    </div>
+    <div class="caps-grid">
+      <div class="cap-rows" id="capRows">
+        <div class="cap-row"><p class="cap-k mono">Interface</p><ul class="tokens">
+          <li><button class="tok" type="button" aria-pressed="false">React 19</button></li><li><button class="tok" type="button" aria-pressed="false">Next.js</button></li><li><button class="tok" type="button" aria-pressed="false">TypeScript</button></li><li><button class="tok" type="button" aria-pressed="false">Tailwind CSS</button></li><li><button class="tok" type="button" aria-pressed="false">Framer Motion</button></li><li><button class="tok" type="button" aria-pressed="false">React Native</button></li><li><button class="tok" type="button" aria-pressed="false">Flutter</button></li><li><button class="tok" type="button" aria-pressed="false">Bootstrap</button></li>
+        </ul><i class="cap-laser" aria-hidden="true"></i></div>
+        <div class="cap-row"><p class="cap-k mono">APIs + logic</p><ul class="tokens">
+          <li><button class="tok" type="button" aria-pressed="false">Spring Boot</button></li><li><button class="tok" type="button" aria-pressed="false">Spring MVC</button></li><li><button class="tok" type="button" aria-pressed="false">Hibernate</button></li><li><button class="tok" type="button" aria-pressed="false">JDBC</button></li><li><button class="tok" type="button" aria-pressed="false">Node.js / Express</button></li><li><button class="tok" type="button" aria-pressed="false">FastAPI</button></li><li><button class="tok" type="button" aria-pressed="false">Flask</button></li><li><button class="tok" type="button" aria-pressed="false">REST</button></li><li><button class="tok" type="button" aria-pressed="false">WebSockets</button></li><li><button class="tok" type="button" aria-pressed="false">Socket.IO</button></li><li><button class="tok" type="button" aria-pressed="false">JWT</button></li><li><button class="tok" type="button" aria-pressed="false">Google Apps Script</button></li>
+        </ul><i class="cap-laser" aria-hidden="true"></i></div>
+        <div class="cap-row"><p class="cap-k mono">Data</p><ul class="tokens">
+          <li><button class="tok" type="button" aria-pressed="false">PostgreSQL</button></li><li><button class="tok" type="button" aria-pressed="false">MySQL</button></li><li><button class="tok" type="button" aria-pressed="false">MongoDB</button></li><li><button class="tok" type="button" aria-pressed="false">Supabase</button></li><li><button class="tok" type="button" aria-pressed="false">Firebase</button></li><li><button class="tok" type="button" aria-pressed="false">ChromaDB</button></li><li><button class="tok" type="button" aria-pressed="false">Google Sheets</button></li>
+        </ul><i class="cap-laser" aria-hidden="true"></i></div>
+        <div class="cap-row"><p class="cap-k mono">Intelligence</p><ul class="tokens">
+          <li><button class="tok" type="button" aria-pressed="false">RAG</button></li><li><button class="tok" type="button" aria-pressed="false">Gemini</button></li><li><button class="tok" type="button" aria-pressed="false">OpenAI API</button></li><li><button class="tok" type="button" aria-pressed="false">Claude / MCP</button></li><li><button class="tok" type="button" aria-pressed="false">TensorFlow</button></li><li><button class="tok" type="button" aria-pressed="false">Keras</button></li><li><button class="tok" type="button" aria-pressed="false">CNNs</button></li><li><button class="tok" type="button" aria-pressed="false">Sentence Transformers</button></li><li><button class="tok" type="button" aria-pressed="false">Speech-to-text</button></li><li><button class="tok" type="button" aria-pressed="false">OpenCV</button></li>
+        </ul><i class="cap-laser" aria-hidden="true"></i></div>
+        <div class="cap-row"><p class="cap-k mono">Delivery + ops</p><ul class="tokens">
+          <li><button class="tok" type="button" aria-pressed="false">Docker</button></li><li><button class="tok" type="button" aria-pressed="false">AWS (EC2, S3, RDS)</button></li><li><button class="tok" type="button" aria-pressed="false">GitHub Actions</button></li><li><button class="tok" type="button" aria-pressed="false">Git / GitHub</button></li><li><button class="tok" type="button" aria-pressed="false">Linux</button></li><li><button class="tok" type="button" aria-pressed="false">Maven</button></li><li><button class="tok" type="button" aria-pressed="false">Postman</button></li><li><button class="tok" type="button" aria-pressed="false">MQTT</button></li><li><button class="tok" type="button" aria-pressed="false">ESP32 firmware</button></li>
+        </ul><i class="cap-laser" aria-hidden="true"></i></div>
+        <div class="cap-row"><p class="cap-k mono">Languages</p><ul class="tokens">
+          <li><button class="tok" type="button" aria-pressed="false">Java 21</button></li><li><button class="tok" type="button" aria-pressed="false">JavaScript</button></li><li><button class="tok" type="button" aria-pressed="false">Python</button></li><li><button class="tok" type="button" aria-pressed="false">SQL</button></li><li><button class="tok" type="button" aria-pressed="false">HTML5</button></li><li><button class="tok" type="button" aria-pressed="false">CSS3</button></li>
+        </ul><i class="cap-laser" aria-hidden="true"></i></div>
+      </div>
+      <aside class="evidence" id="evidence" aria-labelledby="evT">
+        <p class="mono ev-k">Evidence</p>
+        <div class="ev-live" aria-live="polite">
+          <h3 class="ev-t" id="evT">Select a technology</h3>
+          <ul class="ev-l" id="evL"><li class="ev-note">Each one points to a project, a role or a credential from his record. Anything without one says so.</li></ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================== 04 EXPERIENCE ===================== -->
+  <section class="chapter" id="experience" aria-labelledby="exp-h" data-view="exp">
+    <div class="opener">
+      <i class="cut-rule" aria-hidden="true"></i>
+      <p class="kicker mono">04 — Experience</p>
+      <h2 class="op-title" id="exp-h">The lines behind this page are real ground.</h2>
+      <p class="op-body">Every contour on this site is elevation data (SRTM) for the country between Koppa, Sullia and Bengaluru. Cut along his path, it reads like this.</p>
+    </div>
+    <div class="exp-wrap">
+      <div class="prof-head">
+        <p class="mono">The section, flattened</p>
+        <p class="mono prof-note" id="profNote">Straight-line legs · vertical exaggeration</p>
+      </div>
+      <div class="profile" id="profile">
+        <svg id="profSvg" viewBox="0 0 1000 240" preserveAspectRatio="none" role="img" aria-labelledby="profDesc"><desc id="profDesc">Elevation along straight lines from Koppa, about 790 metres, down to Sullia, about 110 metres, 108 kilometres away, then up over the Western Ghats to Bengaluru, about 920 metres, another 244 kilometres.</desc></svg>
+        <div class="prof-labels" id="profLabels" aria-hidden="true"></div>
+        <div class="prof-cursor" id="profCursor" aria-hidden="true"><i></i><span class="mono" id="profRead"></span></div>
+      </div>
+      <ol class="stations" id="stations">
+        <li data-km="0"><p class="mono">Koppa · Malnad</p><p>Schooled here: SSLC at Bharath Matha High School (2019), PUC Science at Bharath Matha PU College (2021).</p></li>
+        <li data-km="108.2"><p class="mono">Sullia · Dakshina Kannada</p><p>BE Electronics &amp; Communication, KVGCE, 2021–2025 (7.9 CGPA). Cloud &amp; Cybersecurity intern at Techbyheart (2023); Machine Learning intern at Rooman Technologies (2024–25). Final-year project: 1st place (2025).</p></li>
+        <li data-km="351.8"><p class="mono">Bengaluru</p><p>Java Full Stack intern at Dyashin Technosoft (Feb–Oct 2025). Based here now.</p></li>
+      </ol>
+      <p class="now-line"><span class="mono">Now</span> Full Stack Developer, Maruti Flex Traders LLP (Dec 2025 <span aria-hidden="true">→</span><span class="sr">to present</span>)</p>
+    </div>
+  </section>
+
+  <!-- ===================== 05 CONTACT ===================== -->
+  <section class="contact dark" id="contact" aria-labelledby="con-h">
+    <i class="c-laser" aria-hidden="true"></i>
+    <p class="mono c-k">05 — Contact</p>
+    <h2 class="c-title" id="con-h">Have something to build end to end?</h2>
+    <div class="c-mail">
+      <a class="c-email" id="email" href="mailto:prajwalnair2603@gmail.com">prajwalnair2603@gmail.com</a>
+      <i class="c-sweep" id="cSweep" aria-hidden="true"></i>
+    </div>
+    <div class="c-actions">
+      <button class="btn btn-fill" type="button" data-copy="contactStatus">Copy email</button>
+      <a class="btn" href="mailto:prajwalnair2603@gmail.com?subject=Hello%20Prajwal">Write an email</a>
+      <span class="status mono" id="contactStatus" role="status" aria-live="polite"></span>
+    </div>
+    <ul class="c-links">
+      <li><a href="https://www.linkedin.com/in/prajwal-m-p-190131246" target="_blank" rel="noopener"><b>LinkedIn <span aria-hidden="true">↗</span></b><span class="mono">in/prajwal-m-p</span></a></li>
+      <li><a href="https://github.com/Prajwalps2603" target="_blank" rel="noopener"><b>GitHub <span aria-hidden="true">↗</span></b><span class="mono">Prajwalps2603</span></a></li>
+      <li><a href="https://x.com/PrajwalNair2603" target="_blank" rel="noopener"><b>X <span aria-hidden="true">↗</span></b><span class="mono">@PrajwalNair2603</span></a></li>
+      <li><a href="https://www.instagram.com/prajwal_shobha/" target="_blank" rel="noopener"><b>Instagram <span aria-hidden="true">↗</span></b><span class="mono">@prajwal_shobha</span></a></li>
+      <li><a href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener"><b>Résumé <span aria-hidden="true">↗</span></b><span class="mono">PDF · Google Drive</span></a></li>
+    </ul>
+    <footer class="c-foot">
+      <p class="mono">Bengaluru, India · IST (UTC+05:30) · <time id="clock">--:--</time></p>
+      <p class="mono">Elevation: SRTM / GMTED via AWS Terrain Tiles</p>
+      <button class="mono motion-t" id="motionToggle" type="button" aria-pressed="false">Motion: full</button>
+    </footer>
+  </section>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/CustomEase.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/SplitText.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script defer src="terrain.js"></script>
+<script defer src="sketch.js"></script>
+</body>
+</html>

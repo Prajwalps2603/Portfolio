@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Ambulance Traffic Clearance - Datasheet - Prajwal M P</title>
+<meta name="description" content="Datasheet for Smart Ambulance Traffic Clearance: Flutter app, Node/Express backend, MQTT, Socket.IO and ESP32 firmware. A full-stack IoT prototype by Prajwal M P.">
+<meta name="theme-color" content="#ECE8DF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap">
+<style>
+:root{--graphite:#0E0F0D;--bone:#ECE8DF;--paper:#F5F2EC;--ink:#141512;--muted-l:#57544C;--rule-l:#CFCABE;--orange:#FF5B1F;--orange-ink:#B4400F;
+  --ch1-l:#8A5F00;--ch2-l:#0F6E6A;--ch3-l:#386F17;--ch4-l:#2F5DB8;--m:clamp(16px,4vw,64px);--f-d:'Archivo',system-ui,sans-serif;--f-m:'Martian Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bone);color:var(--ink);font-family:var(--f-d);-webkit-font-smoothing:antialiased}
+body{font-size:17px;line-height:1.55}
+a{color:inherit}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--orange-ink);outline-offset:3px}
+.mono{font-family:var(--f-m);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-stretch:87.5%;font-weight:500}
+.top{position:sticky;top:0;z-index:5;background:var(--bone);display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--m);border-bottom:1.5px solid var(--ink)}
+.top a{text-decoration:none;border-bottom:1px solid var(--ink);padding:6px 0 2px}
+.top a:hover{color:var(--orange-ink);border-color:var(--orange-ink)}
+.wrap{padding:0 var(--m) 12vh;max-width:1440px;margin:0 auto}
+.head{display:grid;grid-template-columns:1fr auto;gap:24px;padding:9vh 0 5vh;border-bottom:1px solid var(--rule-l)}
+.part{color:var(--muted-l)}
+h1{font-size:clamp(40px,6.4vw,104px);font-weight:800;font-stretch:112%;letter-spacing:-.035em;line-height:.92;margin-top:18px;max-width:17ch;text-wrap:balance}
+.kind{margin-top:22px;font-size:clamp(18px,1.6vw,24px);font-weight:500;color:var(--muted-l);max-width:44ch}
+.meta{text-align:right;color:var(--muted-l);display:flex;flex-direction:column;gap:6px;justify-content:end}
+.meta b{color:var(--ink);font-weight:600}
+.row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:4vw;padding:7vh 0;border-bottom:1px solid var(--rule-l)}
+.row > .mono{color:var(--muted-l);padding-top:6px}
+.row > .mono b{display:block;color:var(--orange-ink);font-size:13px;margin-bottom:6px}
+h2{font-size:clamp(26px,2.6vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin-bottom:22px}
+ul.feat{columns:2;column-gap:4vw}
+ul.feat li{break-inside:avoid;padding:10px 0 10px 22px;position:relative;border-top:1px solid var(--rule-l)}
+ul.feat li::before{content:"";position:absolute;left:0;top:19px;width:10px;height:1.5px;background:var(--orange-ink)}
+p.desc{max-width:64ch;color:#2b2b27}
+p.desc + p.desc{margin-top:14px}
+.diagram{background:var(--paper);border:1px solid var(--rule-l);padding:clamp(12px,2vw,28px)}
+.diagram{overflow-x:auto}
+.diagram svg{width:100%;min-width:720px;height:auto}
+.diagram .flow{stroke-dasharray:6 10;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-32}}
+.cap{margin-top:12px;color:var(--muted-l)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:13px 14px 13px 0;border-bottom:1px solid var(--rule-l);vertical-align:top}
+thead th{border-bottom:1.5px solid var(--ink);color:var(--muted-l);font-weight:500}
+td code,pre{font-family:var(--f-m);font-stretch:87.5%;font-size:13px}
+td.pin{font-family:var(--f-m);font-size:12px;color:var(--orange-ink);font-weight:700;white-space:nowrap}
+td.t{font-family:var(--f-m);font-size:12px;white-space:nowrap;color:var(--muted-l)}
+pre{background:var(--ink);color:var(--bone);padding:22px 24px;overflow:auto;line-height:1.6}
+pre .k{color:#F2B53D}pre .s{color:#93CF63}pre .n{color:#7FA8F5}
+.notes li{padding:10px 0;border-top:1px solid var(--rule-l);max-width:70ch}
+.order{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font-family:var(--f-m);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-stretch:87.5%;padding:15px 20px;border:1.5px solid var(--ink);min-height:48px;display:inline-flex;align-items:center;text-decoration:none;transition:background .2s,color .2s}
+.btn:hover{background:var(--ink);color:var(--bone)}
+.btn.solid{background:var(--ink);color:var(--bone)}
+.btn.solid:hover{background:var(--orange-ink);border-color:var(--orange-ink)}
+.curtain{position:fixed;inset:0;z-index:50;pointer-events:none;visibility:hidden}
+.curtain .dark{position:absolute;inset:0;background:var(--graphite);clip-path:inset(0 0 0 100%)}
+.curtain .beam{position:absolute;top:0;bottom:0;width:2px;right:0;background:var(--orange);opacity:0}
+html.arriving .reveal{opacity:0}
+@media (max-width:860px){
+  .head{grid-template-columns:1fr}.meta{text-align:left}
+  .row{grid-template-columns:1fr;gap:16px;padding:5vh 0}
+  ul.feat{columns:1}
+  table.pins thead{display:none}
+  table.pins tr{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--rule-l)}
+  table.pins td{border:0;padding:0}
+  table.pins td.d{grid-column:1/-1}
+}
+@media (prefers-reduced-motion: reduce){ .diagram .flow{animation:none} }
+</style>
+<script>
+  if (sessionStorage.getItem('pmp-route') === 'datasheet' && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('arriving');
+</script>
+</head>
+<body>
+<header class="top mono">
+  <a href="index.html#systems" class="back" data-back>&larr; Systems</a>
+  <span>Prajwal M P / Datasheet</span>
+  <a href="index.html#connect" data-back>Contact</a>
+</header>
+<main class="wrap">
+  <section class="head reveal">
+    <div>
+      <p class="part mono">PMP-ACQ-02 / Full-stack IoT prototype</p>
+      <h1 class="ttl">Smart Ambulance Traffic Clearance</h1>
+      <p class="kind">From an ambulance's GPS to a traffic light: mobile app, realtime backend, message broker and ESP32 firmware, built as one system.</p>
+    </div>
+    <div class="meta mono">
+      <span>Layers <b>CH1 / CH2 / EXT / OUT</b></span>
+      <span>Stack <b>Flutter / Node + Express / MQTT / Socket.IO / ESP32 / Docker</b></span>
+      <span>License <b>MIT</b></span>
+    </div>
+  </section>
+
+  <section class="row reveal" aria-labelledby="f-t"><p class="mono"><b>1</b>Features</p><div>
+    <h2 id="f-t">Features</h2>
+    <ul class="feat">
+      <li>Ambulance mission orchestration: start, live updates, completion</li>
+      <li>Real-time lane-clearance alerts to roadside smart poles over MQTT</li>
+      <li>Traffic-light pre-emption along the ambulance route</li>
+      <li>Control center via logs and Socket.IO events</li>
+      <li>Flutter app to start a mission and stream live GPS location</li>
+      <li>Naive ETA from distance and speed; Google Directions optional</li>
+    </ul>
+  </div></section>
+
+  <section class="row reveal" aria-labelledby="d-t"><p class="mono"><b>2</b>Description</p><div>
+    <h2 id="d-t">Description</h2>
+    <p class="desc">The Flutter app starts a mission with a destination hospital and streams the ambulance's position to a Node.js / Express backend. The backend manages missions, computes an ETA, and publishes two kinds of MQTT messages through an Eclipse Mosquitto broker: lane-clearance alerts for smart poles, and phase commands for traffic lights.</p>
+    <p class="desc">ESP32 boards (Arduino framework) subscribe to those topics: a smart pole plays audio and shows an LED direction, a traffic light switches its LED or relay states to an ambulance pre-emption phase. A control center follows every mission in real time over Socket.IO. Broker and backend run together in Docker.</p>
+  </div></section>
+
+  <section class="row reveal" aria-labelledby="b-t"><p class="mono"><b>3</b>Functional block diagram</p><div>
+    <h2 id="b-t">Functional block diagram</h2>
+    <figure class="diagram">
+      <svg viewBox="0 0 1000 420" role="img" aria-labelledby="dg-t dg-d">
+        <title id="dg-t">Block diagram of the Smart Ambulance system</title>
+        <desc id="dg-d">The Flutter app sends REST requests to the Node and Express backend. The backend publishes MQTT messages to the Mosquitto broker, which forwards alerts/all to the ESP32 smart pole and traffic/all/command to the ESP32 traffic light. The backend also streams Socket.IO events to the control center. Backend and broker run in Docker.</desc>
+        <g font-family="Martian Mono, monospace" font-size="13" fill="#141512">
+          <rect x="300" y="40" width="430" height="300" fill="none" stroke="#57544C" stroke-dasharray="5 5"/>
+          <text x="312" y="62" fill="#57544C" font-size="11">DOCKER COMPOSE</text>
+          <rect x="30" y="150" width="190" height="90" fill="#ECE8DF" stroke="#141512" stroke-width="1.5"/><text x="46" y="182" font-weight="700">FLUTTER APP</text><text x="46" y="204" font-size="11" fill="#57544C">mission + live GPS</text><text x="46" y="224" font-size="11" fill="#8A5F00">CH1</text>
+          <rect x="330" y="150" width="190" height="90" fill="#ECE8DF" stroke="#141512" stroke-width="1.5"/><text x="346" y="182" font-weight="700">BACKEND</text><text x="346" y="204" font-size="11" fill="#57544C">Node / Express :8080</text><text x="346" y="224" font-size="11" fill="#0F6E6A">CH2</text>
+          <rect x="560" y="150" width="150" height="90" fill="#ECE8DF" stroke="#141512" stroke-width="1.5"/><text x="576" y="182" font-weight="700">MOSQUITTO</text><text x="576" y="204" font-size="11" fill="#57544C">MQTT broker</text><text x="576" y="224" font-size="11" fill="#0F6E6A">CH2</text>
+          <rect x="790" y="70" width="190" height="90" fill="#ECE8DF" stroke="#141512" stroke-width="1.5"/><text x="806" y="102" font-weight="700">ESP32 POLE</text><text x="806" y="124" font-size="11" fill="#57544C">audio + LED direction</text><text x="806" y="144" font-size="11" fill="#B4400F">EXT</text>
+          <rect x="790" y="230" width="190" height="90" fill="#ECE8DF" stroke="#141512" stroke-width="1.5"/><text x="806" y="262" font-weight="700">ESP32 LIGHT</text><text x="806" y="284" font-size="11" fill="#57544C">relay / LED phase</text><text x="806" y="304" font-size="11" fill="#B4400F">EXT</text>
+          <rect x="330" y="360" width="190" height="50" fill="#ECE8DF" stroke="#141512" stroke-width="1.5"/><text x="346" y="390" font-weight="700">CONTROL CENTER</text>
+          <path d="M220 195 H330" stroke="#141512" stroke-width="1.5" fill="none"/><path class="flow" d="M220 195 H330" stroke="#B4400F" stroke-width="2.5" fill="none"/><text x="226" y="186" font-size="10" fill="#57544C">REST</text>
+          <path d="M520 195 H560" stroke="#141512" stroke-width="1.5" fill="none"/><path class="flow" d="M520 195 H560" stroke="#B4400F" stroke-width="2.5" fill="none"/>
+          <path d="M710 180 H750 V115 H790" stroke="#141512" stroke-width="1.5" fill="none"/><path class="flow" d="M710 180 H750 V115 H790" stroke="#B4400F" stroke-width="2.5" fill="none"/><text x="745" y="104" font-size="10" fill="#57544C" text-anchor="end">alerts/all</text>
+          <path d="M710 210 H750 V275 H790" stroke="#141512" stroke-width="1.5" fill="none"/><path class="flow" d="M710 210 H750 V275 H790" stroke="#B4400F" stroke-width="2.5" fill="none"/><text x="745" y="300" font-size="10" fill="#57544C" text-anchor="end">traffic/all/command</text>
+          <path d="M425 240 V360" stroke="#141512" stroke-width="1.5" fill="none"/><path class="flow" d="M425 240 V360" stroke="#B4400F" stroke-width="2.5" fill="none"/><text x="434" y="300" font-size="10" fill="#57544C">Socket.IO</text>
+        </g>
+      </svg>
+      <figcaption class="cap mono">Fig. 1 / signal path from the app to the street. Animated dashes show message direction.</figcaption>
+    </figure>
+  </div></section>
+
+  <section class="row reveal" aria-labelledby="p-t"><p class="mono"><b>4</b>Pin description</p><div>
+    <h2 id="p-t">Interfaces (pin description)</h2>
+    <table class="pins">
+      <thead class="mono"><tr><th>Pin</th><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td class="pin">1</td><td><code>POST /api/v1/missions/start</code></td><td class="t">REST in</td><td class="d">Start a mission: vehicleId, origin, destination, hospitalName</td></tr>
+        <tr><td class="pin">2</td><td><code>POST /api/v1/missions/:id/location</code></td><td class="t">REST in</td><td class="d">Live position update: lat, lng, speedKph</td></tr>
+        <tr><td class="pin">3</td><td><code>alerts/all</code></td><td class="t">MQTT out</td><td class="d">AMBULANCE_ALERT to smart poles: ETA, distance, direction, message</td></tr>
+        <tr><td class="pin">4</td><td><code>traffic/all/command</code></td><td class="t">MQTT out</td><td class="d">SET_PHASE: AMBULANCE_PREEMPTION for a duration in seconds</td></tr>
+        <tr><td class="pin">5</td><td><code>ws://host:8080</code></td><td class="t">Socket.IO out</td><td class="d">Real-time mission events for the control center</td></tr>
+        <tr><td class="pin">6</td><td><code>Serial @ 115200</code></td><td class="t">Debug</td><td class="d">ESP32 serial monitor shows received alerts</td></tr>
+      </tbody>
+    </table>
+  </div></section>
+
+  <section class="row reveal" aria-labelledby="x-t"><p class="mono"><b>5</b>Typical payload</p><div>
+    <h2 id="x-t">Typical payload</h2>
+<pre aria-label="Example MQTT alert payload">{
+  <span class="k">"type"</span>: <span class="s">"AMBULANCE_ALERT"</span>,
+  <span class="k">"missionId"</span>: <span class="s">"abc-123"</span>,
+  <span class="k">"etaSeconds"</span>: <span class="n">240</span>,
+  <span class="k">"distanceMeters"</span>: <span class="n">1500</span>,
+  <span class="k">"direction"</span>: <span class="s">"STRAIGHT"</span>,
+  <span class="k">"message"</span>: <span class="s">"Ambulance approaching, clear one lane"</span>
+}</pre>
+    <p class="cap mono">Example payload from the project README, published on alerts/all.</p>
+  </div></section>
+
+  <section class="row reveal" aria-labelledby="n-t"><p class="mono"><b>6</b>Application notes</p><div>
+    <h2 id="n-t">Known limits, stated plainly</h2>
+    <ul class="notes">
+      <li>This is a prototype. A real deployment needs secure auth (JWT / mTLS), intersection detection, precise geofencing and integration with traffic controllers.</li>
+      <li>Broadcast topics (alerts/all, traffic/all/command) would become per-pole and per-intersection topics in a production design.</li>
+    </ul>
+  </div></section>
+
+  <section class="row reveal" aria-labelledby="o-t"><p class="mono"><b>7</b>Ordering information</p><div>
+    <h2 id="o-t">Source</h2>
+    <div class="order">
+      <a class="btn solid" href="https://github.com/Prajwalps2603/smart-ambulance-traffic-clearance" target="_blank" rel="noopener">Repository &nearr;</a>
+      <a class="btn" href="index.html#systems" data-back>&larr; Back to systems</a>
+      <a class="btn" href="index.html#connect" data-back>Talk about this build</a>
+    </div>
+  </div></section>
+</main>
+<div class="curtain" aria-hidden="true"><div class="dark"></div><div class="beam"></div></div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js" integrity="sha384-3vCAhD+a3BOliP3QqjQINn6ZWiZxoqu0WFxX5ZQZgqekDZuSb1mJBrrLMmu94H8f" crossorigin="anonymous"></script>
+<script>
+(function () {
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches, root = document.documentElement;
+  var arriving = root.classList.contains('arriving');
+  sessionStorage.removeItem('pmp-route');
+  function arrive() {
+    root.classList.remove('arriving');
+    if (!arriving || RM || !window.gsap) return;
+    var t = document.querySelector('.ttl');
+    // sampled title: stripes densify in discrete steps (same system as the hero name)
+    var steps = [24, 12, 6, 3], i = 0;
+    t.style.webkitMaskImage = t.style.maskImage = 'repeating-linear-gradient(90deg,#000 0 2px,transparent 2px 24px)';
+    (function step() { if (i < steps.length) { var p = steps[i++]; t.style.webkitMaskImage = t.style.maskImage = 'repeating-linear-gradient(90deg,#000 0 2px,transparent 2px ' + p + 'px)'; setTimeout(step, 110); } else { t.style.webkitMaskImage = t.style.maskImage = 'none'; } })();
+    gsap.from('.reveal', { y: 18, autoAlpha: 0, duration: 0.6, ease: 'power3.out', stagger: 0.06, clearProps: 'all' });
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(arrive);
+  setTimeout(function () { root.classList.remove('arriving'); }, 1500);
+  // back: bone -> graphite wipe from the right, then return to the index without replaying the intro
+  document.querySelectorAll('a[data-back]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      sessionStorage.setItem('pmp-back', '1');
+      if (RM || !window.gsap) return;
+      e.preventDefault();
+      var c = document.querySelector('.curtain'), d = c.querySelector('.dark'), b = c.querySelector('.beam');
+      c.style.visibility = 'visible';
+      gsap.timeline({ onComplete: function () { location.href = a.href; } })
+        .set(b, { opacity: 1 })
+        .fromTo(d, { clipPath: 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0%)', duration: 0.45, ease: 'power3.inOut' }, 0)
+        .fromTo(b, { x: 0 }, { x: -innerWidth, duration: 0.45, ease: 'power3.inOut' }, 0);
+    });
+  });
+  addEventListener('pageshow', function (e) { if (e.persisted) document.querySelector('.curtain').style.visibility = 'hidden'; });
+})();
+</script>
+</body>
+</html>

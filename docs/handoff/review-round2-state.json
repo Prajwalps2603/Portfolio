@@ -1,0 +1,262 @@
+{
+ "triage_r2": {
+  "stop": false,
+  "rationale": "One high-severity finding remains: bench pacing makes the page about 3x the approved sketch, and phones are worse. Several medium items are real and fixable inside their areas: the mobile lane panel collision, the /Portfolio build check, the nav marker on case pages, background traces behind text, and an undiscoverable trigger. The \"Skip intro\" cue is not a fix. Skip-on-gesture already exists, and the intro is about 2.5s, so the \"5s\" claim is overstated. The intro timing tweak is kept small. The 1.0:1 button and 1.3:1 lane-label detector flags are false positives and are logged as such. Retired-pattern items (the route tiles and the node-and-rail timeline) and the board physicality are kept at medium or low. Fixes that need edits outside an area are folded into the area that owns the file.",
+  "highCount": 1,
+  "mediumCount": 9,
+  "workstreams": [
+   {
+    "area": "work",
+    "fixes": [
+     {
+      "severity": "high",
+      "title": "Bench pacing: cut entries to the direction's shape",
+      "evidence": "Desktop scrollHeight is 19,870px against the sketch's 6,312px. Mobile is 30,247px. The six bench entries take about 10,000px on desktop and about 20,000px on mobile. src/components/work/Bench.tsx:276-366 stacks summary, facts, up to 8 connection rows, README note, what-if, request path and links.",
+      "fix": "Reduce each entry to H3, one-liner, facts, what-if and links. Move the connection list and request path into the sticky instrument panel beside the board as a compact two-column pin list, or reveal them from the wires. On phones and portrait tablets, put connections, what-if and request path behind one 'Probe this system' disclosure per entry (44px target, aria-expanded). Render the stacked BoardGraph in two chip columns. Targets are about 11-12k px on desktop and under 18k px on mobile."
+     },
+     {
+      "severity": "medium",
+      "title": "Board and scope lack board physicality",
+      "evidence": "The sketch has refdes, a part-number legend, mounting holes and a graticule. BoardGraph.tsx:341-353 and Scope.tsx:86-104 draw plain boxes and bare lines.",
+      "fix": "Keep the 2D SVG. Add a small mono refdes per chip in text-dim, a silkscreen legend along the board's bottom edge, corner mounting-hole marks, a faint 8px graticule behind the scope rows with a time-base tick row, and a Trig'd readout in the scope header. Add these after the pacing cut, and keep them light so they do not add height."
+     },
+     {
+      "severity": "medium",
+      "title": "Tapping a default-pinned connection un-probes it",
+      "evidence": "system.ts:43-47 pins the first connection per channel. Bench.tsx:47-53 toggles on tap. On mobile the scope then reads 'No traffic on interface'.",
+      "fix": "A tap on an already-pinned connection replays its trace sweep and flashes 'Probed'. Unpinning moves to an explicit 'Release' control on the scope row. Keep the four default pins."
+     },
+     {
+      "severity": "medium",
+      "title": "Request-path steps read as plain text",
+      "evidence": "Mobile y15832 and case desktop y01274 show no button affordance on the steps.",
+      "fix": "Give each step a 44px hit area, a visible border or marker, hover, focus and active states, and aria-pressed. Keep the 'Select a stage' hint. Raise the dim mono labels (REQUEST PATH, WHAT IF, step captions) to at least 4.5:1 against the surface."
+     },
+     {
+      "severity": "low",
+      "title": "Datasheet metadata 'Repository opened 2026' is unsourced",
+      "evidence": "Datasheet.tsx:104. The year is not in the README-verified notes in projects.ts.",
+      "fix": "Source the year from the repo created_at and add it to projects.ts with a provenance comment, or remove the row."
+     },
+     {
+      "severity": "low",
+      "title": "Figure caption is set in 12px mono as running text",
+      "evidence": "Diagram.tsx:40-43 uses type-readout for a 70ch sentence.",
+      "fix": "Set the caption in type-small and keep only the 'Fig. 1' prefix in type-readout."
+     },
+     {
+      "severity": "low",
+      "title": "Case-study nav marker shows the wrong section",
+      "evidence": "On /work/drone-intelligence/ the ruler marker sits over STACK. The case page owns this route.",
+      "fix": "On case routes, pass the WORK-active state to the header through the existing route/section prop. Add aria-current on the WORK link. Do not derive position from scroll."
+     }
+    ]
+   },
+   {
+    "area": "intro-hero",
+    "fixes": [
+     {
+      "severity": "medium",
+      "title": "Open lane panel collides with the Sigma chip and NOW row on phones",
+      "evidence": "craft/mobile-lane-open-mobile-view.png. The status row at Hero.tsx:255 and the lanes ul at Lanes.tsx:33 share z-(--z-content). Portrait panels open downward (hero.module.css:38-42).",
+      "fix": "Raise the whole lanes ul to z-(--z-raised) while a lane is open. On portrait, open the panels of the last two lanes upward. Verify at 390x844 with lanes 3 and 4 open."
+     },
+     {
+      "severity": "medium",
+      "title": "The trigger handle is hard to discover at rest",
+      "evidence": "Only a dim 11px 'TRIG' label and a 26x14 glyph at the right margin (TriggerHandle.tsx:154-170).",
+      "fix": "Show a faint dashed level line (about 20% opacity) across the Sigma lane at rest, following the handle. Add one authored nudge 1.2s after lock, once per session: a 6px slide off the signal, a re-seat with the lock ease, and AUTO to TRIG'D for 300ms. Suppress it for reduced motion and paused Signals. Keep the 44px hit area, add aria-describedby 'Drag or use arrow keys', and keep 8px or more clearance from the lane labels on mobile."
+     },
+     {
+      "severity": "low",
+      "title": "Name-resolve noise window at 700ms",
+      "evidence": "intro t00700 shows heavy vertical stripes. The 24px and 12px sample steps are long.",
+      "fix": "Shorten the coarse sample steps to about 40ms each so the unreadable window is under 300ms, and lower the first-step stripe contrast. Keep total duration near 2.5s. Do not add a visible skip button, because skip on first gesture already exists."
+     },
+     {
+      "severity": "low",
+      "title": "Phone lane pitch is tight and the chips cover the traces",
+      "evidence": "mobile y00000: about 49px pitch with 44px chips over the left third.",
+      "fix": "On portrait, use mark-only 44px square chips with the label in the expanded panel, and spread the lanes over 52-90% of the hero. Keep full labels from 600px up."
+     },
+     {
+      "severity": "low",
+      "title": "ECE-to-Full-Stack line repeats the role as a 12px caption strip",
+      "evidence": "home y00000 shows the role three times above the fold. The ECE arc is a grey 12px footnote.",
+      "fix": "Keep the subtitle and the NOW line. Leave the ECE arc as a status readout, and drop only the repeated 'Full Stack Developer' text from the bottom strip."
+     }
+    ]
+   },
+   {
+    "area": "scene",
+    "fixes": [
+     {
+      "severity": "medium",
+      "title": "Background traces run through dense copy and controls",
+      "evidence": "home y06898 (bench left column and what-if buttons) and y13796 (Stack intro). ScopeCanvas reads scope.signal every frame.",
+      "fix": "Add a per-section ambient level in the scene layout/pageMap. Drop trace alpha and amplitude to about 40% behind dense text and controls (bench, stack, datasheet body). Keep full strength in gutters and section headers. Apply the same level to the StaticScope SVG. This also protects the 4.5:1 text contrast."
+     }
+    ]
+   },
+   {
+    "area": "foundation",
+    "fixes": [
+     {
+      "severity": "medium",
+      "title": "GitHub Pages /Portfolio build never verified",
+      "evidence": "The link check ran on the root-base build. Nothing checked /Portfolio/_next or /Portfolio/work paths.",
+      "fix": "Run build:pages with NEXT_PUBLIC_BASE_PATH=/Portfolio. Grep out/**/*.html and the chunks for src, href and fetch values without the prefix. Check asset() for shaders, textures and fonts, the OG and icon metadata, and the 404 page. Serve out/ under /Portfolio and confirm there are no 404s. Fix any misses in src/lib or next.config.ts. Record the result in docs/."
+     },
+     {
+      "severity": "low",
+      "title": "Page-transition reveal leg uses inOut",
+      "evidence": "TransitionProvider.tsx wipes in with EASE.inOut on the reverse leg.",
+      "fix": "Use EASE.out at about 60% of the entrance duration on the reveal leg. Keep the stage.returnFrom re-acquire."
+     },
+     {
+      "severity": "low",
+      "title": "Focus-visible parity for the cursor brackets",
+      "evidence": "The corner-bracket hover state is pointer-only.",
+      "fix": "Mirror the bracket state on :focus-visible for hero CTAs and bench rows. Confirm the mix-blend-difference readout stays legible over bone buttons."
+     },
+     {
+      "severity": "low",
+      "title": "Record bundle size and log reviewed false positives",
+      "evidence": "The evidence pack has 935 KB raw JS with no first-load gzip figure. The detector flagged a.btn.cta at 1.0:1, body repeating-stripes, and a 1.3:1 lane label.",
+      "fix": "Write the gzip First Load JS from next build into docs/. Record the three detector flags as reviewed false positives. The cta is a clipped ::before fill over a transparent background. The stripes are the graticule. The lane digit is graphite on the channel colour. No code change for these. Bench splitting stays in work and is deferred."
+     }
+    ]
+   },
+   {
+    "area": "about",
+    "fixes": [
+     {
+      "severity": "low",
+      "title": "History sheet reintroduces retired patterns",
+      "evidence": "Route.tsx:11-26 is a three-tile row of 52px place names. RevisionHistory.tsx:123-147 has square nodes on a rail.",
+      "fix": "Fold the route into one engraved rule with three ticks and inline place labels in type-readout, or into the origin line. Keep the scroll-drawn margin rule and remove the square nodes. The REV column and the shaded CURRENT row carry the sequence."
+     },
+     {
+      "severity": "low",
+      "title": "SSLC row shows a ten-year range as the credential date",
+      "evidence": "education.ts:29 gives '2009 — 2019'.",
+      "fix": "Show '2019' in the Education table. Keep the schooling span only in the route or origin line. If the range must stay, label it 'Schooling 2009 — 2019'. Edit src/content/education.ts if that file lies in the credentials area."
+     },
+     {
+      "severity": "low",
+      "title": "Education and Archive reveals use one generic y-plus-fade and flash after the intro",
+      "evidence": "useScrollReveal applies one ease to every reveal.",
+      "fix": "Use a clip-path wipe on Archive rule lines and the lock ease for Education rows. Skip the reveal when the section is already above the fold on load. Keep Statement and RevisionHistory scrubs untouched, and confirm both end fully revealed under reduced motion."
+     }
+    ]
+   },
+   {
+    "area": "skills",
+    "fixes": [
+     {
+      "severity": "low",
+      "title": "Livora has no action in the stack detail panel",
+      "evidence": "The panel shows DATASHEET for Drone Intelligence and REPOSITORY for LifeSync, but nothing for Livora. projects.ts:293 gives it a live link.",
+      "fix": "Add a 'Site' external action (rel noopener noreferrer, target _blank, accessible hint) for any project with a live link, so the panel matches the content record."
+     }
+    ]
+   }
+  ],
+  "keep": [
+   "THE LOCK intro sequence and the five-lane split",
+   "Hero typography and composition (Archivo wdth 125/800 wordmark on the graticule)",
+   "Trigger drag and the probe system",
+   "README-verified truthfulness of the bench and datasheets",
+   "Two-material system (graphite screens and bone sheets)",
+   "Browser-surface and tokens discipline",
+   "Progressive enhancement, reduced-motion static path and WebGL hygiene",
+   "Contact section and the 404",
+   "Record-view nav",
+   "Scrubbed Statement and RevisionHistory moments"
+  ]
+ },
+ "fix:skills:r2": {
+  "summary": "The stack detail panel now shows a \"Site\" external action for non-featured projects that have a live link and no repo, so Livora gets one. The panel passes it to the existing ExternalLink component. I didn't open that component, so I haven't confirmed it adds rel=\"noopener noreferrer\", target=\"_blank\" and the accessible hint. Featured projects still show \"Datasheet\", and projects with a repo still show \"Repository\". The change is one extra branch in the evidence mapping, in src/components/skills/evidence.ts.",
+  "openIssues": [
+   "Not verified in the browser: the Livora Site link was not seen rendered in the panel. Confirm it shows once a skill linked to Livora is selected.",
+   "Cosmetic: the new nested ternary in evidence.ts is indented unevenly. It does not affect behaviour."
+  ]
+ },
+ "fix:about:r2": {
+  "summary": "1) Route is now one engraved rule across the sheet with a tick at each station and inline place labels in type-readout (place, region, chapter, years), replacing the three 52px tiles. On mobile each station gets its own short rule. 2) RevisionHistory: removed the square nodes and their scroll-latch animation (and the unused imports). The scroll-drawn margin rule is unchanged; the REV column and shaded CURRENT row carry the sequence. 3) Education: the SSLC row now shows \"2019\" (end of the schooling span) via a component-level mapping, since src/content is not in my area; the span remains in the route line (\"Schooling 2009 – 2021\"). 4) Education reveal no longer uses the generic useScrollReveal rise. It uses its own useGSAP with the lock ease and the chip duration, skips entirely if the first row is already above the fold at load, and is a no-op under reduced motion. Statement and the RevisionHistory trace scrub were left alone. No dependencies were added. tsc --noEmit passes.",
+  "openIssues": [
+   "Archive (src/components/work/Archive.tsx, work area): not changed, outside my ownership. Needed: replace useScrollReveal on 'tbody tr' with a clip-path wipe on the row rule lines (inset(0 100% 0 0) to inset(0), EASE.wipe or expo.out), and skip the reveal when the table is already above the fold on load.",
+   "Optional content cleanup (src/content/education.ts, not mine): set the SSLC period to '2019' so the component-level mapping in Education.tsx can be removed.",
+   "Not verified: the Education lock-ease reveal was not filmed in motion, and the mobile/tablet layouts of the new Route and the revision rows (nodes removed) were not captured. Neither is checked at the breakpoints."
+  ]
+ },
+ "fix:scene:r2": {
+  "summary": "Fixed the medium issue where background traces ran through dense copy and controls. Each section now has an ambient level, set in pageMap.ts with measureQuiet() and the constants QUIET_TRACE=0.4, QUIET_PAPER=0.55, QUIET_FEATHER=32px and MAX_QUIET=8. A screen section is quiet when it has data-ambient=\"quiet\"; without that attribute, #work and #stack are quiet by default (data-ambient=\"full\" turns it off). Any other element inside #main can also mark itself data-ambient=\"quiet\". A section's quiet zone starts just under its visible h2 (8px of overlap for descenders) and ends at the section's content box. That leaves the section header, the side gutters (the px-margin padding) and the section's top and bottom padding at full strength. Zones are measured on resize and when #main changes size (for example when the bench expands), never per frame.\n\nWebGL path: a shared GLSL quietMask()/ambient() function takes up to 8 zone rects in viewport device px, with a soft edge 32px wide centred on each border. In the trace vertex shader, trace amplitude (the parked lanes, Σ and the section-edge trace) is multiplied by the ambient level at the lane centre, so waves flatten to about 40% behind copy. In the composite shader, trace brightness drops to 40% (applied after persistence, so trails dim too) and the page graticule drops to 55%. ScopeCanvas converts zones from document to viewport coordinates each frame, and only zones in view are uploaded. The static path (reduced motion, no WebGL, lit",
+  "openIssues": [
+   "Datasheet body: the scope is mounted only on the home page (src/app/page.tsx), so /work/[slug] pages have no traces to dim and no change was needed there. If the scope is ever mounted on datasheet pages, mark the body with data-ambient=\"quiet\" (or the section with data-surface=\"screen\" data-ambient=\"quiet\") and the same mechanism applies.",
+   "Optional, for other areas: any dense block in another screen section (for example a contact form, if one is added) can opt in with data-ambient=\"quiet\" on its wrapper. No change is required now.",
+   "The section scroll offsets in the fix evidence (y06898, y13796) no longer match because other agents changed the page height during the run. Verification used the same content (the bench left column and the Stack intro) at their current offsets.",
+   "One capture briefly showed a parse error in src/components/work/Bench.tsx, owned by the work area. It was another agent's edit in progress and the retry was clean."
+  ]
+ },
+ "fix:intro-hero:r2": {
+  "summary": "I applied all five round-2 fixes. No new dependencies.\n\n1. (medium) Open lane panel colliding with the Σ chip and the NOW row on phones. The lanes list now moves to z-(--z-raised) while any lane is open. In Hero.tsx the TriggerHandle now renders before the lanes, so an open panel also paints over the handle. On portrait, lanes 4 and Σ (indices 3 and 4) open upward, using portrait:bottom-full plus data-up=\"true\". Their clip-path wipe also runs upward (hero.module.css), so the reveal still starts from the chip. Exits stay faster than entrances.\n\n2. (medium) Trigger handle hard to find at rest.\n   - A faint dashed level line (bone, 20% opacity, 6px dash / 6px gap) now runs across the Σ lane from the left margin to the handle. place() positions it together with the handle, so it moves when the handle is dragged.\n   - It sits under the lane chips and takes no pointer input. It fades in with the opening through its own data-boot wrapper, so the 20% opacity is never overwritten.\n   - The old gradient leader was removed. The TRIG label now sits on the line.\n   - The nudge plays once per session (sessionStorage key pmp:trig-nudged), 1.2s after the opening finishes. The handle slides 6px off the signal in 160ms (expo.out), the top bar reads AUTO for 300ms, then the handle re-seats with EASE.lock over 550ms and the status returns to TRIG'D.\n   - The nudge is skipped for reduced motion and paused Signals (useLoopsAllowed), and when the hero is scrolled away, the tab is hidden, or the use",
+  "openIssues": [
+   "Where the Σ trace runs exactly on it, the level line is mostly hidden: the line marks the trigger level, which sits on the trace at rest. It reads clearly in the trace's gaps and on tablet, and the once-per-session nudge carries the rest of the discoverability. Raising it above about 20% opacity would go against the fix's instruction, so I left it.",
+   "I could not film the 40ms and 50ms coarse sampling frames in headless Edge. A main-thread stall while WebGL starts up makes GSAP jump past them, and these step lengths are shorter than one jittery headless frame. The step schedule in timeline.ts is fixed, so a real browser should show them.",
+   "One capture showed a React hydration-mismatch console error and the dev '1 Issue' badge, and another hit a page.tsx compile 404 that made a click time out. Neither came back on re-runs. I believe both came from other builders hot-editing in parallel, not from these files: the hero and intro render no client-only branches."
+  ]
+ },
+ "fix:foundation:r2": {
+  "summary": "All four fixes are done, and one hidden bug was found and partly fixed.\n\n1. GitHub Pages /Portfolio build (medium): the build is now verified. `npm run build:pages` succeeded (10 pages, 7 flattened RSC files). I grepped every `out/**/*.html`, the JS chunks and the CSS. Every root-relative URL has the `/Portfolio/` prefix: chunks, CSS, woff2 preloads, `icon.svg` and internal links. The only bare root strings are the boot script's `\"/index.html\"` comparison and RSC segment names, which are not URLs. There are no raw asset loaders: no `public/` folder, shaders are inline, and the font `url()`s in CSS are relative (`../media`). The icon link is `/Portfolio/icon.svg` and `og:url` comes from `metadataBase`. I served a copy of `out/` with a strict server (scratchpad `tools/strict-pages.mjs`): only `/Portfolio/*` exists, and every miss returns `404.html` with status 404. Results:\n   - Home, full scroll: 37 requests, all 200.\n   - Client navigation home to datasheet: RSC payloads 200.\n   - Direct datasheet load: 200.\n   - Unknown URL: the intended 404 page.\n   - The only request outside the base was the browser's own `/favicon.ico`.\n   Nothing in `src/lib` or `next.config.ts` needed changing. The record is in the new `docs/DEPLOY.md`.\n\n2. Reveal-leg ease (low): the sheet-to-screen curtain wipe now uses `EASE.out` (expo) at a new `DUR.curtainReturn` of 0.27 s, about 60% of the 0.45 s entrance. It replaces `power3.inOut` at 0.24 s. Total curtain time is still 0.72 s, under the 0.9 s bud",
+  "openIssues": [
+   "WORK AREA (needed to finish the returnFrom re-acquire): in src/components/work/Bench.tsx, add `data-system={p.id}` to the `<li>` in the `projects.map` around line 196 (the one with `ref={(el) => { entryRefs.current[i] = el; }}`). TransitionProvider then lands `/#work` on that entry at the 60% reading line, so the bench's own ScrollTrigger selects the system you came back from. Until then the return trip lands at the top of #work and system 01 is shown, in both full and reduced motion.",
+   "SCRIPTS (outside my ownership): scripts/serve.mjs (`npm run preview`) also serves unprefixed paths when NEXT_PUBLIC_BASE_PATH is set, so it can hide a missing /Portfolio prefix. Make it strict: when `base` is set and `urlPath` does not start with it, return 404.html with status 404. The strict server I used is at C:/Users/Prajwal/AppData/Local/Temp/claude/c63fa3b175684c35/1ea4c338-95b1-421e-9894-caa3190369b6/scratchpad/tools/strict-pages.mjs .",
+   "OG image: layout.tsx declares `twitter.card: \"summary_large_image\"` but there is no og:image or twitter:image (no opengraph-image route). The base path itself is fine. I left this alone because it is outside the Pages-prefix fix: a generated card needs a static TTF of the display face for next/og. Options: add src/app/opengraph-image.tsx (statically generated at build), or change the card to \"summary\".",
+   "Integrator: my `npm run build:pages` left out/ as a /Portfolio-base build. Rebuild out/ before any root-base check. The dev server was not affected, because production builds write to .next/ and dev uses .next/dev.",
+   "Measurement caveat: the 0.7 s / 1.7 s home-to-datasheet timings come from headless Edge with software GL and screenshot overhead. They show the curtain has finished by 1.7 s, not real-device latency."
+  ]
+ },
+ "fix:work:r2": {
+  "summary": "Round 2 applied to the work area. Fixes 1-6 are in. Fix 7 (nav marker on case routes) is not done, because it needs edits outside my file ownership. Mobile pacing is only partly met. Desktop home scrollHeight went from 19,870px to about 14,500px, and mobile from 30,247px to about 19,400-20,600px. The mobile target of under 18k is not reached, and the 11-12k desktop target is not reached either. Both totals include other areas' sections.\n\n1. Bench pacing:\n- Entries are now H3, one-liner, facts, what-if and links. The summary paragraph and stack line are removed from the bench; the datasheet still has them.\n- Connections, request path and (on portrait) what-if sit behind a \"Probe this system\" disclosure, one per entry. It has a 44px target, aria-expanded and aria-controls, and an expo ease-out height animation that is instant with reduced motion. On desktop it holds connections and the request path only.\n- The portrait breakpoint is now 861px, matching the existing `desktop` flag. The old CSS breakpoint was 768px.\n- On desktop the sticky panel holds the board, the scope and the datasheet CTA with the 01-06 nav. It fits a 900px viewport.\n- The stacked BoardGraph seats two chips per line on the bench. The datasheet keeps one per line.\n- On portrait, facts are cut to the first three rows, the board title is screen-reader-only, and scope rows are two-column with the kind text screen-reader-only so Release stays visible. Facts are not touched on desktop.\n\n2. Board and scope physical",
+  "openIssues": [
+   "Case-study nav marker (fix 7, not done): the marker and WORK highlight live in src/components/chrome/Header.tsx and RecordNav.tsx, which I do not own. Header.tsx measure() sets activeSection to null on non-home routes. RecordNav.tsx and MobileMenu.tsx compute `current = home && active === s.id`. Needed change: in Header.tsx use `active = home ? <scroll-derived> : datasheetSlug(pathname) ? \"work\" : null`. In RecordNav.tsx and MobileMenu.tsx drop the `home &&` from `current`, and give the non-home WORK TransitionLink `aria-current=\"page\"` when current. In RecordNav's layout() and update(), place the window at the WORK tick/label when not home instead of by scroll.",
+   "Mobile scrollHeight is still about 19.4-20.6k against the under-18k target. The home board (about 700px) plus the scope (about 280px) per entry dominate, and non-work sections add the rest. To cut further: move the mobile scope behind the disclosure, or show only two scope channels inline. I left the scope inline because it is the payoff of the bench.",
+   "Desktop is about 14.5k against the 11-12k target. The sticky-panel layout needs about 44svh per entry, and the other sections are outside my ownership.",
+   "Request path and connections are in a per-entry disclosure beside the sticky board, not in the panel itself. A 900px viewport cannot hold the board, scope, pins, request path and CTA without clipping, and a scrolling panel traps the wheel, so I moved them to the entry.",
+   "Home sections hydrate lazily: a click before the Work section has scrolled into view does nothing in the screenshot tool. This is existing behaviour, but any QA script that clicks bench controls must scroll to the section first and wait about 2.5s.",
+   "A dev-overlay badge showed '2 Issues' once, in a mobile screenshot taken right after my forced scroll and click. I could not find a console error or failed request matching it, and LOGS were clean in every run, so I did not chase it."
+  ]
+ },
+ "integrate_r2": {
+  "buildOk": true,
+  "typecheckOk": true,
+  "consoleErrors": [
+   "None on the production home page or /work/resumai/, at desktop, mobile or reduced motion (LOGS: none).",
+   "The home-page scroll run logs six [requestfailed] ERR_ABORTED entries for /work/<slug>/. These are link prefetches cancelled when the page scrolls or the capture ends, and they are harmless.",
+   "No hydration warnings and no Next error overlay in any capture."
+  ],
+  "fixesMade": [
+   "Bench.tsx: added data-system={p.id} to each entry <li>. TransitionProvider can now land the return trip from a case study on that system.",
+   "Header.tsx, RecordNav.tsx, MobileMenu.tsx: on /work/* pages the WORK nav item is now the active one. It gets aria-current=\"page\", and the Header sets the stage's active section to \"work\". Confirmed in the case-study screenshot, where WORK reads as current. I did not do the second part of the report, placing RecordNav's scroll-window marker at the WORK tick on non-home routes.",
+   "scripts/serve.mjs: with a base path set, requests outside that base now get the 404 page with status 404, so a missing /Portfolio prefix can no longer be hidden. I did not restart or test the running preview server on port 4173, so this change is not exercised.",
+   "Rebuilt after the edits: npm run build passes and 7 files were flattened. Typecheck is clean.",
+   "Screenshots of the production build were read for the home page (desktop, mobile, reduced motion) and the ResumAI case study (desktop, mobile). The hero shows the correct name, role and trace layout, and the datasheet renders correctly."
+  ],
+  "remainingProblems": [
+   "Page height is over target. Desktop home is 14.5k px against the 11-12k target, and mobile is 19.4k against under 18k. Both come from the Bench layout, and I did not change it.",
+   "Open issues I did not resolve: the OG image is missing (twitter:card is summary_large_image but there is no og:image or twitter:image); Archive.tsx still uses useScrollReveal instead of a clip-path wipe; the SSLC period still needs mapping in Education.tsx instead of in the content file.",
+   "Not checked in a browser: the Education reveal in motion, the mobile and tablet layouts of the new Route and revision rows, and the Livora Site link in the Skills panel.",
+   "I did not run the impeccable design detector, and I did not film the 40 ms and 50 ms intro frames.",
+   "The previously reported '1 Issue' dev badge and hydration error did not show up in the production captures. I believe they came from other builders editing in parallel during development.",
+   "out/ was rebuilt as a root-base build, not the /Portfolio Pages build. Run npm run build:pages before deploying."
+  ],
+  "screenshots": [
+   "C:/Users/Prajwal/AppData/Local/Temp/claude/c63fa3b175684c35/1ea4c338-95b1-421e-9894-caa3190369b6/scratchpad/shots/build/integration/home-desktop-desktop-y00000.png",
+   "C:/Users/Prajwal/AppData/Local/Temp/claude/c63fa3b175684c35/1ea4c338-95b1-421e-9894-caa3190369b6/scratchpad/shots/build/integration/home-mobile-mobile-y00000.png",
+   "C:/Users/Prajwal/AppData/Local/Temp/claude/c63fa3b175684c35/1ea4c338-95b1-421e-9894-caa3190369b6/scratchpad/shots/build/integration/case-desktop-desktop-view.png",
+   "C:/Users/Prajwal/AppData/Local/Temp/claude/c63fa3b175684c35/1ea4c338-95b1-421e-9894-caa3190369b6/scratchpad/shots/build/integration/case-mobile-mobile-view.png",
+   "C:/Users/Prajwal/AppData/Local/Temp/claude/c63fa3b175684c35/1ea4c338-95b1-421e-9894-caa3190369b6/scratchpad/shots/build/integration/home-rm-desktop-rm-view.png"
+  ]
+ }
+}

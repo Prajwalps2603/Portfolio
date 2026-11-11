@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prajwal M P — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
+<style>
+:root{
+  --paper:#EEE9DF; --ink:#141210; --graphite:#5E5850; --laterite:#B5341A; --hair:#CFC8BB; --laterite-dk:#E0522E;
+  --m: clamp(20px, 4.45vw, 64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper);color:var(--ink)}
+body{font-family:'Newsreader',Georgia,serif;font-optical-sizing:auto;font-size:19px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'DM Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;line-height:1.45;font-weight:400}
+.red{color:var(--laterite)}
+#relief{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;opacity:0;pointer-events:none}
+#grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.075;mix-blend-mode:multiply;background-size:160px 160px}
+main{position:relative;z-index:1}
+
+/* top bar */
+.bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:22px var(--m)}
+.bar nav{display:flex;gap:28px}
+.bar a{position:relative}
+.bar a::after,.ul::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:var(--laterite);transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.7,0,.2,1)}
+.bar a:hover::after,.ul:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* hero */
+.hero{position:relative;height:100svh;min-height:640px;padding:0 var(--m)}
+.corner{position:absolute;width:14px;height:14px;border-color:var(--graphite);border-style:solid;opacity:.55}
+.c1{top:14px;left:14px;border-width:1px 0 0 1px}.c2{top:14px;right:14px;border-width:1px 1px 0 0}
+.c3{bottom:14px;left:14px;border-width:0 0 1px 1px}.c4{bottom:14px;right:14px;border-width:0 1px 1px 0}
+.title-wrap{position:absolute;left:var(--m);right:var(--m);top:19vh}
+.kicker{display:flex;justify-content:space-between;color:var(--graphite);margin-bottom:1.6vh}
+.title{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:800;line-height:.78;letter-spacing:-.004em;white-space:nowrap;font-size:240px}
+.title .mask{display:block;overflow:hidden;padding:.05em 0 .02em}
+.title .ch{display:inline-block;will-change:transform}
+.rule{height:2px;background:var(--laterite);transform-origin:left center;margin-top:2.4vh}
+.row{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:3.6vh;align-items:start}
+.lead{grid-column:1/span 7}
+.role{font-style:italic;font-weight:400;font-size:clamp(34px,4.7vw,68px);line-height:1;letter-spacing:-.012em;overflow:hidden;padding-bottom:.08em}
+.role .in{display:inline-block}
+.role .dot{color:var(--laterite);font-style:normal;display:inline-block}
+.synopsis{margin-top:2.4vh;font-size:20px;line-height:1.45;max-width:31ch}
+.stackl{grid-column:9/span 4;justify-self:end;list-style:none;position:relative;padding-right:26px;margin-top:6px}
+.stackl li{display:flex;gap:16px;justify-content:flex-end;overflow:hidden;padding:2px 0}
+.stackl li span{display:inline-block}
+.stackl li b{font-weight:400;color:var(--graphite)}
+.stackl li a{display:inline-flex;gap:16px}
+.bracket{position:absolute;right:0;top:4px;bottom:4px;width:10px;border:2px solid var(--laterite);border-left:0;transform-origin:center bottom}
+.bottom{position:absolute;left:var(--m);right:var(--m);bottom:26px;display:flex;justify-content:space-between;align-items:end;gap:24px}
+.bottom .now{color:var(--ink)}
+.bottom .super{color:var(--graphite);text-align:center}
+.bottom .cue{justify-self:end;color:var(--graphite)}
+
+/* work poster */
+.work{position:relative;background:var(--paper);padding:16vh var(--m) 18vh}
+.work .head{display:flex;justify-content:space-between;color:var(--graphite);border-top:1px solid var(--hair);padding-top:14px;margin-bottom:8vh}
+.poster{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end}
+.pmeta{grid-column:1/span 5}
+.ptitle{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:800;font-size:clamp(56px,7.4vw,118px);line-height:.82;letter-spacing:-.005em;text-transform:uppercase;margin:16px 0 26px}
+.logline{font-style:italic;font-size:26px;line-height:1.25;max-width:24ch}
+.billing{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:600;font-size:13.5px;line-height:1.08;letter-spacing:.02em;text-transform:uppercase;margin-top:28px;max-width:44ch;text-align:justify;text-align-last:center;color:var(--ink)}
+.billing i{font-style:normal;font-variation-settings:'wdth' 100;font-weight:400;font-size:10px;letter-spacing:.06em}
+.plinks{margin-top:26px;display:flex;gap:26px}
+.plinks a{position:relative}
+.still{grid-column:6/span 7;position:relative;aspect-ratio:2.39/1;background:#E6E0D4;border:1px solid var(--hair);overflow:hidden}
+.still svg{position:absolute;inset:0;width:100%;height:100%}
+.still figcaption{position:absolute;left:14px;bottom:10px;color:var(--graphite)}
+
+/* stack */
+.stack-sec{position:relative;height:300vh;background:var(--paper)}
+.stack-pin{position:relative;height:100vh;overflow:hidden}
+#stage{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stack-copy{position:absolute;left:var(--m);top:15vh;width:min(420px,34vw);z-index:2}
+.stack-copy h2{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:800;font-size:clamp(48px,6vw,92px);line-height:.86;text-transform:uppercase;margin:14px 0 12px}
+.stack-copy h2 i{display:block;font-family:'Newsreader',serif;font-variation-settings:normal;text-transform:none;font-weight:400;font-size:.42em;line-height:1.1;margin-top:12px;letter-spacing:-.01em}
+.picker{border:0;margin-top:22px}
+.picker legend{color:var(--graphite);margin-bottom:10px}
+.picker label{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--hair);cursor:pointer;font-size:19px}
+.picker input{appearance:none;width:12px;height:12px;border:1.5px solid var(--ink);border-radius:50%;flex:none}
+.picker input:checked{background:var(--laterite);border-color:var(--laterite)}
+.picker input:focus-visible{outline:2px solid var(--laterite);outline-offset:3px}
+.pins{position:absolute;inset:0;pointer-events:none;z-index:3}
+.pin{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;white-space:nowrap;opacity:0;transition:opacity .25s}
+.pin::before{content:"";width:28px;height:1px;background:var(--ink)}
+.pin.skip{color:var(--graphite)}
+.layer-key{position:absolute;right:var(--m);bottom:26px;color:var(--graphite);text-align:right;z-index:2}
+
+/* flashback */
+.flash{position:relative;height:340vh}
+.flash-pin{position:relative;height:100vh;overflow:hidden}
+#route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.place{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.place i{width:9px;height:9px;border:1.5px solid var(--ink);border-radius:50%;background:var(--paper);display:block;transform:translate(-50%,0)}
+.place.on i{background:var(--laterite);border-color:var(--laterite)}
+.cards{position:absolute;right:var(--m);bottom:12vh;width:min(470px,40vw)}
+.card{position:absolute;right:0;bottom:0;width:100%;background:rgba(238,233,223,.94);padding:22px 24px 24px;border-top:2px solid var(--laterite);opacity:0}
+.card h3{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:800;font-size:58px;line-height:.86;text-transform:uppercase;margin:10px 0 12px}
+.card p{font-size:18px;line-height:1.45}
+.card ul{list-style:none;margin-top:10px;font-size:17px}
+.card li{padding:6px 0;border-top:1px solid var(--hair)}
+.fl-head{position:absolute;left:var(--m);top:12vh;color:var(--graphite)}
+
+/* contact */
+.contact{position:relative;background:var(--ink);color:var(--paper);padding:20vh var(--m) 10vh;min-height:100vh}
+.contact .mono{color:#B9B2A6}
+.contact h2{font-style:italic;font-weight:400;font-size:clamp(36px,4.6vw,66px);line-height:1.05;max-width:20ch;margin:18px 0 7vh}
+.email{display:inline-block;font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:800;font-size:clamp(40px,8.2vw,132px);line-height:.9;letter-spacing:-.005em;position:relative;color:var(--paper)}
+.email::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:3px;background:var(--laterite-dk);transform-origin:left}
+.actions{display:flex;gap:16px;margin-top:5vh;align-items:center;flex-wrap:wrap}
+.btn{font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:1px solid #6d665c;color:var(--paper);background:transparent;padding:14px 20px;cursor:pointer}
+.btn:hover{border-color:var(--laterite-dk)}
+.social{display:flex;gap:30px;margin-top:9vh;flex-wrap:wrap}
+.social a{position:relative}
+.foot{display:flex;justify-content:space-between;margin-top:12vh;border-top:1px solid #3a352f;padding-top:16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media (max-width: 820px){
+  .bar nav a:not(.keep){display:none}
+  .title-wrap{top:16vh}
+  .row{grid-template-columns:1fr;row-gap:22px}
+  .lead,.stackl{grid-column:1/-1}
+  .stackl{justify-self:start;padding-right:0;padding-left:26px}
+  .stackl li{justify-content:flex-start}
+  .bracket{left:0;right:auto;border-left:2px solid var(--laterite);border-right:0}
+  .bottom{flex-direction:column;align-items:flex-start;gap:8px}
+  .bottom .super{display:none}
+  .poster{grid-template-columns:1fr}
+  .pmeta,.still{grid-column:1/-1}
+  .still{order:-1;margin-bottom:26px}
+  .stack-copy{width:auto;right:var(--m);top:9vh}
+  .picker{display:none}
+  .cards{left:var(--m);right:var(--m);width:auto;bottom:6vh}
+  .layer-key{display:none}
+}
+@media (prefers-reduced-motion: reduce){ #grain{animation:none} }
+</style>
+</head>
+<body>
+<canvas id="relief" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+
+<header class="bar mono">
+  <a href="#top" class="keep">Prajwal M P</a>
+  <nav aria-label="Primary">
+    <a href="#work">Work</a><a href="#stack">Stack</a><a href="#about">About</a><a href="#contact">Contact</a>
+    <a class="keep" href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener">Résumé ↗</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="top" aria-labelledby="t">
+  <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+  <div class="title-wrap">
+    <h1 class="title" id="t" aria-label="Prajwal M P, Full Stack Developer"><span class="mask" aria-hidden="true"><span class="ch">P</span><span class="ch">R</span><span class="ch">A</span><span class="ch">J</span><span class="ch">W</span><span class="ch">A</span><span class="ch">L</span><span class="ch">&nbsp;</span><span class="ch">M</span><span class="ch">&nbsp;</span><span class="ch">P</span></span></h1>
+    <div class="rule"></div>
+    <div class="row">
+      <div class="lead">
+        <p class="role"><span class="in">Full Stack Developer<span class="dot">.</span></span></p>
+        <p class="synopsis" id="syn">Takes messy real-world operations and ships them as complete, working systems: interface, logic, data, AI and deployment.</p>
+      </div>
+      <ol class="stackl mono" reversed aria-label="The five layers he ships">
+        <li><a href="#stack"><b>05</b><span>Delivery</span></a></li>
+        <li><a href="#stack"><b>04</b><span>Intelligence</span></a></li>
+        <li><a href="#stack"><b>03</b><span>Data</span></a></li>
+        <li><a href="#stack"><b>02</b><span>Logic</span></a></li>
+        <li><a href="#stack"><b>01</b><span>Interface</span></a></li>
+        <span class="bracket" aria-hidden="true"></span>
+      </ol>
+    </div>
+  </div>
+  <div class="bottom mono">
+    <p class="now">Now — Full Stack Developer, Maruti Flex Traders LLP · Dec 2025 →</p>
+    <p class="super">Bengaluru · 12.97°N 77.59°E · present day</p>
+    <p class="cue">Scroll · Ch.01 Selected work ↓</p>
+  </div>
+</section>
+
+<section class="work" id="work" aria-labelledby="w1">
+  <div class="head mono"><span>Ch.01 — Now showing</span><span>Feature 01 / 05</span></div>
+  <article class="poster">
+    <div class="pmeta">
+      <p class="mono red">Feature 01 · AI knowledge platform</p>
+      <h2 class="ptitle" id="w1">Drone<br>Intelligence<br>System</h2>
+      <p class="logline">Ask India’s drone rules in plain language, check a flight for DGCA compliance, price the ROI.</p>
+      <p class="billing"><i>a</i> Prajwal M P <i>system</i> · <i>starring</i> React 19 · FastAPI · Python · ChromaDB · Google Gemini · Sentence Transformers · WebSockets · Docker · <i>and introducing</i> an MCP server for Claude Desktop</p>
+      <div class="plinks mono"><a class="ul" href="https://github.com/Prajwalps2603/Drone-Intelligence-System" target="_blank" rel="noopener">Source on GitHub ↗</a></div>
+    </div>
+    <figure class="still" aria-label="Pipeline: question to cited answer">
+      <svg viewBox="0 0 956 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g font-family="DM Mono, monospace" font-size="13" fill="#141210" letter-spacing="1">
+          <path id="pipe" d="M70 200 H886" stroke="#B5341A" stroke-width="2" fill="none"/>
+          <g class="node"><circle cx="70" cy="200" r="6" fill="#B5341A"/><text x="70" y="168" text-anchor="middle">QUESTION</text><text x="70" y="240" text-anchor="middle" fill="#5E5850">React chat</text></g>
+          <g class="node"><circle cx="273" cy="200" r="6" fill="#EEE9DF" stroke="#141210" stroke-width="1.5"/><text x="273" y="168" text-anchor="middle">EMBED</text><text x="273" y="240" text-anchor="middle" fill="#5E5850">MiniLM-L6-v2</text></g>
+          <g class="node"><circle cx="478" cy="200" r="6" fill="#EEE9DF" stroke="#141210" stroke-width="1.5"/><text x="478" y="168" text-anchor="middle">RETRIEVE TOP 5</text><text x="478" y="240" text-anchor="middle" fill="#5E5850">ChromaDB</text></g>
+          <g class="node"><circle cx="683" cy="200" r="6" fill="#EEE9DF" stroke="#141210" stroke-width="1.5"/><text x="683" y="168" text-anchor="middle">GENERATE</text><text x="683" y="240" text-anchor="middle" fill="#5E5850">Gemini 2.0 Flash</text></g>
+          <g class="node"><circle cx="886" cy="200" r="6" fill="#141210"/><text x="886" y="168" text-anchor="middle">CITED ANSWER</text><text x="886" y="240" text-anchor="middle" fill="#5E5850">FastAPI</text></g>
+        </g>
+      </svg>
+      <figcaption class="mono">Still · the RAG path, from the repository</figcaption>
+    </figure>
+  </article>
+</section>
+
+<section class="stack-sec" id="stack" aria-labelledby="sh">
+  <div class="stack-pin">
+    <canvas id="stage" aria-hidden="true"></canvas>
+    <div class="stack-copy">
+      <p class="mono">Ch.02 — The stack</p>
+      <h2 id="sh">Five layers.<i>One line through all of them.</i></h2>
+      <fieldset class="picker">
+        <legend class="mono">Thread a project</legend>
+        <label><input type="radio" name="proj" value="drone" checked> Drone Intelligence System</label>
+        <label><input type="radio" name="proj" value="audify"> Audify AI</label>
+        <label><input type="radio" name="proj" value="bmv"> BookMyVenue</label>
+        <label><input type="radio" name="proj" value="mri"> Brain Tumor Detection</label>
+      </fieldset>
+    </div>
+    <div class="pins" aria-live="polite"></div>
+    <p class="layer-key mono">● stitched = layer built &nbsp; ○ = not part of this project</p>
+  </div>
+</section>
+
+<section class="flash" id="about" aria-labelledby="fh">
+  <div class="flash-pin">
+    <p class="fl-head mono" id="fh">Ch.03 — Flashback</p>
+    <svg id="route" aria-hidden="true"><path d="" fill="none" stroke="#B5341A" stroke-width="2"/></svg>
+    <div class="place" data-k="koppa"><i></i><span class="mono">Koppa</span></div>
+    <div class="place" data-k="sullia"><i></i><span class="mono">Sullia</span></div>
+    <div class="place" data-k="blr"><i></i><span class="mono">Bengaluru</span></div>
+    <div class="cards">
+      <article class="card"><p class="mono red">Koppa · Chikkamagaluru · 2009–2021</p><h3>Malnad</h3><p>Schooled in Koppa, in the Malnad hills of the Western Ghats: SSLC and PUC Science (PCMC) at Bharath Matha.</p></article>
+      <article class="card"><p class="mono red">Sullia · Dakshina Kannada · 2021–2025</p><h3>Signals</h3><p>BE in Electronics &amp; Communication at KVGCE.</p><ul><li>2023 — Cloud &amp; Cybersecurity intern, Techbyheart</li><li>2024–25 — Machine Learning intern, Rooman Technologies</li><li>2025 — Brain Tumor Detection: 1st place, final-year projects</li></ul></article>
+      <article class="card"><p class="mono red">Bengaluru · 2025 → present</p><h3>Production</h3><ul><li>Feb–Oct 2025 — Java Full Stack intern, Dyashin Technosoft</li><li>Dec 2025 → — Full Stack Developer, Maruti Flex Traders LLP: production apps for TVS showroom &amp; Maruti Flex operations</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="ch">
+  <p class="mono">Ch.05 — Correspondence</p>
+  <h2 id="ch">Running on spreadsheets and phone calls? Let’s build the system.</h2>
+  <a class="email" href="mailto:prajwalnair2603@gmail.com">prajwalnair2603@gmail.com</a>
+  <div class="actions">
+    <button class="btn" id="copy" type="button">Copy address</button>
+    <span class="mono" id="copied" role="status" aria-live="polite"></span>
+  </div>
+  <nav class="social mono" aria-label="Elsewhere">
+    <a class="ul" href="https://www.linkedin.com/in/prajwal-m-p-190131246" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="ul" href="https://github.com/Prajwalps2603" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="ul" href="https://x.com/PrajwalNair2603" target="_blank" rel="noopener">X ↗</a>
+    <a class="ul" href="https://www.instagram.com/prajwal_shobha/" target="_blank" rel="noopener">Instagram ↗</a>
+    <a class="ul" href="https://drive.google.com/file/d/1Q2PdoT5zwjvTVzYTgNlgHAexpmRiYH3k/view?usp=sharing" target="_blank" rel="noopener">Résumé ↗</a>
+  </nav>
+  <div class="foot mono"><span>Filmed on location in Koppa · Sullia · Bengaluru</span><a class="ul" href="#top">Back to the top ↑</a></div>
+</section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script src="relief.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const { gsap, ScrollTrigger, SplitText, CustomEase } = window;
+gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
+CustomEase.create('cine', '0.7,0,0.2,1');
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+
+/* ---------- grain (baked once, stepped) ---------- */
+(() => {
+  const c = document.createElement('canvas'); c.width = c.height = 160; const x = c.getContext('2d');
+  const d = x.createImageData(160, 160); for (let i = 0; i < d.data.length; i += 4) { const v = 128 + (Math.random() - .5) * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  x.putImageData(d, 0, 0); const g = document.getElementById('grain'); g.style.backgroundImage = `url(${c.toDataURL()})`;
+  if (!RM) { let k = 0; setInterval(() => { k++; g.style.backgroundPosition = `${(k * 37) % 160}px ${(k * 71) % 160}px`; }, 1000 / 12); }
+})();
+
+/* ---------- Lenis ---------- */
+let lenis = null;
+if (!RM) {
+  lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+}
+
+/* ---------- relief (raw WebGL2, render on demand) ---------- */
+const R = window.RELIEF; const rc = document.getElementById('relief');
+const gl = rc.getContext('webgl2', { antialias: false, alpha: false, premultipliedAlpha: false });
+const relief = { view: { x: .5, y: .5, s: 1.0 }, light: { x: -.4, y: .5 }, lt: { x: -.4, y: .5 }, alpha: 0, dirty: true };
+const uvOf = (lat, lon) => { const u = (lon - R.lon0) / (R.lon1 - R.lon0); const yt = (1 - Math.asinh(Math.tan(lat * Math.PI / 180)) / Math.PI) / 2 * 512; return { u, v: (yt - R.y0) / 3 }; };
+const PL = { koppa: uvOf(13.53, 75.36), sullia: uvOf(12.56, 75.39), blr: uvOf(12.97, 77.59) };
+let draw = () => {};
+if (gl) {
+  const vs = `#version 300 es
+  in vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }`;
+  const fs = `#version 300 es
+  precision highp float;
+  uniform sampler2D uT; uniform vec2 uRes; uniform vec3 uView; uniform vec3 uL; uniform vec2 uTS; uniform float uA, uDpr; uniform vec4 uSafe[4]; uniform float uFeather;
+  out vec4 o;
+  float H(vec2 uv){ return texture(uT, uv).r; }
+  void main(){
+    vec2 p = (gl_FragCoord.xy - .5*uRes)/uRes.x;
+    float asp = uTS.x/uTS.y;
+    vec2 uv = uView.xy + vec2(p.x*uView.z, -p.y*uView.z*asp);
+    vec3 paper = vec3(.933,.914,.875), ink = vec3(.078,.071,.063);
+    vec2 e = vec2(1.6)/uTS;
+    float h = H(uv);
+    float hx = H(uv+vec2(e.x,0.)) - H(uv-vec2(e.x,0.));
+    float hy = H(uv+vec2(0.,e.y)) - H(uv-vec2(0.,e.y));
+    float ex = 9.0 / max(uView.z, .2);
+    vec3 n = normalize(vec3(-hx*ex, hy*ex, 1.));
+    vec3 L = normalize(uL);
+    float sh = dot(n,L) - L.z;
+    vec3 col = paper * (1. + sh*.30);
+    float c = h*36.; float fw = fwidth(c);
+    float f = abs(fract(c-.5)-.5);
+    float line = 1. - smoothstep(fw*.35, fw*1.25, f);
+    float major = 1. - step(.5, abs(mod(floor(c+.5), 5.)));
+    float a = mix(.07, .15, major) * line * step(.004, h);
+    col = mix(col, ink, a);
+    float inb = step(0.,uv.x)*step(uv.x,1.)*step(0.,uv.y)*step(uv.y,1.);
+    col = mix(paper, col, inb);
+    vec2 q = gl_FragCoord.xy/uRes; float vig = smoothstep(1.25,.35,length(q-.5)*1.6);
+    float safe = 0.;
+    for (int i = 0; i < 4; i++) { vec4 r = uSafe[i]; vec2 d = max(r.xy - gl_FragCoord.xy, gl_FragCoord.xy - r.zw); float m = 1. - smoothstep(0., uFeather, max(d.x, d.y)); safe = max(safe, m * step(.5, r.z - r.x)); }
+    col = mix(col, paper, safe * .72);
+    col = mix(paper, col, uA * (.55 + .45*vig));
+    o = vec4(col,1.);
+  }`;
+  const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(o)); return o; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr); gl.useProgram(pr);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  // decode base64 u16 -> half floats
+  const bin = atob(R.b64); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  const u16 = new Uint16Array(u8.buffer); const half = new Uint16Array(u16.length);
+  const f32 = new Float32Array(1), i32 = new Uint32Array(f32.buffer);
+  const Q8 = location.search.includes('q8');
+  for (let i = 0; i < u16.length; i++) { f32[0] = (Q8 ? (u16[i] >> 8) * 257 : u16[i]) / 65535; const x = i32[0]; const s = (x >>> 16) & 0x8000; let ee = ((x >>> 23) & 0xff) - 112; const m = x & 0x7fffff; half[i] = ee <= 0 ? s : (s | (ee << 10) | (m >> 13)); }
+  const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.pixelStorei(gl.UNPACK_ALIGNMENT, 2);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, R.w, R.h, 0, gl.RED, gl.HALF_FLOAT, half);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  const U = (n) => gl.getUniformLocation(pr, n);
+  const uRes = U('uRes'), uView = U('uView'), uL = U('uL'), uTS = U('uTS'), uA = U('uA'), uSafe = U('uSafe'), uFeather = U('uFeather');
+  gl.uniform2f(uTS, R.w, R.h);
+  const resize = () => { const dpr = Math.min(devicePixelRatio, FINE ? 1.5 : 1); rc.width = innerWidth * dpr; rc.height = innerHeight * dpr; gl.viewport(0, 0, rc.width, rc.height); relief.dirty = true; };
+  addEventListener('resize', resize); resize();
+  draw = () => {
+    gl.uniform2f(uRes, rc.width, rc.height); gl.uniform3f(uView, relief.view.x, relief.view.y, relief.view.s);
+    gl.uniform3f(uL, relief.lt.x, relief.lt.y, .9); gl.uniform1f(uA, relief.alpha);
+    const dpr = rc.width / innerWidth, arr = new Float32Array(16); let k = 0;
+    if (scrollY < innerHeight * 1.2) for (const sel of ['.role', '.synopsis', '.stackl', '.bottom']) { const el = document.querySelector(sel); if (!el) continue; const r = el.getBoundingClientRect(); const pad = 18; arr.set([(r.left - pad) * dpr, (innerHeight - r.bottom - pad) * dpr, (r.right + pad) * dpr, (innerHeight - r.top + pad) * dpr], k); k += 4; }
+    gl.uniform4fv(uSafe, arr); gl.uniform1f(uFeather, 28 * dpr);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+}
+const heroView = () => { const asp = R.w / R.h, cover = Math.min(1, (innerWidth / innerHeight) / asp); return cover < 1 ? { x: .27, y: .52, s: cover } : { x: .5, y: .5, s: 1 }; };
+Object.assign(relief.view, heroView()); addEventListener('resize', () => { if (scrollY < innerHeight) { Object.assign(relief.view, heroView()); relief.dirty = true; } });
+const toScreen = (pt) => { const asp = R.w / R.h, W = innerWidth, Hh = innerHeight, v = relief.view; return { x: (pt.u - v.x) / v.s * W + W / 2, y: Hh / 2 + (pt.v - v.y) / (v.s * asp) * W }; };
+addEventListener('pointermove', (e) => { relief.light.x = (e.clientX / innerWidth - .5) * 2; relief.light.y = -(e.clientY / innerHeight - .5) * 2; relief.dirty = true; });
+gsap.ticker.add(() => {
+  const k = .08; const dx = relief.light.x - relief.lt.x, dy = relief.light.y - relief.lt.y;
+  if (Math.abs(dx) + Math.abs(dy) > .001) { relief.lt.x += dx * k; relief.lt.y += dy * k; relief.dirty = true; }
+  if (relief.dirty) { draw(); relief.dirty = false; if (window.__flReady) placeMarkers(); }
+});
+rc.style.opacity = 1;
+
+/* ---------- hero: fit + opening sequence ---------- */
+const title = document.querySelector('.title');
+const fit = () => { const wrap = document.querySelector('.title-wrap'); title.style.fontSize = '100px'; const cs = title.querySelectorAll('.ch'); const w = cs[cs.length - 1].getBoundingClientRect().right - cs[0].getBoundingClientRect().left; title.style.fontSize = (100 * wrap.clientWidth / w * 0.995).toFixed(2) + 'px'; };
+await document.fonts.ready; fit(); addEventListener('resize', fit);
+const chars = gsap.utils.toArray('.title .ch');
+const syn = SplitText.create('#syn', { type: 'lines', mask: 'lines' });
+const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
+if (!RM) {
+  intro
+    .from('.corner', { scale: 0, opacity: 0, duration: .35, ease: 'power3.out', transformOrigin: 'center' }, 0)
+    .from(chars, { yPercent: 112, duration: .7, stagger: .045 }, .15)
+    .from('.rule', { scaleX: 0, duration: .9, ease: 'power4.inOut' }, .25)
+    .from('.stackl li > a', { yPercent: 105, duration: .38, ease: 'power3.out', stagger: { each: .1, from: 'end' } }, 1.05)
+    .from('.bracket', { scaleY: 0, duration: .4, ease: 'power2.inOut' }, 1.6)
+    .from('.role .in', { yPercent: 105, duration: .65 }, 1.85)
+    .from('.role .dot', { scale: 1.8, opacity: 0, duration: .3, ease: 'back.out(3)' }, 2.3)
+    .from(syn.lines, { yPercent: 100, duration: .6, stagger: .07 }, 2.3)
+    .from('.bar > *, .bar nav a', { y: -8, opacity: 0, duration: .5, stagger: .04, ease: 'power2.out' }, 2.4)
+    .from('.bottom > *', { opacity: 0, duration: .4, stagger: .06, ease: 'power1.out' }, 2.5)
+    .to(relief, { alpha: 1, duration: .8, ease: 'power1.out', onUpdate: () => relief.dirty = true }, 2.4);
+  const skip = () => { if (intro.progress() < 1) intro.timeScale(6); };
+  ['wheel', 'keydown', 'pointerdown', 'touchstart'].forEach((t) => addEventListener(t, skip, { once: true, passive: true }));
+} else { relief.alpha = 1; relief.dirty = true; }
+
+/* key light on title: one light source (pointer) for terrain and letters */
+if (FINE && !RM) {
+  addEventListener('pointermove', (e) => {
+    for (const c of chars) { const r = c.getBoundingClientRect(); const dx = (r.left + r.width / 2 - e.clientX) / innerWidth, dy = (r.top + r.height / 2 - e.clientY) / innerHeight; const ox = (dx * 6).toFixed(1), oy = (dy * 6).toFixed(1); c.style.textShadow = `${ox}px ${oy}px 0 rgba(20,18,16,.10), ${-ox / 3}px ${-oy / 3}px 0 rgba(255,255,255,.35)`; }
+  });
+}
+
+/* hero exit + relief alpha choreography */
+gsap.to('.title', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+gsap.to('.title', { '--w': 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => { title.style.fontVariationSettings = `'wdth' ${62 + 0 * s.progress}`; } } });
+ScrollTrigger.create({ trigger: '.work', start: 'top 80%', end: 'top 20%', scrub: true, onUpdate: (s) => { relief.alpha = 1 - s.progress; relief.dirty = true; } });
+
+/* work poster entrance */
+const pt = SplitText.create('.ptitle', { type: 'lines', mask: 'lines' });
+gsap.timeline({ scrollTrigger: { trigger: '.poster', start: 'top 70%' } })
+  .from(pt.lines, { yPercent: 100, duration: .8, ease: 'expo.out', stagger: .08 })
+  .from('.logline, .billing, .plinks', { y: 14, opacity: 0, duration: .6, ease: 'power3.out', stagger: .08 }, .2)
+  .from('#pipe', { attr: { d: 'M70 200 H70' }, duration: 1.2, ease: 'power2.inOut' }, .1)
+  .from('.still .node', { opacity: 0, y: 6, duration: .4, stagger: .22, ease: 'power2.out' }, .15);
+
+/* ---------- THE STACK (three.js) ---------- */
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ canvas: stage, antialias: true, alpha: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, FINE ? 1.75 : 1));
+renderer.setClearColor(0xEEE9DF, 1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.NoToneMapping;
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(28, 1, .1, 100);
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c2, 1.55));
+const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(-4, 9, 5); key.castShadow = true; key.shadow.mapSize.set(1024, 1024);
+Object.assign(key.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6, near: 1, far: 30 }); key.shadow.radius = 6; scene.add(key);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: .10 })); floor.rotation.x = -Math.PI / 2; floor.position.y = -1.9; floor.receiveShadow = true; scene.add(floor);
+
+const LAYERS = [
+  ['01', 'Interface', 'React 19 · Next.js · Tailwind · Framer Motion · React Native'],
+  ['02', 'Logic', 'Spring Boot · Node / Express · FastAPI · Flask · Apps Script'],
+  ['03', 'Data', 'PostgreSQL · MySQL · MongoDB · Supabase · ChromaDB · Sheets'],
+  ['04', 'Intelligence', 'RAG · Gemini · OpenAI · MCP · TensorFlow / Keras CNNs · STT'],
+  ['05', 'Delivery', 'Docker · AWS EC2 / S3 / RDS · GitHub Actions · Linux']];
+const PW = 3.6, PD = 2.2, PT = .07;
+const labelTex = ([n, name, tools]) => {
+  const c = document.createElement('canvas'); c.width = 1440; c.height = 880; const x = c.getContext('2d');
+  x.fillStyle = '#F4F0E8'; x.fillRect(0, 0, c.width, c.height);
+  x.strokeStyle = 'rgba(20,18,16,.18)'; x.lineWidth = 3; x.strokeRect(36, 36, c.width - 72, c.height - 72);
+  x.fillStyle = '#B5341A'; x.font = '500 44px "DM Mono"'; x.fillText(n, 80, 600);
+  x.fillStyle = '#141210'; x.font = '800 210px "Archivo"'; x.fontStretch = 'ultra-condensed'; x.fillText(name.toUpperCase(), 72, 800);
+  x.font = '400 34px "DM Mono"'; x.fillStyle = '#5E5850';
+  const words = tools.split(' · '); let line = '', y = 520; const lines = [];
+  for (const w of words) { const t = line ? line + ' · ' + w : w; if (x.measureText(t).width > c.width - 170) { lines.push(line); line = w; } else line = t; }
+  lines.push(line); lines.reverse().forEach((l, i) => x.fillText(l, 80, y - i * 52));
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+};
+const plates = LAYERS.map((L, i) => {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new RoundedBoxGeometry(PW, PT, PD, 3, .025), new THREE.MeshStandardMaterial({ color: 0xF2EEE6, roughness: .95 }));
+  body.castShadow = true; body.receiveShadow = true; g.add(body);
+  const top = new THREE.Mesh(new THREE.PlaneGeometry(PW - .02, PD - .02), new THREE.MeshStandardMaterial({ map: labelTex(L), roughness: .95 }));
+  top.rotation.x = -Math.PI / 2; top.position.y = PT / 2 + .001; top.receiveShadow = true; g.add(top);
+  scene.add(g); return g;
+});
+const st = { explode: 0, az: 0, el: 0, paz: 0 };
+const layout = () => {
+  const gap = .1 + st.explode * .78;
+  plates.forEach((g, i) => { const k = 4 - i; g.position.set(0, (k - 2) * gap, 0); g.rotation.y = (i - 2) * .05 * st.explode; });
+};
+const PROJ = {
+  drone: [['React 19 dashboard', -.9, -.3], ['FastAPI · WebSockets', -.35, .25], ['ChromaDB vectors', .35, -.2], ['Gemini 2.0 Flash RAG + MCP', .9, .3], ['Docker', .3, -.35]],
+  audify: [['React Native · Android', -1.1, .2], ['Node / Express · HTTPS', -.5, -.25], ['Drive + Sheets CRM', .1, .3], ['Whisper · Deepgram · AssemblyAI · Google STT', .7, -.2], ["Let's Encrypt auto-renewal", 1.1, .25]],
+  bmv: [['React 18 · Vite', -.8, .3], ['Express · JWT · bcrypt', -.2, -.25], ['JSON DB · no double booking', .4, .3], [null, .85, -.1], ['GitHub Actions → Pages', 1.1, .3]],
+  mri: [['MRI upload web app', -1.0, -.2], ['Flask', -.4, .3], ['12,000+ MRI images', .2, -.3], ['CNN · TensorFlow / Keras · ~97%', .75, .2], ['Flask deployment', 1.1, -.2]],
+};
+const thread = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: 0xB5341A })); scene.add(thread);
+const knots = []; const pinsEl = document.querySelector('.pins'); let pinEls = [];
+const knotGeo = new THREE.SphereGeometry(.035, 16, 12), ringGeo = new THREE.TorusGeometry(.06, .01, 8, 32);
+const kMat = new THREE.MeshBasicMaterial({ color: 0xB5341A }), rMat = new THREE.MeshBasicMaterial({ color: 0x5E5850 });
+let cur = 'drone'; const th = { p: 0 }; let segs = 220, radial = 8;
+const buildThread = () => {
+  const P = PROJ[cur]; const pts = [];
+  const yOf = (i) => ((4 - i) - 2) * .88 + PT / 2;
+  pts.push(new THREE.Vector3(P[0][1] - .2, yOf(0) + 1.6, P[0][2]));
+  P.forEach((q, i) => { pts.push(new THREE.Vector3(q[1], yOf(i) + .02, q[2])); pts.push(new THREE.Vector3(q[1] * .98, yOf(i) - PT - .02, q[2])); });
+  pts.push(new THREE.Vector3(P[4][1] + .3, yOf(4) - 1.1, P[4][2] + .1));
+  const curve = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+  thread.geometry.dispose(); thread.geometry = new THREE.TubeGeometry(curve, segs, .012, radial, false);
+  knots.forEach((k) => scene.remove(k)); knots.length = 0; pinsEl.innerHTML = ''; pinEls = [];
+  P.forEach((q, i) => {
+    const m = new THREE.Mesh(q[0] ? knotGeo : ringGeo, q[0] ? kMat : rMat); m.position.set(q[1], yOf(i) + .012, q[2]); if (!q[0]) m.rotation.x = Math.PI / 2; m.visible = false; scene.add(m); knots.push(m);
+    const el = document.createElement('div'); el.className = 'pin mono' + (q[0] ? '' : ' skip'); el.textContent = q[0] || '— not part of this build'; pinsEl.appendChild(el); pinEls.push(el);
+  });
+};
+const setDraw = () => { const n = Math.floor(th.p * segs) * radial * 6; thread.geometry.setDrawRange(0, n); const ok = st.explode > .98; thread.visible = ok; knots.forEach((k, i) => { const on = ok && th.p > (i + 1) / 6.4; k.visible = on; pinEls[i].style.opacity = on ? 1 : 0; }); };
+let threaded = false;
+const runThread = () => { buildThread(); th.p = 0; setDraw(); gsap.to(th, { p: 1, duration: RM ? 0 : 1.4, ease: 'power2.inOut', onUpdate: setDraw }); threaded = true; };
+document.querySelectorAll('.picker input').forEach((r) => r.addEventListener('change', () => {
+  cur = r.value; if (!threaded) return; gsap.to(th, { p: 0, duration: RM ? 0 : .3, ease: 'power2.in', onUpdate: setDraw, onComplete: runThread });
+}));
+const sizeStage = () => { const r = stage.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); cam.aspect = r.width / r.height; cam.updateProjectionMatrix(); };
+addEventListener('resize', sizeStage); sizeStage();
+let stageVisible = false;
+new IntersectionObserver(([e]) => { stageVisible = e.isIntersecting; }, { rootMargin: '200px' }).observe(stage);
+addEventListener('pointermove', (e) => { st.paz = (e.clientX / innerWidth - .5); });
+const v3 = new THREE.Vector3();
+const renderStage = () => {
+  if (!stageVisible) return;
+  layout();
+  st.az += (st.paz * .25 - st.az) * .06;
+  const az = .62 + st.az + st.explode * .1, el = .5 - st.explode * .1, r = 13.5;
+  const cx = innerWidth > 820 ? -1.2 : 0;
+  cam.position.set(Math.sin(az) * Math.cos(el) * r + cx, Math.sin(el) * r, Math.cos(az) * Math.cos(el) * r);
+  cam.lookAt(cx, -.1, 0);
+  if (threaded) { /* keep thread attached to moving plates */ }
+  renderer.render(scene, cam);
+  const rect = stage.getBoundingClientRect();
+  knots.forEach((k, i) => { v3.copy(k.position).project(cam); const x = (v3.x * .5 + .5) * rect.width, y = (-v3.y * .5 + .5) * rect.height; pinEls[i].style.transform = `translate(${x + 10}px, ${y - 8}px)`; });
+};
+gsap.ticker.add(renderStage);
+ScrollTrigger.create({ trigger: '.stack-sec', start: 'top top', end: 'bottom bottom', pin: '.stack-pin', scrub: true,
+  onUpdate: (s) => { const e = gsap.utils.clamp(0, 1, (s.progress - .05) / .35); st.explode = gsap.parseEase('power2.inOut')(e); if (st.explode > .98 && !threaded) runThread(); if (threaded) setDraw(); } });
+function buildThreadPositionsOnly() { /* explode is complete before threading; nothing to do in proto */ }
+
+/* ---------- FLASHBACK over the relief ---------- */
+const places = { koppa: document.querySelector('[data-k=koppa]'), sullia: document.querySelector('[data-k=sullia]'), blr: document.querySelector('[data-k=blr]') };
+const routePath = document.querySelector('#route path'); const fl = { draw: 0, show: 0 };
+function placeMarkers() {
+  const vis = fl.show; for (const k in places) { const s = toScreen(PL[k]); places[k].style.transform = `translate(${s.x}px, ${s.y - 7}px)`; places[k].style.opacity = vis; }
+  const a = toScreen(PL.koppa), b = toScreen(PL.sullia), c = toScreen(PL.blr);
+  routePath.setAttribute('d', `M${a.x} ${a.y} L${b.x} ${b.y} L${c.x} ${c.y}`);
+  const len = routePath.getTotalLength(); routePath.style.strokeDasharray = len; routePath.style.strokeDashoffset = len * (1 - fl.draw); routePath.style.opacity = vis;
+}
+window.__flReady = true;
+const cards = gsap.utils.toArray('.card');
+const ftl = gsap.timeline({ defaults: { ease: 'cine' }, scrollTrigger: { trigger: '.flash', start: 'top top', end: 'bottom bottom', pin: '.flash-pin', scrub: .6 }, onUpdate: () => { relief.dirty = true; } });
+const V = (p, s) => ({ x: p.u, y: p.v, s });
+ftl.set(relief.view, heroView())
+  .to(relief, { alpha: 1, duration: .4 }, 0).to(fl, { show: 1, duration: .3 }, .1)
+  .to(relief.view, { ...V(PL.koppa, .36), duration: 1 }, .3).to(cards[0], { opacity: 1, duration: .3 }, 1.0)
+  .to(cards[0], { opacity: 0, duration: .25 }, 1.8)
+  .to(relief.view, { ...V({ u: (PL.koppa.u + PL.sullia.u) / 2, v: (PL.koppa.v + PL.sullia.v) / 2 }, .5), duration: 1 }, 1.8)
+  .to(fl, { draw: .3, duration: 1 }, 1.8).to(cards[1], { opacity: 1, duration: .3 }, 2.5)
+  .to(cards[1], { opacity: 0, duration: .25 }, 3.4)
+  .to(relief.view, { ...(innerWidth < innerHeight ? { x: .55, y: .5, s: .62 } : { x: .5, y: .5, s: .95 }), duration: 1.1 }, 3.4)
+  .to(fl, { draw: 1, duration: 1.1 }, 3.4).to(cards[2], { opacity: 1, duration: .3 }, 4.2)
+  .to({}, { duration: .6 });
+ScrollTrigger.create({ trigger: '.contact', start: 'top bottom', end: 'top 60%', scrub: true, onUpdate: (s) => { relief.alpha = 1 - s.progress; fl.show = 1 - s.progress; relief.dirty = true; } });
+ScrollTrigger.create({ trigger: '.stack-sec', start: 'top bottom', end: 'top top', onEnter: () => { relief.alpha = 0; relief.dirty = true; } });
+
+/* ---------- contact: copy with feedback ---------- */
+const copyBtn = document.getElementById('copy'), copied = document.getElementById('copied');
+copyBtn.addEventListener('click', async () => {
+  const addr = 'prajwalnair2603@gmail.com';
+  try { await navigator.clipboard.writeText(addr); } catch { const t = document.createElement('textarea'); t.value = addr; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+  copyBtn.textContent = 'Copied'; copied.textContent = 'Address copied to clipboard';
+  gsap.fromTo('.email', { '--x': 0 }, { '--x': 1 });
+  gsap.fromTo(document.querySelector('.email'), { backgroundSize: '0% 3px' }, { backgroundSize: '100% 3px', duration: .4 });
+  setTimeout(() => { copyBtn.textContent = 'Copy address'; copied.textContent = ''; }, 2200);
+});
+window.__ready = true;
+</script>
+</body>
+</html>

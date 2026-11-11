@@ -1,0 +1,2059 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   SKETCH -> SHIP · design tokens and base layer (foundation-owned)
+   Paper and ink are the materials; three highlighters are the accents:
+     lime = BUILD · blue = CODE / interaction · tangerine = SHIPPED / LIVE / NOW.
+   Read docs/DESIGN.md before using anything here. Never hard-code a colour, size, radius,
+   shadow, ease or z-index in a component: use these tokens (or ask the foundation for one).
+   ============================================================================= */
+
+/* ---------------------------------------------------------------- variants */
+/* Document states set by the inline boot script and src/lib/motion/preferences.ts. */
+@custom-variant booting (&:where(html.booting *));
+@custom-variant reduced (&:where(html.rm *));
+/* Inside an ink section / slab (data-tone="ink"). */
+@custom-variant on-ink (&:where([data-tone="ink"], [data-tone="ink"] *));
+/* Sketch mode is on (html[data-sketch], src/lib/stores/sketchMode.ts): `sketch:hidden`, `sketch:font-hand`... */
+@custom-variant sketch (&:where(html[data-sketch] *));
+/* Input capability. */
+@custom-variant fine (@media (hover: hover) and (pointer: fine));
+@custom-variant coarse (@media (pointer: coarse));
+/* Hover (real hover devices) OR keyboard focus: every hover reveal needs a keyboard twin. */
+@custom-variant hocus {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  &:focus-visible {
+    @slot;
+  }
+}
+
+/* ---------------------------------------------------------------- theme */
+@theme {
+  /* Palette, named by role. Nothing else exists: off-palette colour utilities do not compile. */
+  --color-*: initial;
+  /* materials */
+  --color-paper: #f4f4ef; /* page background (warm off-white) */
+  --color-paper-2: #eaeae3; /* alternate band (#work), sunken wells, window frames */
+  --color-card: #fbfbf8; /* crisp "ship" cards and panels */
+  --color-ink: #0d0d0c; /* text 17.6:1 on paper; ink sections; primary pill */
+  --color-ink-2: #1a1a18; /* raised surfaces on ink */
+  /* text and lines on paper */
+  --color-graphite: #55554f; /* secondary text 6.8:1 on paper, 6.2:1 on paper-2 */
+  --color-pencil: #8a8a82; /* sketch strokes, dots, placeholders: decorative / large text only (3.2:1) */
+  --color-line: #ddddd5; /* hairlines and card borders on paper */
+  --color-line-strong: #c9c9c0; /* control outlines (tags, outline icon buttons) */
+  /* text and lines on ink */
+  --color-fog: #a9a99f; /* secondary text on ink 8.2:1 (7.4:1 on ink-2) */
+  --color-ash: #6e6e66; /* decorative strokes / dots on ink */
+  --color-seam: #2a2a27; /* hairlines on ink */
+  /* lime = BUILD */
+  --color-lime: #c8f53b; /* highlighter, CTAs on ink, "building"; ink text on it 15.4:1 */
+  --color-lime-deep: #557200; /* lime-coloured TEXT on paper 5.0:1 (4.6:1 on paper-2) */
+  --color-lime-soft: #e9f9b0; /* lime wash, lime sticky note; ink text 17:1 */
+  /* blue = CODE / interaction */
+  --color-blue: #3d5afe; /* focus ring, interactive marks, icons; paper text on it 4.7:1; NOT body text on paper-2 */
+  --color-blue-deep: #2c44d8; /* blue TEXT and links on paper 6.5:1 (5.9:1 on paper-2) */
+  --color-blue-soft: #dde3ff; /* blue highlighter / sticky note; ink text 15.3:1 */
+  /* tangerine = SHIPPED / LIVE / NOW */
+  --color-tangerine: #ff6a2b; /* stamps, live dots, "current" marks; ink text on it 6.8:1; never white text */
+  --color-tangerine-deep: #b53c0a; /* tangerine TEXT on paper 5.3:1 */
+  --color-tangerine-soft: #ffe1d3; /* tangerine highlighter / sticky note; ink text 15.7:1 */
+
+  /* Families (next/font variables live on <html>, see src/fonts). */
+  --font-*: initial;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Consolas, monospace;
+  --font-hand: var(--font-caveat), "Segoe Print", cursive;
+
+  /* Fluid type scale. Prefer the type-* role utilities below (they set every property). */
+  --text-*: initial;
+  --text-hero: clamp(3.5rem, 1.6rem + 8.2vw, 9.5rem); /* the h1 name: 56 -> 152px */
+  --text-hero--line-height: 0.88;
+  --text-display: clamp(2.5rem, 1.35rem + 4.1vw, 5rem); /* H2: 40 -> 80px */
+  --text-display--line-height: 0.95;
+  --text-h3: clamp(1.5rem, 1.15rem + 1.05vw, 2.25rem); /* H3: 24 -> 36px */
+  --text-h3--line-height: 1.05;
+  --text-h4: clamp(1.1875rem, 1.08rem + 0.35vw, 1.375rem); /* card titles: 19 -> 22px */
+  --text-h4--line-height: 1.3; /* small multi-line titles need text leading, not display leading */
+  --text-lead: clamp(1.125rem, 1.02rem + 0.36vw, 1.375rem); /* 18 -> 22px */
+  --text-lead--line-height: 1.45;
+  --text-body: clamp(1.0625rem, 1.02rem + 0.14vw, 1.125rem); /* 17 -> 18px */
+  --text-body--line-height: 1.6;
+  --text-ui: 0.9375rem; /* 15px: nav, pills, controls (Inter 500/600) */
+  --text-ui--line-height: 1.3;
+  --text-small: 0.9375rem; /* 15px: captions, meta lines (not paragraphs) */
+  --text-small--line-height: 1.5;
+  --text-mono: 0.8125rem; /* 13px: data values, dates, versions, file names */
+  --text-mono--line-height: 1.45;
+  --text-label: 0.75rem; /* 12px: short mono labels */
+  --text-label--line-height: 1.35;
+  --text-micro: 0.6875rem; /* 11px: the floor; dense mini-UI data only */
+  --text-micro--line-height: 1.35;
+  --text-hand-sm: 1.25rem; /* 20px: the Caveat floor */
+  --text-hand-sm--line-height: 1.15;
+  --text-hand: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem); /* 22 -> 26px */
+  --text-hand--line-height: 1.15;
+  --text-hand-lg: clamp(1.75rem, 1.4rem + 1vw, 2.25rem); /* 28 -> 36px */
+  --text-hand-lg--line-height: 1.1;
+
+  /* Breakpoints (docs/DESIGN.md): phone < 600 · sm tablet 600 · md laptop 900 · lg desktop 1200 · xl 1440. */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 37.5rem;
+  --breakpoint-md: 56.25rem;
+  --breakpoint-lg: 75rem;
+  --breakpoint-xl: 90rem;
+
+  /* Radii. */
+  --radius-*: initial;
+  --radius-xs: 6px; /* tiny bits inside mini-UIs */
+  --radius-chip: 10px; /* chips, keycaps, small inner tiles */
+  --radius-panel: 14px; /* inner panels */
+  --radius-window: 18px; /* the inner app-window panel (concentric with a 28px frame at 10px) */
+  --radius-card: 28px; /* big cards, window frames */
+  --radius-slab: 40px; /* inset ink slabs */
+  --radius-pill: 9999px;
+
+  /* The two shadows (Livora-like: long, soft, offset). Never a zero-offset glow. */
+  --shadow-*: initial;
+  --shadow-card: 0 24px 60px -32px rgb(13 13 12 / 0.28), 0 2px 6px rgb(13 13 12 / 0.04);
+  --shadow-lift: 0 30px 70px -28px rgb(13 13 12 / 0.36), 0 8px 16px -8px rgb(13 13 12 / 0.14);
+
+  /* Easing: the same four names as EASE in src/lib/motion/eases.ts. */
+  --ease-*: initial;
+  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1); /* expo.out: entrances, settles */
+  --ease-pen: cubic-bezier(0.65, 0, 0.35, 1); /* strokes, highlighter swipes, the page sheet */
+  --ease-exit: cubic-bezier(0.32, 0, 0.67, 0); /* power2.in: exits, always shorter */
+  /* back.out(1.4): ONLY the SHIPPED stamp (and its relabelled twins). */
+  --ease-snap: linear(0 0%, 0.173 4.2%, 0.328 8.3%, 0.464 12.5%, 0.583 16.7%, 0.687 20.8%, 0.775 25%, 0.849 29.2%, 0.911 33.3%, 0.961 37.5%, 1 41.7%, 1.029 45.8%, 1.05 50%, 1.063 54.2%, 1.069 58.3%, 1.07 62.5%, 1.067 66.7%, 1.06 70.8%, 1.05 75%, 1.039 79.2%, 1.028 83.3%, 1.017 87.5%, 1.008 91.7%, 1.002 95.8%, 1 100%);
+
+  /* Loops: the live dot pulses three times, then rests. Off with reduced motion. */
+  --animate-*: initial;
+  --animate-live: live-ring 2.4s var(--ease-arrive) 3;
+
+  @keyframes live-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    70%,
+    100% {
+      transform: scale(2.8);
+      opacity: 0;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- non-theme tokens */
+:root {
+  /* Layout */
+  --margin: clamp(20px, 3.4vw, 48px); /* page gutter */
+  --content: 1240px; /* max content width (.wrap) */
+  --header-h: 72px;
+  --section-y: clamp(88px, 6vw + 48px, 168px); /* section top padding */
+  --section-y-end: clamp(80px, 5vw + 44px, 152px); /* section bottom padding */
+  --measure: 66ch; /* body measure (45-75ch) */
+
+  /* The paper dot grid (body background + the pointer-reactive canvas share these). */
+  --grid: 16px;
+  --dot: rgb(138 138 130 / 0.35); /* pencil @ 35% */
+
+  /* Durations (seconds in GSAP: DUR in src/lib/motion/eases.ts). */
+  --dur-tap: 120ms;
+  --dur-feedback: 160ms;
+  --dur-ui: 260ms;
+  --dur-exit: 200ms;
+  --dur-swipe: 600ms;
+
+  /* Sketch mode materials: resolved HERE, so they keep their real values inside ink sections,
+     where sketch mode swaps the palette variables (ink surfaces turn to paper). */
+  --sk-ink: var(--color-ink);
+  --sk-paper: var(--color-paper);
+  --sk-graphite: var(--color-graphite);
+  --sk-pencil: var(--color-pencil);
+  --sk-line: var(--color-line-strong);
+  --sk-grid: 24px; /* the notebook grid (the background canvas draws on the same lattice) */
+  --sk-grid-line: rgb(61 90 254 / 0.13); /* blue @ 13%: a squared notebook */
+
+  /* Z layers. Use as z-(--z-header). Never invent z-index numbers. */
+  --z-bg: -1; /* the paper-grid canvas (behind all content, above the page background) */
+  --z-raised: 10; /* in-section overlaps (sticky notes over windows, stamps) */
+  --z-sticky: 20; /* sticky columns inside a section */
+  --z-header: 60;
+  --z-menu: 70;
+  --z-sheet: 90; /* the page-transition sheet */
+  --z-cursor: 100;
+  --z-skip: 110;
+}
+@media (max-width: 899.98px) {
+  :root {
+    --header-h: 64px;
+  }
+}
+
+/* ---------------------------------------------------------------- base */
+@layer base {
+  html {
+    color: var(--color-ink);
+    background-color: var(--color-paper);
+    /* The paper: a faint dot grid anchored to the document (scrolls with it). Paper sections are
+       transparent and show it; paper-2 and ink sections are opaque and cover it. */
+    background-image: radial-gradient(circle at center, var(--dot) 0.85px, transparent 1.3px);
+    background-size: var(--grid) var(--grid);
+    font-family: var(--font-sans);
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* the text caret is lime (his ask): lime-deep on paper (bright lime would vanish there), the
+       bright lime on ink */
+    caret-color: var(--color-lime-deep);
+    accent-color: var(--color-blue);
+    scrollbar-width: thin;
+    scrollbar-color: #b9b8ae var(--color-paper-2);
+  }
+  body {
+    min-height: 100svh;
+    font-size: var(--text-body);
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.24em;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+  time,
+  data,
+  td,
+  th,
+  kbd {
+    font-variant-numeric: tabular-nums;
+  }
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+  /* Focus: 2px blue ring, 3px off (4.7:1 on paper, 3.8:1 on ink). Radius follows the element. */
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+  }
+  /* Programmatic focus targets (skip link, section jumps) never ring a whole section. */
+  main:focus,
+  section[tabindex="-1"]:focus,
+  [data-focus-target]:focus {
+    outline: none;
+  }
+  /* The custom cursor replaces the native one on fine pointers (html.has-cursor). Text fields and
+     [data-cursor="native"] keep the native cursor. */
+  html.has-cursor,
+  html.has-cursor :not(input, textarea, select, [contenteditable="true"], [data-cursor="native"], [data-cursor="native"] *) {
+    cursor: none !important;
+  }
+  /* Boot: elements the opening reveals ([data-boot]) start hidden while html.booting. Only JS sets
+     the class, and a 4.2s failsafe always removes it: without JS nothing is ever hidden. */
+  html.booting [data-boot] {
+    opacity: 0;
+  }
+  /* Reduced motion: no CSS loops, no smooth scroll. Colour/opacity feedback stays. */
+  html.rm {
+    scroll-behavior: auto;
+  }
+  html.rm [class*="animate-"] {
+    animation: none !important;
+  }
+}
+
+/* Lenis (mirrors lenis/dist/lenis.css so we don't ship a second stylesheet). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- type roles */
+/* One utility per role; each sets family, size, weight, leading and tracking. Use these. */
+@utility type-hero {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+@utility type-h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+@utility type-h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+@utility type-lead {
+  font-family: var(--font-sans);
+  font-size: var(--text-lead);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.006em;
+  text-wrap: pretty;
+}
+@utility type-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+@utility type-ui {
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.003em;
+}
+@utility type-small {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+/* Mono, natural case: data values, dates, versions, file names, code-ish strings. */
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+/* Mono, uppercase, tracked: ONLY short labels (1-3 words). Max one per section. */
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+/* 11px mono: the floor. Dense mini-UI data only. */
+@utility type-micro {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+/* Handwriting (the sketch layer). Never below 20px. */
+@utility type-hand-sm {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand-sm);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+@utility type-hand {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+@utility type-hand-lg {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand-lg);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+@utility measure {
+  max-width: var(--measure);
+}
+
+/* ---------------------------------------------------------------- layout utilities */
+/* The content column: max 1240px, page gutters on smaller screens. */
+@utility wrap {
+  width: min(100% - 2 * var(--margin), var(--content));
+  margin-inline: auto;
+}
+/* An ink slab clips what is inside it with a rounded clip-path as well as overflow: hidden. Parts
+   turned in 3D inside a slab (the vault door and its deposit boxes, the visiting card's flip) can
+   otherwise leave a stale copy of the slab's edge on screen while the page scrolls (Chrome/Edge
+   compositing). The sketch keeps overflow only: its pencil box is drawn just outside the edge. */
+@utility slab-clip {
+  isolation: isolate;
+  clip-path: inset(0 round var(--radius-slab));
+}
+/* The Prajwal Times (/resume): an old newspaper (his ask: "olden times paper"), kept clean (his
+   second ask: no dots, no grain). Inside the sheet the site's neutrals are re-tinted: a soft cream
+   newsprint for paper and card, a warm black for ink, so every rule, box and the WANTED ad follow.
+   A documented exception to the palette, scoped to this page. */
+.times-paper {
+  --color-ink: #1f1c16;
+  --color-paper: #f5efe1;
+  --color-card: #faf6ec;
+  --color-paper-2: #ebe2cd;
+  background-color: var(--color-paper);
+  box-shadow: 0 40px 60px -38px rgb(0 0 0 / 0.45);
+}
+html[data-sketch] .times-paper {
+  box-shadow: none;
+}
+/* in the sketch the newspaper's dark boxes (WANTED, the markets label) are pencil outlines on the
+   paper, their light text turns to pencil, and lime text (the email) to lime-deep */
+html[data-sketch] .times-paper :is(.bg-ink, [class*=" bg-ink "]):not(svg *, [class*="rounded-full"]) {
+  background-color: transparent;
+  outline: 1.5px solid var(--sk-ink);
+  outline-offset: -1.5px;
+}
+html[data-sketch] .times-paper [class*="text-paper"] {
+  color: var(--sk-ink);
+}
+html[data-sketch] .times-paper [class*="text-lime"] {
+  color: var(--color-lime-deep);
+}
+html[data-sketch] .times-paper [class*="border-paper"] {
+  border-color: var(--sk-ink);
+}
+@media print {
+  .times-paper {
+    box-shadow: none;
+  }
+}
+/* The Prajwal Times (/resume) in print: the newspaper alone, on one A4 sheet. The site's chrome
+   (header, footer, cursor, background, popups) stays off the paper; the root size scales every
+   rem-based size down so the front page fits. */
+@media print {
+  @page {
+    size: A4;
+    margin: 9mm;
+  }
+  html:has([data-qa="times"]) {
+    font-size: 8.2px;
+    background: none;
+  }
+  html:has([data-qa="times"]) body {
+    background: none;
+  }
+  html:has([data-qa="times"]) :is(header[data-boot], body footer.wrap, [data-qa="cursor"], canvas, [data-qa="card-popup"], [data-qa="palette"]) {
+    display: none !important;
+  }
+  html:has([data-qa="times"]) main > div {
+    padding: 0 !important;
+  }
+}
+/* on ink the caret is the bright lime */
+:where([data-tone="ink"]) {
+  caret-color: var(--color-lime);
+}
+@utility px-margin {
+  padding-inline: var(--margin);
+}
+@utility py-section {
+  padding-block: var(--section-y) var(--section-y-end);
+}
+@utility pt-header {
+  padding-top: var(--header-h);
+}
+@utility top-header {
+  top: var(--header-h);
+}
+/* The paper dot grid on any surface (paper-2 bands, cards). Static. */
+@utility paper-dots {
+  background-image: radial-gradient(circle at center, var(--dot) 0.85px, transparent 1.3px);
+  background-size: var(--grid) var(--grid);
+}
+
+/* ---------------------------------------------------------------- components */
+@layer components {
+  /* ---- Highlighter (src/lib/motion/HighlighterSwipe.tsx) ---------------------------------- */
+  .hl {
+    --hl-p: 1;
+    --hl-h: 0.8em;
+    --hl-y: 70%;
+    color: var(--color-ink);
+    background-image: linear-gradient(var(--hl-c), var(--hl-c));
+    background-repeat: no-repeat;
+    background-size: calc(var(--hl-p) * 100%) var(--hl-h);
+    background-position: 0 var(--hl-y);
+    padding-inline: 0.1em;
+    margin-inline: -0.1em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  /* On ink the word is light until the band arrives, then ink: never ink-on-ink mid-swipe (at
+     --hl-p 0.5 the grey is 4.9:1 on ink and 3.1:1 on lime, both above the 3:1 for display type).
+     The band is a full block there, from the ascenders to the descenders (1.04em, centred on
+     Bricolage's 1.2em content box): a glyph tip left outside it would be ink on ink. No negative
+     margin either: the light comma or word next to it must never sit on the lime. */
+  :where([data-tone="ink"]) .hl {
+    --hl-h: 1.04em;
+    --hl-y: 50%;
+    margin-inline: 0;
+    color: color-mix(in srgb, var(--color-ink) calc(var(--hl-p) * 100%), var(--color-paper));
+  }
+  /* Reduced motion / Motion: off (html.rm, set before first paint): the band is always fully
+     painted, whatever a script set during hydration. Without JS, --hl-p keeps its default 1. */
+  html.rm .hl {
+    --hl-p: 1 !important;
+  }
+  .hl-lime {
+    --hl-c: var(--color-lime);
+  }
+  .hl-blue {
+    --hl-c: var(--color-blue-soft);
+  }
+  .hl-tangerine {
+    --hl-c: var(--color-tangerine-soft);
+  }
+
+  /* ---- Pill (src/components/ui/Pill.tsx) ------------------------------------------------- */
+  /* Hover/focus: a highlighter fill sweeps in from the left (pen) and leaves to the right. */
+  .pill {
+    --pill-h: 48px;
+    --pill-bg: var(--color-ink);
+    --pill-fg: var(--color-paper);
+    --pill-bd: var(--pill-bg);
+    --pill-fill: var(--color-lime);
+    --pill-fill-fg: var(--color-ink);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55em;
+    min-height: var(--pill-h);
+    padding: 0 1.35em;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--pill-bd);
+    background-color: var(--pill-bg);
+    color: var(--pill-fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      color var(--dur-ui) var(--ease-pen),
+      border-color var(--dur-ui) var(--ease-pen),
+      box-shadow var(--dur-ui) var(--ease-arrive),
+      scale var(--dur-tap) var(--ease-arrive);
+  }
+  .pill::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--pill-fill);
+    transform: scaleX(0);
+    transform-origin: 100% 50%;
+    transition: transform var(--dur-exit) var(--ease-exit);
+  }
+  @media (hover: hover) {
+    .pill:hover {
+      color: var(--pill-fill-fg);
+      border-color: var(--pill-fill);
+    }
+    .pill:hover::before {
+      transform: scaleX(1);
+      transform-origin: 0% 50%;
+      transition: transform var(--dur-ui) var(--ease-pen);
+    }
+  }
+  .pill:focus-visible {
+    color: var(--pill-fill-fg);
+    border-color: var(--pill-fill);
+  }
+  .pill:focus-visible::before {
+    transform: scaleX(1);
+    transform-origin: 0% 50%;
+    transition: transform var(--dur-ui) var(--ease-pen);
+  }
+  .pill:active {
+    scale: 0.97;
+  }
+  .pill svg {
+    width: 1.1em;
+    height: 1.1em;
+    flex: none;
+    transition: translate var(--dur-ui) var(--ease-arrive);
+  }
+  @media (hover: hover) {
+    .pill:hover [data-nudge="up-right"] {
+      translate: 2px -2px;
+    }
+    .pill:hover [data-nudge="right"] {
+      translate: 3px 0;
+    }
+    .pill:hover [data-nudge="down"] {
+      translate: 0 2px;
+    }
+  }
+  .pill-sm {
+    --pill-h: 40px;
+    padding: 0 1.05em;
+    font-size: 0.875rem;
+  }
+  .pill-lg {
+    --pill-h: 60px;
+    padding: 0 1.85em;
+    font-size: 1.0625rem;
+  }
+  @media (pointer: coarse) {
+    .pill {
+      min-height: max(var(--pill-h), 44px);
+    }
+  }
+  /* variants on paper */
+  .pill-outline {
+    --pill-bg: transparent;
+    --pill-fg: var(--color-ink);
+    --pill-bd: var(--color-ink);
+    --pill-fill: var(--color-ink);
+    --pill-fill-fg: var(--color-paper);
+  }
+  .pill-lime {
+    --pill-bg: var(--color-lime);
+    --pill-fg: var(--color-ink);
+    --pill-fill: var(--color-ink);
+    --pill-fill-fg: var(--color-lime);
+  }
+  .pill-ghost {
+    --pill-bg: transparent;
+    --pill-fg: var(--color-ink);
+    --pill-bd: transparent;
+    --pill-fill: var(--color-paper-2);
+    --pill-fill-fg: var(--color-ink);
+  }
+  @media (hover: hover) {
+    .pill-ghost:hover {
+      border-color: transparent;
+    }
+  }
+  /* on ink: primary turns lime, outline turns paper (automatic inside data-tone="ink") */
+  :where([data-tone="ink"]) .pill-primary {
+    --pill-bg: var(--color-lime);
+    --pill-fg: var(--color-ink);
+    --pill-fill: var(--color-paper);
+    --pill-fill-fg: var(--color-ink);
+  }
+  :where([data-tone="ink"]) .pill-outline {
+    --pill-fg: var(--color-paper);
+    --pill-bd: rgb(244 244 239 / 0.42);
+    --pill-fill: var(--color-paper);
+    --pill-fill-fg: var(--color-ink);
+  }
+  :where([data-tone="ink"]) .pill-ghost {
+    --pill-fg: var(--color-paper);
+    --pill-fill: var(--color-ink-2);
+    --pill-fill-fg: var(--color-paper);
+  }
+  .pill:disabled,
+  .pill[aria-disabled="true"] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  /* reduced motion: the fill fades instead of sweeping (colour feedback kept) */
+  html.rm .pill::before {
+    transform: none;
+    opacity: 0;
+    transition: opacity var(--dur-feedback) linear;
+  }
+  @media (hover: hover) {
+    html.rm .pill:hover::before {
+      opacity: 1;
+    }
+  }
+  html.rm .pill:focus-visible::before {
+    opacity: 1;
+  }
+
+  /* ---- Icon button (round) --------------------------------------------------------------- */
+  .icon-btn {
+    --ib-size: 48px;
+    --ib-bg: transparent;
+    --ib-fg: var(--color-ink);
+    --ib-bd: var(--color-line-strong);
+    --ib-fill: var(--color-ink);
+    --ib-fill-fg: var(--color-paper);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: var(--ib-size);
+    height: var(--ib-size);
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--ib-bd);
+    background: var(--ib-bg);
+    color: var(--ib-fg);
+    transition:
+      color var(--dur-ui) var(--ease-arrive),
+      border-color var(--dur-ui) var(--ease-arrive),
+      scale var(--dur-tap) var(--ease-arrive);
+  }
+  .icon-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--ib-fill);
+    transform: scale(0);
+    transition: transform var(--dur-exit) var(--ease-exit);
+  }
+  @media (hover: hover) {
+    .icon-btn:hover {
+      color: var(--ib-fill-fg);
+      border-color: var(--ib-fill);
+    }
+    .icon-btn:hover::before {
+      transform: scale(1);
+      transition: transform var(--dur-ui) var(--ease-arrive);
+    }
+  }
+  .icon-btn:focus-visible,
+  .icon-btn[aria-pressed="true"],
+  .icon-btn[aria-expanded="true"] {
+    color: var(--ib-fill-fg);
+    border-color: var(--ib-fill);
+  }
+  .icon-btn:focus-visible::before,
+  .icon-btn[aria-pressed="true"]::before,
+  .icon-btn[aria-expanded="true"]::before {
+    transform: scale(1);
+    transition: transform var(--dur-ui) var(--ease-arrive);
+  }
+  .icon-btn:active {
+    scale: 0.94;
+  }
+  .icon-btn svg {
+    width: 44%;
+    height: 44%;
+  }
+  .icon-btn-sm {
+    --ib-size: 40px;
+  }
+  .icon-btn-lg {
+    --ib-size: 56px;
+  }
+  @media (pointer: coarse) {
+    .icon-btn {
+      --ib-size: max(44px, var(--ib-size));
+    }
+    .icon-btn-sm {
+      --ib-size: 44px;
+    }
+  }
+  .icon-btn-ink {
+    --ib-bg: var(--color-ink);
+    --ib-fg: var(--color-paper);
+    --ib-bd: var(--color-ink);
+    --ib-fill: var(--color-lime);
+    --ib-fill-fg: var(--color-ink);
+  }
+  .icon-btn-lime {
+    --ib-bg: var(--color-lime);
+    --ib-fg: var(--color-ink);
+    --ib-bd: var(--color-lime);
+    --ib-fill: var(--color-ink);
+    --ib-fill-fg: var(--color-lime);
+  }
+  :where([data-tone="ink"]) .icon-btn-outline {
+    --ib-fg: var(--color-paper);
+    --ib-bd: rgb(244 244 239 / 0.32);
+    --ib-fill: var(--color-paper);
+    --ib-fill-fg: var(--color-ink);
+  }
+  .icon-btn:disabled,
+  .icon-btn[aria-disabled="true"] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  html.rm .icon-btn::before {
+    transform: none;
+    opacity: 0;
+    transition: opacity var(--dur-feedback) linear;
+  }
+  @media (hover: hover) {
+    html.rm .icon-btn:hover::before {
+      opacity: 1;
+    }
+  }
+  html.rm .icon-btn:is(:focus-visible, [aria-pressed="true"], [aria-expanded="true"])::before {
+    opacity: 1;
+  }
+
+  /* ---- Card (crisp "ship" surface) --------------------------------------------------------- */
+  .card {
+    position: relative;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .card-interactive {
+    transition:
+      translate var(--dur-ui) var(--ease-arrive),
+      box-shadow var(--dur-ui) var(--ease-arrive);
+  }
+  @media (hover: hover) {
+    .card-interactive:hover {
+      translate: 0 -4px;
+      box-shadow: var(--shadow-lift);
+    }
+  }
+  .card-interactive:focus-within {
+    box-shadow: var(--shadow-lift);
+  }
+  html.rm .card-interactive:hover {
+    translate: none;
+  }
+  :where([data-tone="ink"]) .card {
+    background: var(--color-ink-2);
+    border-color: var(--color-seam);
+    color: var(--color-paper);
+    box-shadow: none;
+  }
+  .card-paper {
+    background: var(--color-card);
+    border-color: var(--color-line);
+    color: var(--color-ink);
+  }
+
+  /* ---- Tag ---------------------------------------------------------------------------------- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+    padding: 0 11px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-strong);
+    background: transparent;
+    color: var(--color-graphite);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .tag-caps {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .tag-lime {
+    background: var(--color-lime-soft);
+    border-color: transparent;
+    color: var(--color-ink);
+  }
+  .tag-blue {
+    background: var(--color-blue-soft);
+    border-color: transparent;
+    color: var(--color-ink);
+  }
+  .tag-tangerine {
+    background: var(--color-tangerine-soft);
+    border-color: transparent;
+    color: var(--color-ink);
+  }
+  .tag-ink {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+  :where([data-tone="ink"]) .tag-outline {
+    border-color: var(--color-seam);
+    color: var(--color-fog);
+  }
+
+  /* ---- Label (short mono) ------------------------------------------------------------------ */
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-graphite);
+  }
+  :where([data-tone="ink"]) .label {
+    color: var(--color-fog);
+  }
+  .label-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex: none;
+  }
+
+  /* ---- In-text link ----------------------------------------------------------------------- */
+  .link {
+    color: var(--color-blue-deep);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgb(44 68 216 / 0.4);
+    text-underline-offset: 0.24em;
+    transition:
+      text-decoration-color var(--dur-feedback) var(--ease-arrive),
+      text-decoration-thickness var(--dur-feedback) var(--ease-arrive);
+  }
+  @media (hover: hover) {
+    .link:hover {
+      text-decoration-color: currentColor;
+      text-decoration-thickness: 2px;
+    }
+  }
+  :where([data-tone="ink"]) .link {
+    color: var(--color-lime);
+    text-decoration-color: rgb(200 245 59 / 0.45);
+  }
+
+  /* ---- App window (src/components/ui/AppWindow.tsx) ------------------------------------------ */
+  .aw {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-card);
+    background: var(--color-paper-2);
+    border: 1px solid var(--color-line);
+    padding: 10px;
+    box-shadow: var(--shadow-card);
+  }
+  .aw-bare {
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+  .aw-panel {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-window);
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    overflow: hidden;
+  }
+  .aw-bare > .aw-panel {
+    border-radius: var(--radius-panel);
+  }
+  .aw-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 40px;
+    flex: none;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .aw-dots {
+    display: flex;
+    gap: 6px;
+    flex: none;
+  }
+  .aw-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .aw-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    color: var(--color-graphite);
+  }
+  .aw-body {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  /* sketch variant: identical box model, no fills, strokes drawn by SketchRect */
+  .aw[data-variant="sketch"] {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .aw[data-variant="sketch"] .aw-panel,
+  .aw[data-variant="sketch"] .aw-bar {
+    background: transparent;
+    border-color: transparent;
+  }
+  .aw[data-variant="sketch"] .aw-title {
+    font-family: var(--font-hand);
+    font-size: var(--text-hand-sm);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-graphite);
+  }
+
+  /* ---- Sticky note (src/components/sketch/notes.tsx) --------------------------------------- */
+  .sticky-note {
+    position: relative;
+    padding: 20px 22px 24px;
+    border-radius: 4px 4px 16px 4px;
+    color: var(--color-ink);
+    box-shadow:
+      0 22px 36px -22px rgb(13 13 12 / 0.38),
+      0 2px 5px rgb(13 13 12 / 0.06);
+  }
+  .sticky-note::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 16px;
+    background: linear-gradient(135deg, transparent 50%, rgb(13 13 12 / 0.07) 50%, rgb(13 13 12 / 0.015));
+    pointer-events: none;
+  }
+  .sticky-pin {
+    position: absolute;
+    top: -9px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow:
+      0 4px 8px -3px rgb(13 13 12 / 0.4),
+      inset 0 -2px 3px rgb(13 13 12 / 0.16);
+  }
+
+  /* ---- SHIPPED stamp (src/components/sketch/stamp.tsx) -------------------------------------- */
+  .stamp {
+    --stamp-tilt: -7deg;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.36em;
+    padding: 0.52em 0.8em 0.48em 0.66em;
+    border-radius: 0.5em;
+    background: var(--color-tangerine);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow:
+      inset 0 0 0 0.2em var(--color-tangerine),
+      inset 0 0 0 0.29em var(--color-ink),
+      0 10px 20px -12px rgb(13 13 12 / 0.45);
+    transform: rotate(var(--stamp-tilt));
+  }
+  .stamp-sm {
+    font-size: 0.75rem;
+  }
+  .stamp-md {
+    font-size: 0.9375rem;
+  }
+  .stamp-lg {
+    font-size: 1.25rem;
+  }
+  .stamp-check {
+    width: 1.05em;
+    height: 1.05em;
+    flex: none;
+  }
+}
+
+/* =============================================================================
+   PHONE FOLDS (src/components/ui/Fold.tsx): on phones, long lists fold behind a toggle so
+   the home page stays a sensible length (changelog cards keep their highlights behind
+   "Details"). Only with JavaScript (html.js): without it,
+   every row is shown and the toggles stay hidden. Unlayered so it wins over utilities.
+     [data-fold]            the folding block (data-open once expanded)
+     [data-fold-list]       a list whose rows after the first four fold away
+     [data-fold-rest]       a block that folds away entirely
+     [data-fold-toggle]     the button (phones + JS only)
+   ============================================================================= */
+[data-fold-toggle] {
+  display: none;
+}
+@media (max-width: 599.98px) {
+  html.js [data-fold]:not([data-open]) [data-fold-list] > :nth-child(n + 5),
+  html.js [data-fold]:not([data-open]) [data-fold-rest] {
+    display: none;
+  }
+  html.js [data-fold-toggle] {
+    display: flex;
+  }
+}
+
+/* =============================================================================
+   THE VAULT, LOCKED FROM THE FIRST PAINT (src/components/about/Vault.tsx)
+   The markup is the vault open (no JS, reduced motion, sketch mode). With JS and motion it is
+   locked until the visitor opens it, unless it was left open (the boot script turns
+   localStorage "pmp:vault" into html[data-vault="open"]). Until the component takes over (it
+   removes [data-vault-boot] once GSAP holds the same state) these rules draw it locked, so a
+   refresh never shows it open and then snapping shut. The note under the door is hidden where
+   it will not be used (reduced motion, sketch mode, no JS).
+   ============================================================================= */
+html.js:not(.rm):not([data-sketch]):not([data-vault="open"]) [data-vault-boot] :is([data-door], [data-hatch]) {
+  transform: none !important;
+}
+/* The closed vault is flat. A shut door is a disc facing you, so while it is shut and still (from
+   the first paint, and in the "locked" phase, which starts only after a closing animation ends)
+   the door's 3D is off: no turn, its stack of edge layers hidden, nothing preserved in 3D; the
+   box doors likewise. It looks the same. Why: on older graphics cards (his GeForce GT 610, in
+   Edge) that 3D group facing straight on left stale paint around the slab while scrolling and
+   under the moving cursor. The 3D comes back the moment it starts to open ("opening"). */
+html.js:not(.rm):not([data-sketch]):not([data-vault="open"]) [data-vault-boot] [data-door],
+html.js:not(.rm):not([data-sketch]) [data-qa="vault"][data-phase="locked"] [data-door] {
+  transform: none !important;
+  transform-style: flat !important;
+}
+html.js:not(.rm):not([data-sketch]):not([data-vault="open"]) [data-vault-boot] [data-door-edge],
+html.js:not(.rm):not([data-sketch]) [data-qa="vault"][data-phase="locked"] [data-door-edge] {
+  display: none;
+}
+html.js:not(.rm):not([data-sketch]) [data-qa="vault"][data-phase="locked"] [data-hatch] {
+  transform: none !important;
+}
+html.js:not(.rm):not([data-sketch]):not([data-vault="open"]) [data-vault-boot] [data-bolt] {
+  transform: translateX(30px);
+}
+html.js:not(.rm):not([data-sketch]):not([data-vault="open"]) [data-vault-boot] [data-light] {
+  opacity: 0.12;
+}
+html.js:not(.rm):not([data-sketch]):not([data-vault="open"]) [data-vault-boot] [data-lamp] {
+  opacity: 0.2;
+}
+html:not(.js) [data-vault-note],
+html.rm [data-vault-note],
+html[data-sketch] [data-vault-note] {
+  display: none;
+}
+
+/* =============================================================================
+   THE SKETCHBOOK (sketch mode: draw anywhere on the page; components/sketchbook). The toolbar is a
+   hand-drawn pill at the bottom; the tool picked is on <html data-sk-tool>; while a stroke is being
+   drawn html.sk-inking stops text selection; on touch screens html.sk-drawing hands a one-finger drag
+   to the pencil instead of to scrolling (the hand tool gives it back).
+   ============================================================================= */
+.sk-book-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  border: 1.5px solid rgb(13 13 12 / 0.78);
+  border-radius: var(--sk-pill-radius);
+  background-color: var(--color-paper);
+  box-shadow: 0 12px 28px -16px rgb(13 13 12 / 0.5);
+}
+.sk-book-tool {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1.5px solid transparent;
+  border-radius: var(--sk-round-radius);
+  color: var(--color-ink);
+  transition: border-color var(--dur-feedback) var(--ease-arrive);
+}
+@media (hover: hover) {
+  .sk-book-tool:not(:disabled):hover {
+    border-color: rgb(13 13 12 / 0.45);
+  }
+}
+.sk-book-tool[aria-pressed="true"] {
+  border-color: rgb(13 13 12 / 0.78);
+  background-image: var(--sk-hatch-lime);
+}
+.sk-book-tool:disabled {
+  opacity: 0.32;
+}
+.sk-book-tool:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+.sk-book-swatch {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px var(--color-paper);
+}
+html.sk-inking,
+html.sk-inking * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+html.sk-drawing body {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* the custom cursor's pencil turns over for the eraser: its eraser end on the point */
+html[data-sk-tool="eraser"] .cursor-pencil {
+  rotate: 180deg;
+}
+/* without the custom cursor (lite mode, reduced motion): a pencil or an eraser cursor */
+html[data-sketch]:not(.has-cursor):is([data-sk-tool="pencil"], [data-sk-tool="pen"], [data-sk-tool="marker"]) body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 21l1.6-5.2L16.2 4.2a2.2 2.2 0 0 1 3.1 0l.5.5a2.2 2.2 0 0 1 0 3.1L8.2 19.4z' fill='%23c8f53b' stroke='%230d0d0c' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M3 21l1.6-5.2 3.6 3.6z' fill='%23fbfbf8' stroke='%230d0d0c' stroke-width='1.3' stroke-linejoin='round'/%3E%3Cpath d='M3 21l.7-2.3 1.6 1.6z' fill='%230d0d0c'/%3E%3C/svg%3E") 3 21, crosshair;
+}
+html[data-sketch]:not(.has-cursor)[data-sk-tool="eraser"] body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Ccircle cx='11' cy='11' r='9' fill='%23ffffff' fill-opacity='.7' stroke='%230d0d0c' stroke-width='1.5'/%3E%3C/svg%3E") 11 11, cell;
+}
+
+/* =============================================================================
+   DARK MODE (html[data-theme="dark"]: the header's sun/moon, the palette, else the OS setting;
+   src/lib/stores/theme.ts, set before the first paint by the boot script). The same tokens,
+   re-tinted: the page goes near-black and the ink turns light; the ink slabs stay dark panels a
+   step up from the page, and inside them the light values return (light cards stay light); the
+   accent TEXT shades get lighter so they read on dark; anything on lime or tangerine keeps dark
+   text. Sketch mode stays the paper drawing (every rule is :not([data-sketch])); the newspaper
+   (/resume, .times-paper) keeps its own paper.
+   ============================================================================= */
+html[data-theme="dark"]:not([data-sketch]) {
+  color-scheme: dark;
+  --color-paper: #11110f;
+  --color-paper-2: #181816;
+  --color-card: #1c1c1a;
+  --color-ink: #ecebe3;
+  --color-ink-2: #d9d8cf;
+  --color-graphite: #adaca2;
+  --color-pencil: #7a7a72;
+  --color-line: #2a2a27;
+  --color-line-strong: #3c3c38;
+  --color-lime-deep: #c8f53b;
+  --color-lime-soft: #2a350f;
+  --color-blue: #6d83ff;
+  --color-blue-deep: #a5b3ff;
+  --color-blue-soft: #222a52;
+  --color-tangerine-deep: #ff8d5c;
+  --color-tangerine-soft: #3a2216;
+  --dot: rgb(236 235 227 / 0.13);
+  scrollbar-color: #45453f var(--color-paper-2);
+}
+/* ink slabs and bands: dark panels a step up from the page; inside, the light-mode values */
+html[data-theme="dark"]:not([data-sketch]) [data-tone="ink"] {
+  --color-ink: #1e1e1c;
+  --color-ink-2: #282826;
+  --color-paper: #f4f4ef;
+  --color-paper-2: #eaeae3;
+  --color-card: #fbfbf8;
+  --color-graphite: #55554f;
+  --color-pencil: #8a8a82;
+  --color-line: #ddddd5;
+  --color-line-strong: #c9c9c0;
+  --color-lime-deep: #557200;
+  --color-lime-soft: #e9f9b0;
+  --color-blue: #3d5afe;
+  --color-blue-deep: #2c44d8;
+  --color-blue-soft: #dde3ff;
+  --color-tangerine-deep: #b53c0a;
+  --color-tangerine-soft: #ffe1d3;
+}
+/* on lime and tangerine, text stays dark; on blue, light */
+html[data-theme="dark"]:not([data-sketch]) :is([class~="bg-lime"], [class~="bg-tangerine"], .pill-lime) {
+  --color-ink: #0d0d0c;
+  --color-graphite: #3b3b37;
+}
+/* and their own text, unless they set a colour (zero specificity: any text-* class wins) */
+:where(html[data-theme="dark"]:not([data-sketch]) :is([class~="bg-lime"], [class~="bg-tangerine"])) {
+  color: var(--color-ink);
+}
+html[data-theme="dark"]:not([data-sketch]) [class~="bg-blue"] {
+  --color-blue: #3d5afe;
+  --color-paper: #f4f4ef;
+}
+/* the work view switch: the checked option sits on a sliding blue pill (a sibling layer) */
+html[data-theme="dark"]:not([data-sketch]) [role="radiogroup"]:has(> [class~="bg-blue"]) [aria-checked="true"] {
+  --color-paper: #f4f4ef;
+}
+/* a lime flood behind content (an open "What I build" row, the lit boxes of the stack map, marked
+   data-flood="lime"): the light-mode values inside, so its words and controls read on the lime */
+html[data-theme="dark"]:not([data-sketch]) [data-flood="lime"] {
+  --color-ink: #0d0d0c;
+  --color-ink-2: #1a1a18;
+  --color-paper: #f4f4ef;
+  --color-paper-2: #eaeae3;
+  --color-card: #fbfbf8;
+  --color-graphite: #3b3b37;
+  --color-pencil: #55554f;
+  --color-lime-deep: #3d5200;
+  --color-lime-soft: #e9f9b0;
+  --color-blue-deep: #2c44d8;
+  --color-tangerine-deep: #9a3208;
+  /* text that sets no colour of its own (the row's title, "proof:") inherits this */
+  color: var(--color-ink);
+}
+/* the same where lime comes with a state: a selected container tab, a hovered note button */
+html[data-theme="dark"]:not([data-sketch]) [class~="aria-selected:bg-lime"][aria-selected="true"],
+html[data-theme="dark"]:not([data-sketch]) [class~="hocus:before:bg-lime"]:is(:hover, :focus-visible) {
+  --color-ink: #0d0d0c;
+  --color-graphite: #3b3b37;
+  color: var(--color-ink);
+}
+/* the lime highlighter on the dark page: the words turn dark as the band paints under them */
+html[data-theme="dark"]:not([data-sketch]) .hl-lime:not(:where([data-tone="ink"]) *) {
+  color: color-mix(in srgb, #0d0d0c calc(var(--hl-p) * 100%), var(--color-ink));
+}
+/* the round header buttons (sketch, theme) */
+html[data-theme="dark"]:not([data-sketch]) .sk-toggle {
+  background-color: rgb(28 28 26 / 0.7);
+}
+/* the cursor: no multiply on dark (it would vanish); over links a faint accent wash and ring */
+html[data-theme="dark"]:not([data-sketch]) [data-qa="cursor"] .mix-blend-multiply {
+  mix-blend-mode: normal;
+}
+html[data-theme="dark"]:not([data-sketch]) [data-qa="cursor"][data-tone="paper"][data-mode="hover"] .cursor-ring {
+  background-color: color-mix(in srgb, var(--cursor-fill) 18%, transparent);
+  border-color: var(--cursor-fill);
+}
+/* the newspaper keeps its paper: inside the sheet every light-mode value returns */
+html[data-theme="dark"]:not([data-sketch]) .times-paper {
+  color-scheme: light;
+  --color-graphite: #55554f;
+  --color-pencil: #8a8a82;
+  --color-line: #ddddd5;
+  --color-line-strong: #c9c9c0;
+  --color-lime-deep: #557200;
+  --color-lime-soft: #e9f9b0;
+  --color-blue: #3d5afe;
+  --color-blue-deep: #2c44d8;
+  --color-blue-soft: #dde3ff;
+  --color-tangerine-deep: #b53c0a;
+  --color-tangerine-soft: #ffe1d3;
+  caret-color: #557200;
+}
+/* the theme switch crossfades (src/lib/stores/theme.ts; none with reduced motion or in lite mode) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+}
+
+/* =============================================================================
+   SKETCH MODE (contract 5: src/lib/stores/sketchMode.ts, the header's pencil toggle)
+   html[data-sketch] turns the whole site back into the sketch it started as: a delightful
+   x-ray, never a broken page. The same DOM, redrawn by hand:
+     - the paper becomes a squared notebook; ink slabs become paper with a pencil-hatched edge
+     - headings, labels and buttons switch to Caveat (sized so they stay readable), text graphite
+     - cards, panels, pills and chips lose fills and shadows and get pencil outlines
+     - accent fills become coloured-pencil hatching; highlights become scribbled underlines
+     - mini-UIs, diagrams, the hero stage and the idea ticket show their own sketch state (JS)
+   Unlayered on purpose: it must win over the utilities without !important.
+   Skipped: everything inside [data-miniui] (mini-UIs draw their own sketch and their hidden
+   crisp window must keep its true layout) and inside [data-sketch-skip] (opt-out).
+   Fine-tune a component with the `sketch:` variant.
+   ============================================================================= */
+
+/* ---- the notebook ------------------------------------------------------------------------- */
+html[data-sketch] {
+  color: var(--sk-graphite);
+  background-image:
+    linear-gradient(var(--sk-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sk-grid-line) 1px, transparent 1px);
+  background-size: var(--sk-grid) var(--sk-grid);
+  /* the rough pencil box (border-image, two seeds) and the coloured-pencil hatches */
+  --sk-box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M8.2 13.7C38.8 14.2 82.4 14.9 109.9 13.5M106.8 6.9C105.2 39.9 105.5 75.4 106.4 110.6M113.7 106.9C82.1 105.9 38.6 106.7 6.8 105.9M13.7 108.9C14.6 77.7 15 38.6 14.6 5M11.1 13.6C41.7 14.6 77.6 14.6 107.9 14.4M105.3 9.1C106.4 39.8 106.7 79.9 106.4 107.8M111.4 105.7C79.8 105.6 34.5 105.5 7.8 106.7M14.5 109.8C14.3 86.8 13.9 36.5 14.6 11.1' fill='none' stroke='%230d0d0c' stroke-opacity='.74' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --sk-box-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M8.8 14.6C43.6 14.2 80.2 14.5 112.4 13.3M105.6 6.7C106.6 31.5 107 75.3 106.6 112.1M109.8 106.1C80.9 105.5 39.9 105.8 7.3 105.8M13.7 111.3C13.7 81.8 13.6 45.8 13.9 10.3M9.4 14.6C36.5 14.4 74.4 14.2 110.4 14.6M106 11C106.5 39.3 106.1 86.6 105.3 109.4M108.8 106.5C77.9 106.5 33.6 106.2 11.5 106.2M14.1 108.7C13.9 77 13.5 47.8 14.7 11.4' fill='none' stroke='%230d0d0c' stroke-opacity='.74' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --sk-box-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M8.5 14.3C43.2 13.7 82.3 14.6 110.2 13.9M106.3 7.2C106.8 39 106.3 84.9 105.9 113.3M113.3 106.9C75.3 106.2 33.5 105.8 5.8 106.9M14.4 111.5C14.7 78.6 14.1 38.3 14.6 7.2M10.8 13.5C45.6 13.7 81.6 13.6 112.1 14.1M105.5 8.7C106.6 33.8 106.5 76.3 105.5 111M109.1 105.9C81.7 106.2 35.4 106.2 11.7 106.6M13.5 107.1C13.7 80.7 13.8 41.8 13.9 10.8' fill='none' stroke='%230d0d0c' stroke-opacity='.74' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --sk-hatch-lime: repeating-linear-gradient(-55deg, var(--color-lime) 0 2px, transparent 2px 6px);
+  --sk-hatch-blue: repeating-linear-gradient(-55deg, rgb(61 90 254 / 0.42) 0 1.5px, transparent 1.5px 6px);
+  --sk-hatch-tangerine: repeating-linear-gradient(-55deg, rgb(255 106 43 / 0.55) 0 1.5px, transparent 1.5px 6px);
+  --sk-hatch-graphite: repeating-linear-gradient(-55deg, rgb(85 85 79 / 0.38) 0 1.2px, transparent 1.2px 6px);
+  --sk-hatch-cross: repeating-linear-gradient(55deg, rgb(85 114 0 / 0.42) 0 1.5px, transparent 1.5px 6px);
+  --sk-hatch-edge: repeating-linear-gradient(-48deg, rgb(138 138 130 / 0.7) 0 1.2px, transparent 1.2px 7px);
+  /* a lopsided pill and a lopsided circle (the irregular-radius trick) */
+  --sk-pill-radius: 9999px 7400px 9999px 6600px / 6900px 9999px 7700px 9999px;
+  --sk-round-radius: 50% 46% 52% 48% / 47% 53% 46% 51%;
+}
+html[data-sketch] .paper-dots {
+  background-image:
+    linear-gradient(var(--sk-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sk-grid-line) 1px, transparent 1px);
+  background-size: var(--sk-grid) var(--sk-grid);
+}
+/* Mini-UIs keep the real palette even inside a swapped (ink -> paper) scope. */
+html[data-sketch] [data-miniui] {
+  --color-ink: var(--sk-ink);
+  --color-ink-2: #1a1a18;
+  --color-paper: var(--sk-paper);
+  --color-fog: #a9a99f;
+  --color-ash: #6e6e66;
+  --color-seam: #2a2a27;
+}
+
+/* ---- ink slabs and bands turn to paper -------------------------------------------------- */
+/* Swap the neutrals: dark surfaces read as paper, light text as ink, at every depth and with
+   every variant (hover:, on-ink:, /opacity). Ink-on-accent and accent text are re-pinned below.
+   Only ink SURFACES flip (sections, slabs, rounded boxes, pills, chips): ink lines and dots
+   (the changelog's main branch, bullets, pins) stay ink. */
+html[data-sketch] :is([data-tone="ink"], .tag-ink, :is([class^="bg-ink"], [class*=" bg-ink"]):is([class^="rounded-"], [class*=" rounded-"]):not([class~="size-1"], [class~="size-1.5"], [class~="size-2"], [class~="size-2.5"], [class~="size-3"])):not([data-miniui] *, [data-sketch-skip], [data-sketch-skip] *) {
+  --color-ink: var(--sk-paper);
+  --color-ink-2: var(--sk-paper);
+  --color-paper: var(--sk-ink);
+  --color-fog: var(--sk-graphite);
+  --color-ash: var(--sk-pencil);
+  --color-seam: var(--sk-line);
+  background-color: transparent;
+}
+html[data-sketch] :is([data-tone="ink"], .tag-ink, :is([class^="bg-ink"], [class*=" bg-ink"]):is([class^="rounded-"], [class*=" rounded-"])) :is([class*="text-ink"], [class*="fill-ink"], [class*="stroke-ink"]):not([data-miniui] *, [data-sketch-skip] *) {
+  color: var(--sk-ink);
+}
+/* an ink fill that only comes with a state (hover:, group-data-[open]:...) stays paper in the sketch
+   (its light text is ink, below); pseudo-element fills (before:bg-ink bullets) are untouched */
+html[data-sketch] [class*=":bg-ink"]:not([class~="size-1"], [class~="size-1.5"], [class~="size-2"], [class~="size-2.5"], [class~="size-3"], [data-miniui] *, [data-sketch-skip], [data-sketch-skip] *) {
+  background-color: transparent;
+}
+/* an ink line or dot inside a swapped scope keeps real ink */
+html[data-sketch] [data-tone="ink"] .bg-ink:not(:is([class^="rounded-"], [class*=" rounded-"]):not([class~="size-1"], [class~="size-1.5"], [class~="size-2"], [class~="size-2.5"], [class~="size-3"]), [data-miniui] *) {
+  background-color: var(--sk-ink);
+}
+/* nothing stays dark in the sketch, so light text is ink everywhere (on hatches, thumbs, chips) */
+html[data-sketch] [class*="text-paper"]:not([data-miniui] *, [data-sketch-skip], [data-sketch-skip] *) {
+  color: var(--sk-ink);
+}
+/* a lime state outline (the selected key) is a lime-deep pencil line on paper (3:1+) */
+html[data-sketch] [class*="outline-lime"]:not([data-miniui] *) {
+  outline-color: var(--color-lime-deep);
+}
+html[data-sketch] [data-tone="ink"] [class*="text-lime"]:not([data-miniui] *) {
+  color: var(--color-lime-deep);
+}
+/* pale blue text on ink (the repos editor's links and JSON keys) is blue-deep pencil on paper */
+html[data-sketch] [data-tone="ink"] [class*="text-blue-soft"]:not([data-miniui] *) {
+  color: var(--color-blue-deep);
+}
+html[data-sketch] [class*="text-tangerine"]:not([class*="text-tangerine-deep"], [class*="text-tangerine-soft"], [data-miniui] *, .stamp *) {
+  color: var(--color-tangerine-deep);
+}
+html[data-sketch] :is(.bg-blue, .bg-graphite, .bg-tangerine)[class*="text-paper"]:not([data-miniui] *) {
+  color: var(--sk-ink);
+}
+/* paper surfaces inside a swapped scope: outlines only */
+html[data-sketch] [data-tone="ink"] [class*="bg-paper"]:not(.paper-dots, .sticky-note, [data-miniui] *, [data-sketch-skip] *) {
+  background-color: transparent;
+}
+/* the ink band (full bleed): a pencil-hatched strip along its top and bottom */
+html[data-sketch] [data-tone="ink"] {
+  color: var(--sk-graphite);
+  background-image: var(--sk-hatch-edge), var(--sk-hatch-edge);
+  background-size: 100% 14px;
+  background-position:
+    0 0,
+    0 100%;
+  background-repeat: no-repeat;
+}
+/* the ink slab (inset, 40px corners): hatched all round, inside a pencil box */
+html[data-sketch] .slab-clip {
+  clip-path: none;
+}
+html[data-sketch] [data-tone="ink"][class*="rounded-slab"] {
+  background-image: var(--sk-hatch-edge), var(--sk-hatch-edge), var(--sk-hatch-edge), var(--sk-hatch-edge);
+  background-size:
+    100% 16px,
+    100% 16px,
+    16px 100%,
+    16px 100%;
+  background-position:
+    0 0,
+    0 100%,
+    0 0,
+    100% 0;
+  border: 0 solid transparent;
+  border-image: var(--sk-box-b) 40 / 22px / 6px stretch;
+}
+/* the paper-2 band: a dashed pencil rule where it starts and where it ends */
+html[data-sketch] [data-tone="paper-2"]:not([data-miniui] *) {
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(90deg, rgb(138 138 130 / 0.75) 0 12px, transparent 12px 20px),
+    repeating-linear-gradient(90deg, rgb(138 138 130 / 0.75) 0 12px, transparent 12px 20px);
+  background-size: 100% 1.5px;
+  background-position:
+    0 0,
+    0 100%;
+  background-repeat: no-repeat;
+}
+/* every section: pencil-grey text by default (explicit text-ink stays ink) */
+html[data-sketch] :is([data-tone="paper"], [data-tone="paper-2"]):not([data-miniui] *) {
+  color: var(--sk-graphite);
+}
+
+/* ---- type: headings, labels and buttons are handwritten ----------------------------------- */
+/* Caveat's x-height is 0.37em against Bricolage's 0.53: font-size-adjust keeps the hierarchy
+   (it scales the glyphs, not the computed size, so every clamp() and override still applies). */
+html[data-sketch] :where(.type-hero, .type-display, .type-h3, .type-h4, .font-display, h1, h2, h3, h4):not([class*="type-hand"], .font-hand, [data-miniui] *, [data-sketch-skip] *) {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size-adjust: ex-height 0.46;
+  letter-spacing: 0;
+  color: var(--sk-ink);
+}
+html[data-sketch] :where(.type-hero):not([data-miniui] *, [data-sketch-skip] *) {
+  line-height: 0.96;
+  font-size-adjust: ex-height 0.44;
+}
+html[data-sketch] :where(.type-display):not([data-miniui] *, [data-sketch-skip] *) {
+  line-height: 1.02;
+}
+html[data-sketch] :where(.type-h3, .type-h4):not([data-miniui] *, [data-sketch-skip] *) {
+  line-height: 1.1;
+}
+/* mono labels, data and tags: Caveat at its 20px floor, natural case. Words stay whole (a tight
+   keycap would otherwise hyphenate "PostgreSQ-L"); Caveat's loose tracking is pulled in a hair. */
+html[data-sketch] :where(.type-label, .type-mono, .type-micro, .font-mono, .tag, kbd):not([class*="type-hand"], .font-hand, [data-miniui] *, [data-sketch-skip] *) {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand-sm);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  font-variant-numeric: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
+}
+/* a key drawn inside a pill: a smaller box that does not collide with the pill's own line */
+html[data-sketch] kbd:is(.border.rounded-chip, .border.rounded-xs):is(.border):not([data-miniui] *, [data-sketch-skip] *) {
+  border-image-width: 9px;
+  border-image-outset: 2px;
+}
+/* controls and nav: Inter's 15px reads like Caveat's 22px */
+html[data-sketch] :where(.type-ui):not([data-miniui] *, [data-sketch-skip] *) {
+  font-family: var(--font-hand);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+/* links: a wobbly pen underline */
+html[data-sketch] .link:not([data-miniui] *) {
+  color: var(--color-blue-deep);
+  text-decoration-style: wavy;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgb(44 68 216 / 0.55);
+  text-underline-offset: 0.28em;
+}
+
+/* ---- surfaces: no fills, no shadows, pencil outlines -------------------------------------- */
+html[data-sketch] :is(.card, [class*="bg-card"], [class*="bg-paper-2"]):not(.sticky-note, .paper-dots, [data-miniui] *, [data-sketch-skip] *) {
+  background-color: transparent;
+}
+html[data-sketch] :is(.card, .aw, [class*="shadow-card"], [class*="shadow-lift"], [class*="shadow-["]):not(.sticky-note, .stamp, .sk-tip, [data-miniui] *, [data-sketch-skip] *) {
+  box-shadow: none;
+}
+/* boxes (cards, windows, panels): the rough pencil rectangle, crossing at the corners. Only where
+   a border is actually drawn (a row with a transparent border gets one when selected / current). */
+html[data-sketch] :is(.card, .border.rounded-card, .border.rounded-window, .border.rounded-panel):is(:not(.border-transparent), [aria-selected="true"], [aria-current]:not([aria-current="false"]), [aria-pressed="true"]):not([data-miniui] *, [data-sketch-skip] *) {
+  border-style: solid;
+  border-image: var(--sk-box) 40 / 20px / 7px stretch;
+}
+html[data-sketch] :is(.card, .border.rounded-card, .border.rounded-window, .border.rounded-panel):is(:not(.border-transparent), [aria-selected="true"], [aria-current]:not([aria-current="false"]), [aria-pressed="true"]):nth-child(even):not([data-miniui] *, [data-sketch-skip] *) {
+  border-image-source: var(--sk-box-b);
+}
+/* under the pencil, a box "boils" (a hand-drawn line re-traced: three drawings, 8 per second) */
+@keyframes sk-boil {
+  0%,
+  100% {
+    border-image-source: var(--sk-box);
+  }
+  33% {
+    border-image-source: var(--sk-box-b);
+  }
+  66% {
+    border-image-source: var(--sk-box-c);
+  }
+}
+@media (hover: hover) {
+  html[data-sketch]:not(.rm) :is(.card, .border.rounded-card, .border.rounded-window, .border.rounded-panel):is(:not(.border-transparent), [aria-selected="true"]):hover:not([data-miniui] *, [data-sketch-skip] *) {
+    /* steps: each drawing snaps in like an animation frame (no image cross-fade in between) */
+    animation: sk-boil 375ms steps(1, end) infinite;
+  }
+}
+/* chips: the same box, smaller corners */
+html[data-sketch] :is(.border.rounded-chip, .border.rounded-xs):is(:not(.border-transparent), [aria-selected="true"], [aria-current]:not([aria-current="false"]), [aria-pressed="true"]):not([data-miniui] *, [data-sketch-skip] *) {
+  border-style: solid;
+  border-image: var(--sk-box-b) 40 / 12px / 4px stretch;
+}
+/* round things: lopsided, hand-drawn */
+html[data-sketch] :is(.tag, .border.rounded-pill):not([data-miniui] *, [data-sketch-skip] *) {
+  border-color: rgb(85 85 79 / 0.85);
+  border-radius: var(--sk-pill-radius);
+}
+/* (huge, unequal radii: a lopsided circle on a square, a lopsided pill on a wide field) */
+html[data-sketch] .border.rounded-full:not([data-miniui] *, [data-sketch-skip] *) {
+  border-color: rgb(13 13 12 / 0.72);
+  border-radius: var(--sk-pill-radius);
+}
+/* accent fills become coloured-pencil hatching (dots, pins and sticky notes keep their colour) */
+html[data-sketch] :is([class^="bg-lime"], [class*=" bg-lime"], .tag-lime):not(.sticky-note, [class*="rounded-full"], .label-dot, .sticky-pin, [data-miniui] *, [data-sketch-skip] *) {
+  background-color: transparent;
+  background-image: var(--sk-hatch-lime);
+}
+html[data-sketch] :is([class^="bg-blue"], [class*=" bg-blue"], .tag-blue):not(.sticky-note, [class*="rounded-full"], .label-dot, .sticky-pin, [data-miniui] *, [data-sketch-skip] *) {
+  background-color: transparent;
+  background-image: var(--sk-hatch-blue);
+}
+html[data-sketch] :is([class^="bg-tangerine"], [class*=" bg-tangerine"], .tag-tangerine):not(.sticky-note, [class*="rounded-full"], .label-dot, .sticky-pin, .stamp, [data-miniui] *, [data-sketch-skip] *) {
+  background-color: transparent;
+  background-image: var(--sk-hatch-tangerine);
+}
+html[data-sketch] :is([class^="bg-graphite"], [class*=" bg-graphite"]):not([class*="rounded-full"], [data-miniui] *, [data-sketch-skip] *) {
+  background-color: transparent;
+  background-image: var(--sk-hatch-graphite);
+}
+/* highlighter bands become a quick double underline in the same colour */
+html[data-sketch] .hl:not([data-miniui] *) {
+  color: var(--sk-ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 18' preserveAspectRatio='none'%3E%3Cpath d='M1 10C65.4 8.8 136.1 7.8 197 8.7M14.9 15.3C53.2 12.7 133.3 12.1 184.7 10.7' fill='none' stroke='%23c8f53b' stroke-width='3.6' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  background-size: 100% 0.34em;
+  background-position: 0 88%;
+}
+html[data-sketch] .hl-blue:not([data-miniui] *) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 18' preserveAspectRatio='none'%3E%3Cpath d='M1 10C65.4 8.8 136.1 7.8 197 8.7M14.9 15.3C53.2 12.7 133.3 12.1 184.7 10.7' fill='none' stroke='%233d5afe' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+html[data-sketch] .hl-tangerine:not([data-miniui] *) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 18' preserveAspectRatio='none'%3E%3Cpath d='M1 10C65.4 8.8 136.1 7.8 197 8.7M14.9 15.3C53.2 12.7 133.3 12.1 184.7 10.7' fill='none' stroke='%23ff6a2b' stroke-width='2.8' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+
+/* ---- controls ------------------------------------------------------------------------------- */
+html[data-sketch] .pill:not([data-miniui] *, [data-sketch-skip] *) {
+  --pill-bg: transparent;
+  --pill-fg: var(--sk-ink);
+  --pill-bd: rgb(13 13 12 / 0.78);
+  --pill-fill: var(--sk-hatch-lime);
+  --pill-fill-fg: var(--sk-ink);
+  border-width: 1.6px;
+  border-radius: var(--sk-pill-radius);
+  font-family: var(--font-hand);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  box-shadow: none;
+}
+html[data-sketch] .pill-sm:not([data-miniui] *, [data-sketch-skip] *) {
+  font-size: 1.25rem;
+}
+html[data-sketch] .pill-lg:not([data-miniui] *, [data-sketch-skip] *) {
+  font-size: 1.625rem;
+}
+html[data-sketch] .pill svg {
+  width: 0.9em;
+  height: 0.9em;
+}
+/* the primary actions keep their weight as a lime-hatched fill; hover cross-hatches it */
+html[data-sketch] :is(.pill-primary, .pill-lime):not([data-miniui] *, [data-sketch-skip] *) {
+  --pill-fill: var(--sk-hatch-cross);
+  background-image: var(--sk-hatch-lime);
+}
+html[data-sketch] .pill-ghost:not([data-miniui] *, [data-sketch-skip] *) {
+  --pill-bd: transparent;
+}
+html[data-sketch] .icon-btn:not([data-miniui] *, [data-sketch-skip] *) {
+  --ib-bg: transparent;
+  --ib-fg: var(--sk-ink);
+  --ib-bd: rgb(13 13 12 / 0.72);
+  --ib-fill: var(--sk-hatch-lime);
+  --ib-fill-fg: var(--sk-ink);
+  border-radius: var(--sk-round-radius);
+}
+html[data-sketch] .tag:not([data-miniui] *, [data-sketch-skip] *) {
+  color: var(--sk-graphite);
+  min-height: 30px;
+  padding-inline: 12px;
+}
+html[data-sketch] :is(.tag-lime, .tag-blue, .tag-tangerine, .tag-ink):not([data-miniui] *) {
+  color: var(--sk-ink);
+  border-color: rgb(85 85 79 / 0.85);
+}
+
+/* ---- canvases turn to pencil (the stack shows its 2D keyboard; anything else is drawn grey) - */
+html[data-sketch] canvas:not(.sk-canvas, [data-miniui] *) {
+  filter: grayscale(1) contrast(1.15);
+}
+
+/* ---- the margin notes (src/components/ui/SketchNote.tsx) --------------------------------- */
+/* A note sits in its section's top padding, BELOW the line of the fixed header (a section reached
+   from the nav lands with its top under the header), and its host (.sk-note-host: the section or
+   the slab, set by <Section>) grows its top padding just enough to keep the note above the
+   heading: wide screens barely move, phones get the room they lack. Sketch mode only. */
+.sk-note {
+  display: none;
+}
+html[data-sketch] .sk-note-host {
+  /* clear of the header, plus the note's tilt (its high end rises ~6px) */
+  --sk-note-top: calc(var(--header-h) + clamp(10px, 0.5vw + 6px, 16px));
+  /* one line of Caveat beside its 34px arrow, or two short lines on phones */
+  --sk-note-h: 3.5rem;
+  --sk-note-gap: clamp(8px, 1vw, 16px);
+  padding-top: max(var(--section-y), calc(var(--sk-note-top) + var(--sk-note-h) + var(--sk-note-gap)));
+}
+html[data-sketch] .sk-note {
+  position: absolute;
+  top: var(--sk-note-top);
+  right: max(var(--margin), calc((100% - var(--content)) / 2));
+  z-index: 1;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 2px;
+  max-width: min(26rem, calc(100% - 2 * var(--margin)));
+  color: var(--color-blue-deep);
+  text-wrap: balance;
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: right;
+  rotate: -2deg;
+  pointer-events: none;
+}
+html[data-sketch] .sk-note-slab {
+  right: clamp(20px, 5vw, 80px);
+}
+.sk-note-arrow {
+  margin-top: 0.55em;
+  scale: -1 1;
+  color: var(--color-blue-deep);
+}
+/* they write themselves in while the lens passes (pen), then the arrow is drawn */
+html[data-sketch]:not(.rm) .sk-note > span {
+  animation: sk-write-in 700ms var(--ease-pen) 320ms both;
+}
+html[data-sketch]:not(.rm) .sk-note-arrow path {
+  stroke-dasharray: 140;
+  animation: sk-draw-in 380ms var(--ease-pen) 960ms both;
+}
+@keyframes sk-write-in {
+  from {
+    clip-path: inset(-30% 100% -30% -6%);
+  }
+  to {
+    clip-path: inset(-30% -6% -30% -6%);
+  }
+}
+@keyframes sk-draw-in {
+  from {
+    stroke-dashoffset: 140;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---- the header toggle (src/components/chrome/SketchToggle.tsx) ------------------------------ */
+.sk-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-line-strong);
+  background-color: rgb(251 251 248 / 0.7);
+  color: var(--color-ink);
+  transition:
+    border-color var(--dur-feedback) var(--ease-arrive),
+    background-color var(--dur-feedback) var(--ease-arrive),
+    scale var(--dur-tap) var(--ease-arrive);
+}
+@media (hover: hover) {
+  .sk-toggle:hover {
+    border-color: var(--color-ink);
+    background-color: var(--color-lime-soft);
+  }
+}
+.sk-toggle:focus-visible {
+  border-color: var(--color-ink);
+  background-color: var(--color-lime-soft);
+}
+.sk-toggle:active {
+  scale: 0.94;
+}
+.sk-toggle-icon {
+  width: 22px;
+  height: 22px;
+  overflow: visible;
+}
+.sk-toggle-pencil {
+  transform-box: view-box;
+  transform-origin: 5px 19px;
+}
+.sk-toggle-squiggle {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--dur-swipe) var(--ease-pen);
+}
+.sk-toggle[aria-pressed="true"] .sk-toggle-squiggle,
+.sk-toggle:focus-visible .sk-toggle-squiggle {
+  stroke-dashoffset: 0;
+}
+@media (hover: hover) {
+  .sk-toggle:hover .sk-toggle-squiggle {
+    stroke-dashoffset: 0;
+  }
+  .sk-toggle:hover .sk-toggle-pencil {
+    animation: sk-write 620ms var(--ease-arrive);
+  }
+}
+@keyframes sk-write {
+  0% {
+    rotate: 0deg;
+    translate: 0 0;
+  }
+  30% {
+    rotate: -10deg;
+    translate: -0.6px 0.5px;
+  }
+  60% {
+    rotate: 6deg;
+    translate: 1.2px -0.2px;
+  }
+  100% {
+    rotate: 0deg;
+    translate: 0 0;
+  }
+}
+/* on: the toggle is drawn too, shaded lime */
+html[data-sketch] .sk-toggle {
+  border-color: rgb(13 13 12 / 0.78);
+  border-radius: var(--sk-round-radius);
+  background-color: var(--color-paper);
+  background-image: var(--sk-hatch-lime);
+}
+/* the theme switch shares the round button but is not "on" in the sketch: no lime hatching */
+html[data-sketch] .theme-toggle {
+  background-image: none;
+}
+/* once per session, after the opening: the pencil scribbles to say it is there */
+.sk-toggle[data-hint] .sk-toggle-pencil {
+  animation: sk-write 620ms var(--ease-arrive) 2;
+}
+.sk-toggle[data-hint] .sk-toggle-squiggle {
+  stroke-dashoffset: 0;
+}
+html.rm .sk-toggle-pencil {
+  animation: none !important;
+}
+html.rm .sk-toggle-squiggle {
+  transition: none;
+}
+.sk-tip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -6px;
+  z-index: var(--z-raised);
+  padding: 3px 11px 5px;
+  border-radius: 6px 9px 7px 10px;
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-card);
+  box-shadow: var(--shadow-lift);
+  color: var(--color-ink);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand-sm);
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+  rotate: -2deg;
+  opacity: 0;
+  translate: 0 -4px;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-exit) var(--ease-exit),
+    translate var(--dur-exit) var(--ease-exit);
+}
+@media (hover: hover) {
+  .sk-toggle:hover + .sk-tip {
+    opacity: 1;
+    translate: 0 0;
+    transition:
+      opacity var(--dur-ui) var(--ease-arrive) 120ms,
+      translate var(--dur-ui) var(--ease-arrive) 120ms;
+  }
+}
+.sk-toggle:focus-visible + .sk-tip,
+.sk-toggle-wrap[data-flash] .sk-tip {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--dur-ui) var(--ease-arrive),
+    translate var(--dur-ui) var(--ease-arrive);
+}
+/* after a switch the tip has said its piece: it stays down under a resting pointer or a kept
+   focus until the next hover or focus (SketchToggle sets data-tip-muted); a tap's confirmation
+   (data-flash) still shows */
+.sk-toggle-wrap[data-tip-muted]:not([data-flash]) .sk-tip {
+  opacity: 0;
+  translate: 0 -4px;
+  transition:
+    opacity var(--dur-exit) var(--ease-exit),
+    translate var(--dur-exit) var(--ease-exit);
+}
+html.rm .sk-tip {
+  translate: none;
+}
+
+/* ---- the cursor's pencil (src/components/cursor) --------------------------------------------- */
+.cursor-pencil {
+  display: none;
+}
+html[data-sketch] .cursor-pencil {
+  display: block;
+  position: absolute;
+  top: -24.9px;
+  left: -7.1px;
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+  transition: opacity var(--dur-feedback) linear;
+}
+.cursor-pencil-body {
+  fill: var(--color-lime);
+}
+.cursor-pencil-cap {
+  fill: var(--color-tangerine);
+}
+.cursor-pencil-wood {
+  fill: var(--color-card);
+}
+.cursor-pencil-lead {
+  fill: var(--color-ink);
+}
+.cursor-pencil-line {
+  stroke: var(--color-ink);
+  stroke-width: 1.3;
+}
+html[data-sketch] [data-mode="hidden"] .cursor-pencil {
+  opacity: 0;
+}
+html[data-sketch] .cursor-dot {
+  opacity: 0 !important;
+}
+html[data-sketch] .cursor-ring {
+  border-color: transparent !important;
+  background-color: transparent !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M6.3 10.2C8.4 8.9 14.5 2.8 19.1 2.7C23.6 2.6 30.8 5.9 33.7 9.7C36.6 13.5 37.9 21.1 36.5 25.4C35.1 29.8 29.6 34.7 25.1 36C20.6 37.3 13 36.1 9.4 33.3C5.8 30.5 3.2 23.7 3.5 19.2C3.8 14.7 9.9 8.3 11.1 6.1M6.9 9C9.4 8 17.3 2.5 22.1 2.9C26.8 3.4 33.3 7.5 35.5 11.6C37.6 15.6 37.3 23.2 35.1 27.3C32.8 31.4 26.7 35.4 22 36.2C17.3 36.9 9.9 35 6.8 31.6C3.6 28.3 1.7 20.5 3 15.9C4.2 11.4 12.3 6.2 14.2 4.2' fill='none' stroke='%230d0d0c' stroke-opacity='.72' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
+html[data-sketch] [data-mode="hover"] .cursor-ring {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M6.3 10.2C8.4 8.9 14.5 2.8 19.1 2.7C23.6 2.6 30.8 5.9 33.7 9.7C36.6 13.5 37.9 21.1 36.5 25.4C35.1 29.8 29.6 34.7 25.1 36C20.6 37.3 13 36.1 9.4 33.3C5.8 30.5 3.2 23.7 3.5 19.2C3.8 14.7 9.9 8.3 11.1 6.1M6.9 9C9.4 8 17.3 2.5 22.1 2.9C26.8 3.4 33.3 7.5 35.5 11.6C37.6 15.6 37.3 23.2 35.1 27.3C32.8 31.4 26.7 35.4 22 36.2C17.3 36.9 9.9 35 6.8 31.6C3.6 28.3 1.7 20.5 3 15.9C4.2 11.4 12.3 6.2 14.2 4.2' fill='none' stroke='%230d0d0c' stroke-opacity='.72' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(-55deg, var(--cursor-fill) 0 2.5px, transparent 2.5px 6px);
+  background-size: 100% 100%;
+}
+html[data-sketch] .cursor-label {
+  background-color: var(--sk-paper) !important;
+  color: var(--sk-ink) !important;
+  border: 1.5px solid rgb(13 13 12 / 0.78);
+  border-radius: var(--sk-pill-radius);
+}
+html[data-sketch] .cursor-label .type-label {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand-sm);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ---- the wipe (src/lib/motion/sketchWipe.ts): the x-ray lens grown to the whole screen ------- */
+.sk-rim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sheet);
+  pointer-events: none;
+  color: rgb(13 13 12 / 0.82);
+  view-transition-name: sk-rim;
+}
+.sk-rim svg {
+  display: block;
+  overflow: visible;
+}
+.sk-rim g {
+  transform-box: view-box;
+  transform-origin: 0 0;
+}
+.sk-rim path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+html.sk-vt::view-transition-old(root),
+html.sk-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+/* shipping back: the sketch (old) collapses on top of the live shipped site */
+html.sk-vt-out::view-transition-old(root) {
+  z-index: 1;
+}
+html.sk-vt::view-transition-group(sk-rim),
+html.sk-vt::view-transition-old(sk-rim),
+html.sk-vt::view-transition-new(sk-rim) {
+  animation: none;
+}

@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# logs & os
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# env
+.env*
+!.env.example
+
+# local design screenshots (sketch folders themselves are kept)
+/design/**/review*/
+
+# QA tooling deps and output (screenshots, the headless browser's temp profiles)
+/docs/handoff/tools/node_modules/
+/docs/handoff/tools/.out/

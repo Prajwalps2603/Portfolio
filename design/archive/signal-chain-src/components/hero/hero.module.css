@@ -1,0 +1,132 @@
+/* Hero-only CSS that utilities cannot express cleanly: the name loupe mask and the lane panel
+   reveal. Tokens come from globals.css (@theme). */
+
+/* ---- The loupe: inside a 96px window around the probe, the name shows its sample slices
+   again (a magnifier on a discrete signal). Fine pointers, full motion, after the opening. */
+.loupe {
+  -webkit-mask-image:
+    radial-gradient(circle var(--lr, 0px) at var(--lx, -200px) var(--ly, -200px), transparent calc(100% - 1px), #000 100%),
+    repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 6px);
+  mask-image:
+    radial-gradient(circle var(--lr, 0px) at var(--lx, -200px) var(--ly, -200px), transparent calc(100% - 1px), #000 100%),
+    repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 6px);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+/* ---- Lane panel: the layer's tech list, revealed from the chip by a clip-path wipe. */
+.panel {
+  clip-path: inset(0 100% 0 0);
+  visibility: hidden;
+  transition:
+    clip-path var(--dur-chip) var(--ease-panel),
+    visibility 0s linear var(--dur-chip);
+}
+.panel[data-open="true"] {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition:
+    clip-path var(--dur-chip) var(--ease-panel),
+    visibility 0s;
+}
+/* Exits are faster than entrances. */
+.panel[data-open="false"] {
+  transition:
+    clip-path calc(var(--dur-chip) * 0.6) var(--ease-exit),
+    visibility 0s linear calc(var(--dur-chip) * 0.6);
+}
+/* Portrait: panels drop below the chip, wiping down from it; the last two lanes open upward
+   (out of the status row's way), so they wipe up from the chip instead. */
+@media (max-width: 860px) {
+  .panel {
+    clip-path: inset(0 0 100% 0);
+  }
+  .panel[data-up="true"] {
+    clip-path: inset(100% 0 0 0);
+  }
+  .panel[data-open="true"] {
+    clip-path: inset(0 0 0 0);
+  }
+}
+:global(html.rm) .panel {
+  transition: none;
+}
+
+/* ---- Hero CTAs: the inversion is a fill that wipes across the button (left to right in,
+   right to left out), not a colour fade, so hover reads even in a still frame. The fill is a
+   pseudo-element under the label (isolation keeps it inside the button's stacking context).
+   Layered on the global .btn (which keeps the base materials, padding and 44px height). */
+.cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: transparent;
+  transition:
+    color var(--dur-invert) var(--ease-panel),
+    border-color var(--dur-invert) var(--ease-panel),
+    translate var(--dur-tap) var(--ease-panel);
+}
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-bone);
+  clip-path: inset(0 100% 0 0);
+  /* exit: faster than the entrance, accelerating away */
+  transition: clip-path calc(var(--dur-invert) * 0.7) var(--ease-exit);
+}
+.cta:hover,
+.cta:focus-visible {
+  color: var(--color-ink);
+  background-color: transparent;
+  border-color: var(--color-bone);
+}
+.cta:hover::before,
+.cta:focus-visible::before {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path var(--dur-invert) var(--ease-wipe);
+}
+
+/* Solid (primary): bone at rest; graphite wipes in and the label turns bone. */
+.cta[data-cta="primary"] {
+  color: var(--color-ink);
+  background-color: var(--color-bone);
+  border-color: var(--color-bone);
+}
+.cta[data-cta="primary"]::before {
+  background-color: var(--color-graphite);
+}
+.cta[data-cta="primary"]:hover,
+.cta[data-cta="primary"]:focus-visible {
+  color: var(--color-bone);
+  background-color: var(--color-bone);
+}
+
+/* Active: the key seats 1px into the panel and the fill dims a step (instant, no wipe). */
+.cta:active {
+  translate: 0 1px;
+}
+.cta:active::before {
+  background-color: color-mix(in srgb, var(--color-bone) 82%, var(--color-graphite));
+}
+.cta[data-cta="primary"]:active::before {
+  background-color: var(--color-bezel);
+}
+
+/* Focus: a 2px bone ring held 3px off the edge, on top of the inverted fill. */
+.cta:focus-visible {
+  outline: 2px solid var(--color-bone);
+  outline-offset: 3px;
+}
+
+/* Reduced motion: the state change stays (colour + fill), the movement goes. */
+:global(html.rm) .cta,
+:global(html.rm) .cta::before,
+:global(html.rm) .cta:hover::before,
+:global(html.rm) .cta:focus-visible::before {
+  transition: none;
+}
+:global(html.rm) .cta:active {
+  translate: none;
+}

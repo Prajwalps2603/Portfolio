@@ -1,0 +1,665 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   SIGNAL CHAIN · design tokens and base layer
+   Two materials: SCREENS (graphite) carry live signals; SHEETS (bone) carry records.
+   Colour is functional only: CH1-CH4 encode the four layers everywhere; bone is Σ and "you".
+   Builders: read docs/DESIGN.md before using anything here. Do not add colours or sizes
+   in components; add a token here (foundation owns this file) or ask for one.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------- variants */
+/* JS-set document states (set by the inline boot script and lib/motion/preferences.ts). */
+@custom-variant booting (&:where(html.booting *));
+@custom-variant reduced (&:where(html.rm *));
+@custom-variant signals-off (&:where(html.signals-off *));
+@custom-variant probe-on (&:where(html.probe-on *));
+/* Material: anything inside a bone sheet (History, datasheets, header over a sheet). */
+@custom-variant sheet (&:where([data-surface="sheet"], [data-surface="sheet"] *));
+/* Input capability. */
+@custom-variant fine (@media (hover: hover) and (pointer: fine));
+@custom-variant coarse (@media (pointer: coarse));
+@custom-variant portrait (@media (max-width: 860px));
+
+/* ---------------------------------------------------------------- theme */
+@theme {
+  /* Palette, named by role. Nothing else exists: off-palette utilities fail to compile. */
+  --color-*: initial;
+  /* screens (graphite) */
+  --color-graphite: #0e0f0d; /* every live screen; WebGL clear colour */
+  --color-bezel: #171815; /* raised panels, bench surround, pressed states */
+  --color-graticule: #2b2d28; /* grid lines, rules, borders on graphite (decorative 1.4:1) */
+  --color-graticule-strong: #3a3c36; /* stronger rules, idle outlines (decorative 1.7:1) */
+  --color-bone: #ece8df; /* primary text on graphite 15.7:1; Σ; "you" (focus, CTA, probe) */
+  --color-muted: #a29e93; /* secondary text on graphite 7.2:1 (6.7:1 on bezel) */
+  --color-dim: #85827a; /* mono labels on graphite 5.0:1 (4.6:1 on bezel) */
+  --color-ch1: #f2b53d; /* CH1 Interface amber 10.5:1 */
+  --color-ch2: #4ec1bc; /* CH2 Services teal 8.9:1 */
+  --color-ch3: #93cf63; /* CH3 Data green 10.4:1; copy-success */
+  --color-ch4: #7fa8f5; /* CH4 Intelligence blue 8.1:1 */
+  /* sheets (bone) */
+  --color-ink: #141512; /* primary text on bone 15.0:1 */
+  --color-ink-muted: #57544c; /* secondary text on bone 6.2:1 */
+  --color-rule: #cfcabe; /* table rules on bone (decorative) */
+  --color-tick: #8d887c; /* ruler minor ticks (decorative) */
+  --color-bone-shade: #e4dfd4; /* highlighted row on a sheet; ink 13.8:1, ink-muted 5.7:1 */
+  --color-ch1-ink: #8a5f00; /* CH1 label on bone 4.62:1 (NOT on bone-shade: 4.25:1) */
+  --color-ch2-ink: #0f6e6a; /* CH2 label on bone 4.97:1 */
+  --color-ch3-ink: #386f17; /* CH3 label on bone 4.97:1 */
+  --color-ch4-ink: #2f5db8; /* CH4 label on bone 5.08:1 */
+
+  /* Families (next/font variables live on <html>, see src/fonts). */
+  --font-*: initial;
+  --font-display: var(--font-archivo), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, Consolas, monospace;
+
+  /* Fluid type scale. Prefer the type-* role utilities below; they set every property. */
+  --text-*: initial;
+  --text-label: 0.6875rem; /* 11px mono labels: the floor for functional text */
+  --text-label--line-height: 1.45;
+  --text-readout: 0.75rem; /* 12px mono data, buttons */
+  --text-readout--line-height: 1.4;
+  --text-small: 0.9375rem; /* 15px secondary lines in tables / captions (not paragraphs) */
+  --text-small--line-height: 1.5;
+  --text-body: clamp(1rem, 0.9rem + 0.2vw, 1.0625rem); /* 16 -> 17px */
+  --text-body--line-height: 1.55;
+  --text-lead: clamp(1.0625rem, 0.85rem + 0.35vw, 1.1875rem); /* 17 -> 19px */
+  --text-lead--line-height: 1.4;
+  --text-title: clamp(1.625rem, 0.5rem + 1.95vw, 2.5rem); /* H3 26 -> 40px */
+  --text-title--line-height: 1.02;
+  --text-role: clamp(1.5rem, 0.5rem + 2.65vw, 3rem); /* "Full Stack Developer" 24 -> 48px */
+  --text-role--line-height: 1.05;
+  --text-statement: clamp(1.75rem, 0.5rem + 3.55vw, 4rem); /* 28 -> 64px */
+  --text-statement--line-height: 1.1;
+  --text-display: clamp(2.25rem, 0.75rem + 4.6vw, 5.375rem); /* H2 36 -> 86px */
+  --text-display--line-height: 0.95;
+  --text-email: clamp(1.5625rem, 0.75rem + 6vw, 6.125rem); /* contact address 25 -> 98px */
+  --text-email--line-height: 1;
+  --text-name: clamp(3.375rem, 10.2vw, 10.625rem); /* PRAJWAL M P 54 -> 170px; a measurement */
+  --text-name--line-height: 0.86;
+
+  /* Breakpoints from the direction: <=860 portrait/phone, 861-1099 laptop, >=1100 desktop. */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 37.5rem; /* 600px: datasheet diagrams turn landscape */
+  --breakpoint-md: 53.8125rem; /* 861px: tablet landscape / small laptop */
+  --breakpoint-lg: 68.75rem; /* 1100px: desktop */
+  --breakpoint-xl: 90rem; /* 1440px: wide */
+
+  /* Easing. Same names as the GSAP CustomEases in src/lib/motion/eases.ts. */
+  --ease-*: initial;
+  --ease-beam: cubic-bezier(0.65, 0, 0.35, 1); /* beam sweeps, line wipes, trace draw-ins */
+  --ease-panel: cubic-bezier(0.2, 0.8, 0.2, 1); /* UI chrome: hovers, chips, rows, menus */
+  --ease-wipe: cubic-bezier(0.7, 0, 0.2, 1); /* full-viewport clip-path wipes (curtain) */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1); /* general arrivals (expo.out) */
+  --ease-exit: cubic-bezier(0.55, 0, 1, 0.45); /* exits (power2.in-like); always shorter */
+  /* lock: 2% overshoot then settle (sampled from the CustomEase path; CSS linear()). */
+  --ease-lock: linear(0 0%, 0.09 2%, 0.181 4%, 0.273 6%, 0.366 8%, 0.458 10%, 0.548 12%, 0.633 14%, 0.713 16%, 0.785 18%, 0.848 20%, 0.9 22%, 0.96 25%, 0.998 28%, 1.017 31%, 1.02 34%, 1.013 38%, 1.008 42%, 1.003 47%, 1.001 52%, 0.999 60%, 0.998 70%, 0.999 85%, 1 100%);
+  --ease-linear: linear;
+
+  /* Loops: only these two exist. Both stop with reduced motion; the sweep stops with Signals: paused. */
+  --animate-*: initial;
+  --animate-blink: blink 0.5s steps(1, end) infinite; /* AUTO status, 2 flashes/s (< 3/s) */
+  --animate-sweep: sweep 2.2s cubic-bezier(0.65, 0, 0.35, 1) 3; /* scroll cue, three loops then stops */
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes sweep {
+    0% {
+      transform: translateX(-100%);
+    }
+    60%,
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- non-theme tokens */
+:root {
+  /* Layout: the graticule. 10 divisions (4 in portrait) inside these margins. */
+  --margin: clamp(16px, 4vw, 64px);
+  --divisions: 10;
+  --bar: 56px; /* fixed top bar height */
+  --section-y: clamp(96px, 17vh, 180px); /* section top padding (16-24vh feel) */
+  --section-y-end: clamp(80px, 14vh, 150px); /* section bottom padding */
+  --measure: 62ch; /* body measure (45-75ch) */
+
+  /* Durations (seconds in GSAP: see DUR in src/lib/motion/eases.ts). */
+  --dur-tap: 120ms;
+  --dur-hover: 200ms;
+  --dur-invert: 220ms;
+  --dur-chip: 320ms;
+  --dur-surface: 350ms;
+  --dur-rise: 550ms;
+  --dur-wipe: 600ms;
+
+  /* Z layers. Use as z-(--z-header) etc. Never invent z-index numbers. */
+  --z-scene: 0;
+  --z-content: 1;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-header: 60;
+  --z-menu: 70;
+  --z-curtain: 90;
+  --z-cursor: 100;
+  --z-skip: 110;
+}
+@media (max-width: 860px) {
+  :root {
+    --divisions: 4;
+    --bar: 52px;
+  }
+}
+
+/* ---------------------------------------------------------------- base */
+@layer base {
+  html {
+    background: var(--color-graphite);
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    font-stretch: 100%;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    caret-color: var(--color-bone);
+    scrollbar-color: var(--color-graticule-strong) var(--color-graphite);
+    accent-color: var(--color-bone);
+  }
+  /* A datasheet page (a bone sheet that IS the whole of <main>) themes the canvas and scrollbar
+     too. :only-child matters: home also has a sheet child (#experience) and must stay graphite. */
+  html:has(#main > [data-surface="sheet"]:only-child) {
+    background: var(--color-bone);
+    color-scheme: light;
+    scrollbar-color: #b3ad9f var(--color-bone);
+  }
+  body {
+    min-height: 100svh;
+    font-size: var(--text-body);
+    line-height: 1.55;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="slider"],
+  summary {
+    cursor: pointer;
+  }
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+  time,
+  data,
+  td,
+  th {
+    font-variant-numeric: tabular-nums;
+  }
+  ::selection {
+    background: var(--color-bone);
+    color: var(--color-ink);
+  }
+  [data-surface="sheet"] {
+    caret-color: var(--color-ink);
+  }
+  [data-surface="sheet"]::selection,
+  [data-surface="sheet"] ::selection {
+    background: var(--color-ink);
+    color: var(--color-bone);
+  }
+  /* Focus: 2px bone ring at 3px on graphite (15.7:1); 2px ink ring on bone (15.0:1). */
+  :focus-visible {
+    outline: 2px solid var(--color-bone);
+    outline-offset: 3px;
+  }
+  [data-surface="sheet"]:focus-visible,
+  [data-surface="sheet"] :focus-visible {
+    outline-color: var(--color-ink);
+  }
+  /* Programmatic focus targets (skip link, section jumps) do not draw a ring around a whole section. */
+  main:focus,
+  section[tabindex="-1"]:focus,
+  [data-focus-target]:focus {
+    outline: none;
+  }
+  /* The probe replaces the native cursor inside instruments (fine pointers, full motion only). */
+  html.probe-on [data-instrument],
+  html.probe-on [data-instrument] * {
+    cursor: none;
+  }
+  html.probe-on [data-instrument] [data-cursor="native"],
+  html.probe-on [data-instrument] [data-cursor="native"] * {
+    cursor: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Lenis (mirrors lenis/dist/lenis.css so we don't ship a second stylesheet). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- type roles */
+/* One utility per role. Each sets family, size, weight, width, leading and tracking. */
+@utility type-name {
+  font-family: var(--font-display);
+  font-size: var(--text-name);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  @media (max-width: 860px) {
+    font-size: clamp(2.75rem, 14.4vw, 7.5rem);
+    line-height: 0.88;
+  }
+}
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+@utility type-statement {
+  font-family: var(--font-display);
+  font-size: var(--text-statement);
+  font-weight: 600;
+  font-stretch: 100%;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  text-wrap: pretty;
+}
+@utility type-role {
+  font-family: var(--font-display);
+  font-size: var(--text-role);
+  font-weight: 500;
+  font-stretch: 100%;
+  line-height: 1.05;
+  letter-spacing: -0.014em;
+}
+@utility type-title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 700;
+  font-stretch: 108%;
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+@utility type-email {
+  font-family: var(--font-display);
+  font-size: var(--text-email);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+@utility type-lead {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 500;
+  font-stretch: 100%;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+@utility type-body {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 400;
+  font-stretch: 100%;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+@utility type-small {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 400;
+  font-stretch: 100%;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+/* Mono, uppercase, wide-tracked: ONLY for short labels (a few words). */
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  font-stretch: 87.5%;
+  line-height: 1.45;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+/* Mono, natural case, tight tracking: data values, endpoints, readouts, refdes. */
+@utility type-readout {
+  font-family: var(--font-mono);
+  font-size: var(--text-readout);
+  font-weight: 500;
+  font-stretch: 87.5%;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+/* Mono button text. */
+@utility type-button {
+  font-family: var(--font-mono);
+  font-size: var(--text-readout);
+  font-weight: 600;
+  font-stretch: 87.5%;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+/* A number inside running text ("every number is set in mono"). */
+@utility num {
+  font-family: var(--font-mono);
+  /* Never below the 11px functional floor, even inside a 12px readout. */
+  font-size: max(0.86em, 0.6875rem);
+  font-weight: inherit;
+  font-stretch: 87.5%;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+@utility measure {
+  max-width: var(--measure);
+}
+
+/* ---------------------------------------------------------------- layout utilities */
+@utility px-margin {
+  padding-inline: var(--margin);
+}
+@utility mx-margin {
+  margin-inline: var(--margin);
+}
+@utility py-section {
+  padding-block: var(--section-y) var(--section-y-end);
+}
+@utility pt-bar {
+  padding-top: var(--bar);
+}
+@utility top-bar {
+  top: var(--bar);
+}
+@utility scroll-mt-bar {
+  scroll-margin-top: var(--bar);
+}
+/* The graticule column grid: 10 divisions, 4 in portrait. Align big type to these lines. */
+@utility grid-divisions {
+  display: grid;
+  grid-template-columns: repeat(var(--divisions), minmax(0, 1fr));
+}
+
+/* ---------------------------------------------------------------- components */
+@layer components {
+  /* Instrument button: mono label, square, inverts graphite <-> bone on hover. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px;
+    font-family: var(--font-mono);
+    font-size: var(--text-readout);
+    font-weight: 600;
+    font-stretch: 87.5%;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--color-bone);
+    background-color: var(--color-graphite);
+    border: 1px solid color-mix(in srgb, var(--color-bone) 42%, transparent);
+    transition:
+      background-color var(--dur-invert) var(--ease-panel),
+      color var(--dur-invert) var(--ease-panel),
+      border-color var(--dur-invert) var(--ease-panel),
+      translate var(--dur-invert) var(--ease-panel);
+  }
+  /* Engaged = pointer hover (real hover devices only, no sticky taps) or keyboard focus: the
+     materials invert. The focus ring (base layer) still draws outside, 3px off. */
+  @media (hover: hover) {
+    .btn:hover {
+      background-color: var(--color-bone);
+      color: var(--color-ink);
+      border-color: var(--color-bone);
+    }
+  }
+  .btn:focus-visible {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    border-color: var(--color-bone);
+  }
+  /* Pressed: seats 1px into the panel, quicker than it springs back. */
+  .btn:active {
+    translate: 0 1px;
+    background-color: color-mix(in srgb, var(--color-bone) 82%, var(--color-graphite));
+    color: var(--color-ink);
+    transition-duration: var(--dur-tap);
+  }
+  .btn-solid {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    border-color: var(--color-bone);
+  }
+  @media (hover: hover) {
+    .btn-solid:hover {
+      background-color: var(--color-graphite);
+      color: var(--color-bone);
+      border-color: var(--color-bone);
+    }
+  }
+  .btn-solid:focus-visible {
+    background-color: var(--color-graphite);
+    color: var(--color-bone);
+    border-color: var(--color-bone);
+  }
+  .btn-solid:active {
+    background-color: var(--color-bezel);
+    color: var(--color-bone);
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  /* On sheets the materials swap: ink outline, ink fill. */
+  :where([data-surface="sheet"]) .btn {
+    color: var(--color-ink);
+    background-color: transparent;
+    border-color: var(--color-ink);
+  }
+  @media (hover: hover) {
+    :where([data-surface="sheet"]) .btn:hover {
+      background-color: var(--color-ink);
+      color: var(--color-bone);
+    }
+  }
+  :where([data-surface="sheet"]) .btn:is(:focus-visible, :active) {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+  }
+  :where([data-surface="sheet"]) .btn-solid {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+  }
+  @media (hover: hover) {
+    :where([data-surface="sheet"]) .btn-solid:hover {
+      background-color: transparent;
+      color: var(--color-ink);
+    }
+  }
+  :where([data-surface="sheet"]) .btn-solid:is(:focus-visible, :active) {
+    background-color: transparent;
+    color: var(--color-ink);
+  }
+  .btn svg,
+  .link-mono svg {
+    width: 1.1em;
+    height: 1.1em;
+    flex: none;
+  }
+
+  /* Instrument link: short mono label with a hairline that turns bone on hover. */
+  .link-mono {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0 3px;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    font-weight: 500;
+    font-stretch: 87.5%;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-dim);
+    transition:
+      border-color var(--dur-hover) var(--ease-panel),
+      color var(--dur-hover) var(--ease-panel);
+  }
+  .link-mono:hover {
+    border-bottom-color: var(--color-bone);
+  }
+  :where([data-surface="sheet"]) .link-mono {
+    border-bottom-color: var(--color-ink-muted);
+  }
+  :where([data-surface="sheet"]) .link-mono:hover {
+    border-bottom-color: var(--color-ink);
+  }
+  @media (pointer: coarse) {
+    .link-mono {
+      min-height: 44px;
+      align-items: flex-end;
+    }
+  }
+
+  /* Prose link inside running text. */
+  .link-text {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-dim);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-hover) var(--ease-panel);
+  }
+  .link-text:hover {
+    text-decoration-color: currentColor;
+  }
+  :where([data-surface="sheet"]) .link-text {
+    text-decoration-color: var(--color-ink-muted);
+  }
+
+  /* Hairline rules. */
+  .rule-t {
+    border-top: 1px solid var(--color-graticule);
+  }
+  .rule-b {
+    border-bottom: 1px solid var(--color-graticule);
+  }
+  :where([data-surface="sheet"]) .rule-t {
+    border-top-color: var(--color-rule);
+  }
+  :where([data-surface="sheet"]) .rule-b {
+    border-bottom-color: var(--color-rule);
+  }
+
+  /* Engraved ruler: the top edge of every sheet (8px minor ticks, 80px major). */
+  .ruler {
+    height: 28px;
+    border-top: 1px solid var(--color-ink);
+    background:
+      repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 80px) 0 0 / 100% 15px no-repeat,
+      repeating-linear-gradient(90deg, var(--color-tick) 0 1px, transparent 1px 8px) 0 0 / 100% 7px no-repeat;
+  }
+
+  /* Procedural graticule (CSS fallback when there is no WebGL, and the 404 screen). */
+  .graticule {
+    background-image:
+      linear-gradient(var(--color-graticule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-graticule) 1px, transparent 1px);
+    background-size: calc(100% / var(--divisions)) calc(100% / 8);
+    background-position: -1px -1px;
+  }
+
+  /* Sample-and-hold reveal (SampledText / sampleTimeline). The text shows through vertical
+     slices --sw wide every --sp px; JS steps --sp 24 -> 12 -> 6 -> 3 -> solid. */
+  [data-sampling],
+  html.booting [data-boot-sample] {
+    -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 var(--sw, 0px), transparent var(--sw, 0px) var(--sp, 24px));
+    mask-image: repeating-linear-gradient(90deg, #000 0 var(--sw, 0px), transparent var(--sw, 0px) var(--sp, 24px));
+  }
+
+  /* Beam wipe: a single line revealed left to right by a 1.5px bone beam. Drive --rp 0 -> 1. */
+  .beam-wipe {
+    position: relative;
+    --rp: 1;
+    clip-path: inset(-14% calc((1 - var(--rp)) * 100%) -14% 0);
+  }
+  .beam-wipe::after {
+    content: "";
+    position: absolute;
+    top: -8%;
+    bottom: -8%;
+    left: calc(var(--rp) * 100% - 1.5px);
+    width: 1.5px;
+    background: var(--color-bone);
+    opacity: clamp(0, calc((1 - var(--rp)) * 9), 1);
+    box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-bone) 55%, transparent);
+    pointer-events: none;
+  }
+  html.booting [data-boot-wipe] {
+    --rp: 0;
+  }
+
+  /* Boot: hero/header chrome waits for the opening. Only while html.booting, which the inline
+     boot script sets and a 5.2s failsafe always removes. Without JS nothing is ever hidden. */
+  html.booting [data-boot] {
+    opacity: 0;
+  }
+}
