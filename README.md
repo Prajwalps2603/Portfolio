@@ -1,18 +1,35 @@
-# Prajwal M P: portfolio
+<div align="center">
 
-Personal portfolio of Prajwal M P, Full Stack Developer. The concept is "Sketch → Ship": every
-screen pairs a hand-drawn sketch layer (pencil strokes, Caveat handwriting, highlighters, sticky
-notes) with a crisp shipped-software layer (cards, real UI, mono labels), because his work is
-taking an idea from a rough sketch to software people use. The signature move is a sketch that
-compiles into real UI: the opening draws the whole hero and
-ships it, the hero's app window cycles through his real projects the same way, and each case
-study opens with its project's own sketch → ship.
+# ✏️ → 🚀 Prajwal M P
 
-Live: https://prajwalps2603.github.io/Portfolio/
-Repository: https://github.com/Prajwalps2603/Portfolio
+### Sketch → Ship
 
-> v2.0.0 is a complete rewrite. It replaces the earlier portfolio in this repository; nothing
-> from the old code is carried over.
+**A portfolio that draws itself, then compiles into real software.**
+
+[**Live site**](https://prajwalps2603.github.io/Portfolio/) ·
+[Case studies](https://prajwalps2603.github.io/Portfolio/work/) ·
+[Résumé](https://prajwalps2603.github.io/Portfolio/resume/)
+
+`Next.js 16` · `React 19` · `TypeScript` · `Tailwind 4` · `GSAP` · `Static export`
+
+</div>
+
+---
+
+## The idea
+
+Prajwal is a Full Stack Developer, and his work is taking an idea from a rough sketch to software
+people use. So the site does exactly that. Every screen pairs a hand-drawn **sketch layer**
+(pencil strokes, Caveat handwriting, highlighters, sticky notes) with a crisp **shipped layer**
+(cards, real UI, mono labels).
+
+- 🖊️ **The opening** draws the whole hero in pencil, then ships it.
+- 🪟 **The hero's app window** cycles through real projects, each one sketched and then compiled.
+- 📖 **Every case study** opens with its own sketch → ship.
+- 🧊 **The stack is an iceberg**: the interface is the tip, everything else sits under the waterline,
+  with a diver and a submarine for company.
+
+> v2.0.0 is a complete rewrite and replaces the earlier portfolio in this repository.
 
 ## Quick start
 
