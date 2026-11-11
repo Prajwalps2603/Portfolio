@@ -310,3 +310,14 @@ so the base path is applied exactly once: `https://prajwalps2603.github.io/Portf
 
 Design and code by Prajwal M P. Fonts: Bricolage Grotesque, Inter, JetBrains Mono and Caveat (SIL
 Open Font License), self-hosted through `next/font`. Built with Next.js, GSAP, Lenis and Motion.
+
+## Publishing without GitHub Actions
+
+If Actions is unavailable, build locally and publish the export to the `gh-pages` branch:
+
+```bash
+npm run build:pages          # static export to out/ with the /Portfolio base path
+# copy out/ (plus an empty .nojekyll file) to a clean folder, commit it on a gh-pages branch, push
+```
+
+Then set **Settings → Pages → Source** to "Deploy from a branch", branch `gh-pages`, folder `/ (root)`.
